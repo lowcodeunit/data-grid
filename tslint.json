@@ -61,6 +61,7 @@
     "no-eval": true,
     "no-inferrable-types": [
       true,
+      "ignore-properties",
       "ignore-params"
     ],
     "no-misused-new": true,

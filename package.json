@@ -22,16 +22,19 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "npx-build-plus:copy-assets": "node projects/lcu/copy-wc-polyfill.js"
+    "npx-build-plus:copy-assets": "node projects/lcu/copy-wc-polyfill.js",
+    "docs": "./node_modules/.bin/compodoc -p projects/common/tsconfig.lib.json -s -w -o -r 4202 --theme postmark"
   },
   "private": false,
   "dependencies": {
     "@angular/animations": "~7.1.0",
+    "@angular/cdk": "^7.1.1",
     "@angular/common": "~7.1.0",
     "@angular/compiler": "~7.1.0",
     "@angular/core": "~7.1.0",
     "@angular/elements": "^7.2.4",
     "@angular/forms": "~7.1.0",
+    "@angular/material": "^7.1.1",
     "@angular/platform-browser": "~7.1.0",
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
