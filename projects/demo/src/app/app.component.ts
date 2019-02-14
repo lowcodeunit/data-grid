@@ -2,7 +2,8 @@ import {
   DataGridConfig,
   ColumnDefinition,
   PipeConstants,
-  DataGridFeatures } from '@lowcodeunit/data-grid';
+  DataGridFeatures,
+  DataGridPagination } from '@lowcodeunit/data-grid';
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DepartureTableModel } from './models/departure-table-config.model';
@@ -92,12 +93,12 @@ export class AppComponent {
        )
      ];
 
-    //  const paginationDetails: DataGridPagination = new DataGridPagination();
-    //  paginationDetails.pageSize = 10;
-    //  paginationDetails.pageSizeOptions = [1, 5, 10, 20, 30];
+     const paginationDetails: DataGridPagination = new DataGridPagination();
+     paginationDetails.PageSize = 10;
+     paginationDetails.PageSizeOptions = [1, 5, 10, 20, 30];
 
      const features: DataGridFeatures = new DataGridFeatures();
-     // features.paginator = paginationDetails;
+     features.Paginator = paginationDetails;
      features.Filter = true;
      features.ShowLoader = true;
 

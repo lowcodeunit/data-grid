@@ -6,3 +6,5 @@ export * from './lib/models/data-grid-features.model';
 export * from './lib/utils/pipes/data-grid.pipes';
 export * from './lib/utils/constants/pipe.constants';
 export * from './lib/configs/data-grid-features.config';
+export * from './lib/configs/data-grid-pagination.config';
+export * from './lib/modules/material.module';
