@@ -11,9 +11,13 @@ export class DataGridConfig {
 
   /**
    * Constructor for DataGridConfig
+   *
    * @param columdDefs Definitions for column properties
+   *
    * @param service Service to call for data
+   *
    * @param features Pagination and Filtering, and other things
+   *
    */
 
   constructor(service: Observable<any[]>, columnDefs: Array<ColumnDefinition>, features?: DataGridFeatures) {

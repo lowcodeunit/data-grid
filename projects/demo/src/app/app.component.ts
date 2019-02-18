@@ -4,7 +4,7 @@ import {
   PipeConstants,
   DataGridFeatures,
   DataGridPagination } from '@lowcodeunit/data-grid';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DepartureTableModel } from './models/departure-table-config.model';
 import { WeatherCloudConditionIcons } from './utils/icons/weather-cloud-conditions-icons.util';
@@ -15,25 +15,75 @@ import { WeatherCloudService } from './services/weathercloud.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
 
-  public GridParameters: DataGridConfig;
+export class AppComponent implements OnInit {
+
+  /**
+   * Parameters needed for the grid
+  */
+  protected _gridParameters: DataGridConfig;
+  public set GridParameters(val: DataGridConfig) {
+    this._gridParameters = val;
+  }
+
+  public get GridParameters(): DataGridConfig {
+    return this. _gridParameters;
+  }
+
+  /**
+   * Page title
+   */
   public Title: string = 'demo';
 
-  protected columnDefs: Array<ColumnDefinition> = [];
+  /**
+   * Token key for service call
+   */
   protected apiKey: string = '';
-  protected departureTableSubsscription: Subscription;
-  protected routeChangeSubscription: Subscription;
+
+  /**
+   * Sets column names and order
+   */
+  protected columnDefs: Array<ColumnDefinition> = [];
+
+  /**
+   * Store grid parameters
+   */
+  protected _params: DepartureTableModel;
+  protected set params(val: DepartureTableModel) {
+    this._params = val;
+  }
+
+  protected get params(): DepartureTableModel {
+    return this._params;
+  }
+  // protected departureTableSubsscription: Subscription;
+  // protected routeChangeSubscription: Subscription;
+
+/**
+ * Grid features, such as: Pagination, Filtering, Loader, etc.
+ */
+  protected _gridFeatures: DataGridFeatures;
+  public get GridFeatures(): DataGridFeatures {
+    return this._gridFeatures;
+  }
+
+  public set GridFeatures(val: DataGridFeatures) {
+    this._gridFeatures = val;
+  }
 
   constructor(private weatherCloudService: WeatherCloudService) {}
 
-/**
-   * This sets up the grid parameters (columns and data, and features)
-   */
-  public setGridParameters(): void {
+  public ngOnInit(): void {
+    this.SetGridParameters();
+  }
 
-    // for down and dirty testing
-    const params: DepartureTableModel = new DepartureTableModel('32.7499,-97.33034', '40.58897,-105.08246', '1545937200', false);
+  /**
+   * This sets up the grid parameters (columns, data, and features)
+   */
+  public SetGridParameters(): void {
+
+    // hardcoding values for demo, real world these would be pushed in
+    this.params = new DepartureTableModel('32.7499,-97.33034', '40.58897,-105.08246', '1545937200', false);
 
     this.apiKey = 'fathym';
 
@@ -93,23 +143,38 @@ export class AppComponent {
        )
      ];
 
-     const paginationDetails: DataGridPagination = new DataGridPagination();
-     paginationDetails.PageSize = 10;
-     paginationDetails.PageSizeOptions = [1, 5, 10, 20, 30];
+     this.setGridFeatures();
 
-     const features: DataGridFeatures = new DataGridFeatures();
-     features.Paginator = paginationDetails;
-     features.Filter = true;
-     features.ShowLoader = true;
-
-   this.GridParameters = new DataGridConfig(
-     this.weatherCloudService.departureTableData(
-                                                this.apiKey,
-                                                params.origin,
-                                                params.destination,
-                                                params.departureTime,
-                                                params.includeAltRoutes), this.columnDefs, features);
+    // showing grid column headers
+    this.GridParameters = new DataGridConfig(null, this.columnDefs);
     }
 
+    /**
+     * Setting up the grid data, columns, and features
+     */
+    public GridData(): void {
+      this.GridParameters = new DataGridConfig(
+        this.weatherCloudService.departureTableData(
+                                                   this.apiKey,
+                                                   this.params.origin,
+                                                   this.params.destination,
+                                                   this.params.departureTime,
+                                                   this.params.includeAltRoutes), this.columnDefs, this.GridFeatures);
+    }
 
+    /**
+     * Setting up grid features
+     */
+    protected setGridFeatures(): void {
+      const paginationDetails: DataGridPagination = new DataGridPagination();
+      paginationDetails.PageSize = 10;
+      paginationDetails.PageSizeOptions = [1, 5, 10, 20, 30];
+
+      const features: DataGridFeatures = new DataGridFeatures();
+      features.Paginator = paginationDetails;
+      features.Filter = true;
+      features.ShowLoader = true;
+
+      this.GridFeatures = features;
+    }
 }
