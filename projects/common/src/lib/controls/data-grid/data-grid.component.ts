@@ -20,11 +20,20 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
 
    /**
    * DataGrid configuration properties
+   *
    * @param columdDefs Definitions for column properties
+   *
    * @param service Service to call for data
+   *
    * @param features Pagination / Filtering and other configurables
+   *
    */
 
+   /**
+    * Configuration for the data grid
+    *
+    * This contains column definitions, data, and grid features
+    */
   private _config: DataGridConfig;
 
   @Input()
@@ -77,9 +86,12 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
 
   constructor(private cdref: ChangeDetectorRef) { }
 
+  /**
+   * When loaded set sorting and pagination
+   */
   ngAfterViewInit() {
-    this.sorting();
-    this.pagination();
+    this.Sorting();
+    this.Pagination();
   }
 
   /**
@@ -87,6 +99,77 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
    */
   ngAfterContentChecked() {
     this.cdref.detectChanges();
+  }
+
+  /**
+   * When sorting is set in columnDef
+   */
+  public Sorting(evt?: Event): void {
+    this.dataSource.sort = this.sort;
+  }
+
+  /**
+   * Toggle pagination
+   * Pagination properties
+   */
+  public Pagination(): void {
+    if (!this.Config || !this.Config.Features || !this.Config.Features.Paginator) {
+      return;
+    }
+
+    this.dataSource.paginator =  this.paginator;
+  }
+
+  /**
+   * When filtering is enabled, run the filter
+   *
+   * @param filterValue term to fitler on
+   */
+  public ApplyFilter(filterValue: string): void {
+    if (!this.Config.Features.Filter) {
+      return;
+    }
+
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  /**
+   * Toggle selection checkbox
+   *
+   * @param config grid conifguration object
+   *
+   * @param col grid column
+   *
+   */
+  public ToggleSelection(config: DataGridConfig, col: ColumnConfigModel): boolean {
+    return col.ColType === 'select';
+  }
+/**
+ * Check to see if all rows are selected
+ */
+  public IsAllSelected(): boolean {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /**
+   * Select all rows with the master toggle checkbox
+   */
+  public MasterToggle(): void {
+    this.IsAllSelected() ? this.selection.clear() : this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  /**
+   * @param val property to toggle loading indicator
+   */
+  private showLoaderIndicator(val: boolean): void {
+
+    if (!this.Config.Features || !this.Config.Features.ShowLoader) {
+      return;
+    }
+
+    this.ShowLoader = val;
   }
 
   /**
@@ -125,73 +208,5 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
     this.displayedColumns = this.Config.ColumnDefs.map(itm => {
       return itm.ColType;
     });
-  }
-
-  /**
-   * When sorting is set in columnDef
-   */
-  public sorting(evt?: Event): void {
-    this.dataSource.sort = this.sort;
-  }
-
-  /**
-   * Toggle pagination
-   * Pagination properties
-   */
-  public pagination(): void {
-    if (!this.Config || !this.Config.Features.Paginator) {
-      return;
-    }
-
-    this.dataSource.paginator =  this.paginator;
-  }
-
-  /**
-   * When filtering is enabled, run the filter
-   * @param filterValue term to fitler on
-   */
-  public applyFilter(filterValue: string): void {
-    if (!this.Config.Features.Filter) {
-      return;
-    }
-
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  /**
-   * Toggle selection checkbox
-   * @param config grid conifguration object
-   * @param col grid column
-   */
-  public ToggleSelection(config: DataGridConfig, col: ColumnConfigModel): boolean {
-    return col.ColType === 'select';
-  }
-/**
- * Check to see if all rows are selected
- */
-  public isAllSelected(): boolean {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /**
-   * Select all rows with the master toggle checkbox
-   */
-  public masterToggle(): void {
-    this.isAllSelected() ? this.selection.clear() : this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
-  /**
-   *
-   * @param val property to toggle loading indicator
-   */
-  private showLoaderIndicator(val: boolean): void {
-
-    if (!this.Config.Features.ShowLoader) {
-      return;
-    }
-
-    this.ShowLoader = val;
   }
 }
