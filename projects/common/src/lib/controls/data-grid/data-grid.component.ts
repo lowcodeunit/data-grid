@@ -56,13 +56,13 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
   /**
    * Material Sorter
    */
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
 
   /**
    * Material Paginator
    */
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   /**
    * Columns to display
