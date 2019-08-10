@@ -1,4 +1,5 @@
 export * from './lib/data-grid.module';
+export * from './lib/controls/data-grid/data-grid.component';
 export * from './lib/models/column-config.model';
 export * from './lib/configs/data-grid.config';
 export * from './lib/configs/column-def.config';
