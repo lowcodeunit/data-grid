@@ -44,13 +44,13 @@
 
         <!--When adding a button to the table cell-->
           <button *ngIf="column.Action && column.Action.ActionType === 'button'"  
-            mat-button (click)="column.Action.ActionHandler(column)">
+            mat-button (click)="column.Action.ActionHandler(item)">
             <mat-icon>{{column.SetIcon(item)}}</mat-icon>
           </button>
 
           <!--When adding an href-->
           <a *ngIf="column.Action && column.Action.ActionType === 'href'"  
-            style="text-decoration:none;" href="{{ column.Action.ActionHandler(column) }}" target="_blank">
+            style="text-decoration:none;" href="{{ column.Action.ActionHandler(item) }}" target="_blank">
             <mat-icon>{{column.SetIcon(item)}}</mat-icon>
           </a>
 
