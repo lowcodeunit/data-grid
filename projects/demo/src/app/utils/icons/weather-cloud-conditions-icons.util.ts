@@ -3,14 +3,14 @@ import { WeatherCloudModel } from '../../models/weather-cloud.model';
 export class WeatherCloudConditionIcons {
 
   constructor(data: WeatherCloudModel, colType: string) {
-    switch(colType.toUpperCase()) {
+    switch (colType.toUpperCase()) {
       case 'TEMPMIN':
         return WeatherCloudConditionIcons.temperature(data.tempMin);
         break;
       case 'TEMPMAX':
         return WeatherCloudConditionIcons.temperature(data.tempMax);
         break;
-      case 'PRECIPMAX': //**** precipMax does not correlate to percentage of chance ****
+      case 'PRECIPMAX': // **** precipMax does not correlate to percentage of chance ****
         return WeatherCloudConditionIcons.precipitationType(data);
         break;
       case 'WINDSPDMAX':

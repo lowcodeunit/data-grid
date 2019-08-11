@@ -40,7 +40,8 @@
 
         <!--Toggle icons on and off-->
         <i *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)"></i>
-
+        <mat-icon>remove_red_eye</mat-icon>
+        <mat-icon>{{column.SetIcon(item)}}</mat-icon>
         <!--Toggle data value on and off and set pipes, if available-->
         <!--column.pipe value comes from columnDefinition-->
         <span *ngIf="column.ShowValue">{{ item[column.ColType] | dataGridPipes: column.Pipe }}</span>
