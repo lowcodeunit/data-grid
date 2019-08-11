@@ -39,9 +39,22 @@
       <span *ngIf="column.ColType !== 'select'" fxLayoutAlign="center center">
 
         <!--Toggle icons on and off-->
-        <i *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)"></i>
-        <mat-icon>remove_red_eye</mat-icon>
+        <!-- <i *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)"></i> -->
         <mat-icon *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)">{{column.SetIcon(item)}}</mat-icon>
+
+        <!--When adding a button to the table cell-->
+        <div *ngIf="column.Action">
+          <button *ngIf="column.Action.ActionType === 'button'"  
+          mat-button (click)="column.ActionHandler(column.ActionParams)">
+            <mat-icon>{{column.SetIcon(item)}}</mat-icon>
+          </button>
+
+          <a *ngIf="column.Action.ActionType === 'href'"  
+            style="text-decoration:none;" href="{{ column.ActionHandler(column.ActionParams) }}" target="_blank">
+            <mat-icon>{{column.SetIcon(item)}}</mat-icon>
+          </a>
+        </div>
+
         <!--Toggle data value on and off and set pipes, if available-->
         <!--column.pipe value comes from columnDefinition-->
         <span *ngIf="column.ShowValue">{{ item[column.ColType] | dataGridPipes: column.Pipe }}</span>

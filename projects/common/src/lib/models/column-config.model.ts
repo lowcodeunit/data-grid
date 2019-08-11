@@ -1,6 +1,6 @@
+import { CellAction } from './cell-action.model';
 export class ColumnConfigModel {
-  public ActionType?: string;
-  public ActionHandler?: any;
+  public Action?: CellAction;
   public ColType: string;
   public Icon: string;
   public IconConfigFunc?: Function;
