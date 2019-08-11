@@ -39,8 +39,8 @@
       <span *ngIf="column.ColType !== 'select'" fxLayoutAlign="center center">
 
         <!--Toggle icons on and off-->
-        <!-- <i *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)"></i> -->
-        <mat-icon *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)">{{column.SetIcon(item)}}</mat-icon>
+        <i *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)"></i>
+        <!-- <mat-icon *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)">{{column.SetIcon(item)}}</mat-icon> -->
 
         <!--When adding a button to the table cell-->
         <div *ngIf="column.Action">
