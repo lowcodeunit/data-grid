@@ -5,12 +5,12 @@ export class CellAction {
     /**
      * cell action handler, like a function
      */
-    public ActionHandler: any;
+    public ActionHandler: Function;
 
     /**
      * params to pass to action handler
      */
-    public ActionParams: Array<string>;
+    public ActionParams?: Array<string>;
 
     /**
      * action type, such as button or href
