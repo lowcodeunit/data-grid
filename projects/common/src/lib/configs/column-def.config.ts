@@ -1,6 +1,8 @@
+import { CellAction } from './../models/cell-action.model';
 import { ColumnConfigModel } from '../models/column-config.model';
 
 export class ColumnDefinition {
+  public Action?: CellAction;
   public ColType: string;
   public IconConfigFunc?: Function;
   public Pipe?: string;
@@ -11,6 +13,7 @@ export class ColumnDefinition {
 
 /**
  * Constructor for Grid column definitions
+ * @param Action Cell action
  * @param ColType Column data type
  * @param Title Column title
  * @param ShowValue Boolean for toggling icons
@@ -26,7 +29,8 @@ export class ColumnDefinition {
               showIcon: boolean,
               sortable?: boolean,
               pipe?: string,
-              iconConfigFunc?: Function) {
+              iconConfigFunc?: Function,
+              action?: CellAction) {
 
     this.ColType = colType;
     this.Title = title;
@@ -35,6 +39,7 @@ export class ColumnDefinition {
     this.Sortable = sortable;
     this.Pipe = pipe;
     this.IconConfigFunc = iconConfigFunc;
+    this.Action = action;
   }
 
   /**
