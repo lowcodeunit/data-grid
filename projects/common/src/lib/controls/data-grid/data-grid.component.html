@@ -45,12 +45,12 @@
         <!--When adding a button to the table cell-->
         <div *ngIf="column.Action">
           <button *ngIf="column.Action.ActionType === 'button'"  
-          mat-button (click)="column.Action.ActionHandler(column.ActionParams)">
+          mat-button (click)="column.Action.ActionHandler(column.Action.ActionParams)">
             <mat-icon>{{column.SetIcon(item)}}</mat-icon>
           </button>
 
           <a *ngIf="column.Action.ActionType === 'href'"  
-            style="text-decoration:none;" href="{{ column.Action.ActionHandler(column.ActionParams) }}" target="_blank">
+            style="text-decoration:none;" href="{{ column.Action.ActionHandler(column.Action.ActionParams) }}" target="_blank">
             <mat-icon>{{column.SetIcon(item)}}</mat-icon>
           </a>
         </div>
