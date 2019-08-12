@@ -4,6 +4,8 @@ export class DataGridFeatures {
   public Paginator: DataGridPagination;
   public RowSelectable: boolean = false;
   public Filter: boolean = false;
+  public RowColorEven: string = null;
+  public RowColorOdd: string = null;
   public ShowLoader: boolean = false;
   public ShowSelection: boolean = false;
 }
