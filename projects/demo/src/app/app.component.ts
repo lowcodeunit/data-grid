@@ -174,6 +174,8 @@ export class AppComponent implements OnInit {
       features.Paginator = paginationDetails;
       features.Filter = true;
       features.ShowLoader = true;
+      features.RowColorEven = 'gray';
+      features.RowColorOdd = 'light-gray';
 
       this.GridFeatures = features;
     }

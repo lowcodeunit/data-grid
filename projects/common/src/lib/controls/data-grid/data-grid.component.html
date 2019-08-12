@@ -43,7 +43,7 @@
         <!-- <mat-icon *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)">{{column.SetIcon(item)}}</mat-icon> -->
 
         <!--When adding a button to the table cell-->
-          <button *ngIf="column.Action && column.Action.ActionType === 'button'"  
+          <button *ngIf="column.Action && column.Action.ActionType === 'button'" 
             mat-button (click)="column.Action.ActionHandler(item)">
             <mat-icon>{{column.SetIcon(item)}}</mat-icon>
           </button>
@@ -67,7 +67,7 @@
                        let odd = odd;
                        let even = even;
                        columns: displayedColumns;"
-                       [ngClass]= "{ 'gray': even, 'light-gray': odd }"
+                       [ngClass]= "{ 'Config?.Features?.RowColorEven': even, 'Config?.Features?.RowColorOdd': odd }"
                        (click)="selection.toggle(row)"></mat-row>
 
 </mat-table>
