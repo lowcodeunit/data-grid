@@ -228,9 +228,6 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
   }
 
   public RowColors(even, odd): string {
-    console.log('even', even);
-    console.log('odd', odd);
-
     if (even) {
       return this.RowColorEven;
     } else {
