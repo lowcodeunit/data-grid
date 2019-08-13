@@ -67,7 +67,6 @@
                        let odd = odd;
                        let even = even;
                        columns: displayedColumns;"
-                       [ngClass]= "RowColors(even, odd)"
                        [ngStyle]="{'background-color': RowColors(even, odd)}"
                        (click)="selection.toggle(row)"></mat-row>
 
