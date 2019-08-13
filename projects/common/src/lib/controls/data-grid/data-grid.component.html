@@ -40,6 +40,19 @@
 
         <!--Toggle icons on and off-->
         <i *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)"></i>
+        <!-- <mat-icon *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)">{{column.SetIcon(item)}}</mat-icon> -->
+
+        <!--When adding a button to the table cell-->
+          <button *ngIf="column.Action && column.Action.ActionType === 'button'" 
+            mat-button (click)="column.Action.ActionHandler(item)">
+            <mat-icon>{{column.SetIcon(item)}}</mat-icon>
+          </button>
+
+          <!--When adding an href-->
+          <a *ngIf="column.Action && column.Action.ActionType === 'href'"  
+            style="text-decoration:none;" href="{{ column.Action.ActionHandler(item) }}" target="_blank">
+            <mat-icon>{{column.SetIcon(item)}}</mat-icon>
+          </a>
 
         <!--Toggle data value on and off and set pipes, if available-->
         <!--column.pipe value comes from columnDefinition-->
@@ -54,7 +67,7 @@
                        let odd = odd;
                        let even = even;
                        columns: displayedColumns;"
-                       [ngClass]= "{ 'gray': even, 'light-gray': odd }"
+                       [ngStyle]="{'background-color': RowColors(even, odd)}"
                        (click)="selection.toggle(row)"></mat-row>
 
 </mat-table>
