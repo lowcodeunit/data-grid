@@ -226,4 +226,15 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
     this.RowColorEven = this.Config.Features.RowColorEven;
     this.RowColorOdd = this.Config.Features.RowColorOdd;
   }
+
+  public RowColors(row): void {
+    console.log('row', row);
+    // const classes = {
+    //   important: this.isImportant,
+    //   inactive: !this.isActive,
+    //   saved: this.isSaved,
+    //   long: this.name.length > 6
+    // };
+    // return classes;
+  }
 }
