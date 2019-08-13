@@ -74,6 +74,10 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
    */
   public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
+  public RowColorEven: string;
+
+  public RowColorOdd: string;
+
   /**
    * Maintain the selected state
    */
@@ -181,6 +185,7 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
     }
 
     this.createDisplayedColumns();
+    this.setRowColors();
 
       if (this.Config.Service) {
         this.showLoaderIndicator(true);
@@ -200,7 +205,7 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
   /**
    * Return array of columns to display
    */
-  private createDisplayedColumns(): void {
+  protected createDisplayedColumns(): void {
     if (!this.Config || !this.Config.ColumnDefs) {
       return;
     }
@@ -208,5 +213,13 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
     this.displayedColumns = this.Config.ColumnDefs.map(itm => {
       return itm.ColType;
     });
+  }
+
+  /**
+   * set datagrid row colors
+   */
+  protected setRowColors(): void {
+    this.RowColorEven = this.Config.Features.RowColorEven;
+    this.RowColorOdd = this.Config.Features.RowColorOdd;
   }
 }
