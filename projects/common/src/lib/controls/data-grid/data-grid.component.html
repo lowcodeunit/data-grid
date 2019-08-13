@@ -67,8 +67,8 @@
                        let odd = odd;
                        let even = even;
                        columns: displayedColumns;"
-                       [ngClass]= "RowColors(row)"
-                       (click)="selection.toggle(row)"></mat-row>
+                       [ngClass]= "{ RowColorEven: even, RowColorOdd: odd }"
+                       (click)="selection.toggle(even, odd)"></mat-row>
 
 </mat-table>
 <mat-paginator
