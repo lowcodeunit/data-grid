@@ -227,8 +227,9 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
     this.RowColorOdd = this.Config.Features.RowColorOdd;
   }
 
-  public RowColors(row): void {
-    console.log('row', row);
+  public RowColors(even, odd): void {
+    console.log('even', even);
+    console.log('odd', odd);
     // const classes = {
     //   important: this.isImportant,
     //   inactive: !this.isActive,
