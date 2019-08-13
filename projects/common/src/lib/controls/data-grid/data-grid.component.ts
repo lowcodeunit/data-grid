@@ -219,6 +219,10 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
    * set datagrid row colors
    */
   protected setRowColors(): void {
+    if (!this.Config.Features) {
+      return;
+    }
+
     this.RowColorEven = this.Config.Features.RowColorEven;
     this.RowColorOdd = this.Config.Features.RowColorOdd;
   }
