@@ -89,7 +89,7 @@ export class AppComponent implements OnInit {
 
     this.columnDefs = [
      new ColumnDefinition(
-       'vtimesStart',
+       'VtimesStart',
        '',
        true,
        false,
@@ -97,7 +97,7 @@ export class AppComponent implements OnInit {
        PipeConstants.PIPE_EPOCH
        ),
      new ColumnDefinition(
-       'tempMin',
+       'TempMin',
        'Temp Min',
        true,
        true,
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit {
        WeatherCloudConditionIcons
        ),
      new ColumnDefinition(
-       'tempMax',
+       'TempMax',
        'Temp Max',
        true,
        true,
@@ -115,7 +115,7 @@ export class AppComponent implements OnInit {
        WeatherCloudConditionIcons
        ),
      new ColumnDefinition(
-       'precipMax',
+       'PrecipMax',
        'Precipitation',
        false,
        true,
@@ -124,7 +124,7 @@ export class AppComponent implements OnInit {
        WeatherCloudConditionIcons
        ),
      new ColumnDefinition(
-       'windSpdMax',
+       'WindSpdMax',
        'Wind Speed',
        true,
        true,
@@ -133,7 +133,7 @@ export class AppComponent implements OnInit {
        WeatherCloudConditionIcons
        ),
      new ColumnDefinition(
-       'windGustMax',
+       'WindGustMax',
        'Wind Gust',
        true,
        true,
@@ -153,13 +153,24 @@ export class AppComponent implements OnInit {
      * Setting up the grid data, columns, and features
      */
     public GridData(): void {
-      this.GridParameters = new DataGridConfig(
-        this.weatherCloudService.departureTableData(
-                                                   this.apiKey,
-                                                   this.params.origin,
-                                                   this.params.destination,
-                                                   this.params.departureTime,
-                                                   this.params.includeAltRoutes), this.columnDefs, this.GridFeatures);
+      const origin = '40.58897,-105.08246';
+      const destination = '40.3978,-105.0750';
+      const includeAlts = true;
+      const departTime = '1566503558';
+
+        this.GridParameters = new DataGridConfig(
+          this.weatherCloudService.departureTableData(this.apiKey, origin, destination, departTime, includeAlts),
+          this.columnDefs,
+          this.GridFeatures
+        );
+
+      // this.GridParameters = new DataGridConfig(
+      //   this.weatherCloudService.departureTableData(
+      //                                              this.apiKey,
+      //                                              this.params.origin,
+      //                                              this.params.destination,
+      //                                              this.params.departureTime,
+      //                                              this.params.includeAltRoutes), this.columnDefs, this.GridFeatures);
     }
 
     /**
