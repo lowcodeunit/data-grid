@@ -43,7 +43,7 @@
 
 <ol class="breadcrumb">
   <li>Classes</li>
-  <li>ColumnConfigModel</li>
+  <li>DataGridFeatures</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,7 +61,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>projects/common/src/lib/models/column-config.model.ts</code>
+            <code>projects/common/src/lib/configs/data-grid-features.config.ts</code>
         </p>
 
 
@@ -82,42 +82,31 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#ColType">ColType</a>
+                                <a href="#Filter">Filter</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#Icon">Icon</a>
+                                <a href="#Paginator">Paginator</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                    <span class="modifier">Optional</span>
-                                <a href="#IconConfigFunc">IconConfigFunc</a>
+                                <a href="#RowColorEven">RowColorEven</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                    <span class="modifier">Optional</span>
-                                <a href="#Pipe">Pipe</a>
+                                <a href="#RowColorOdd">RowColorOdd</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#ShowIcon">ShowIcon</a>
+                                <a href="#RowSelectable">RowSelectable</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#ShowValue">ShowValue</a>
+                                <a href="#ShowLoader">ShowLoader</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                    <span class="modifier">Optional</span>
-                                <a href="#Sortable">Sortable</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Public</span>
-                                <a href="#Title">Title</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Public</span>
-                                <a href="#Value">Value</a>
+                                <a href="#ShowSelection">ShowSelection</a>
                             </li>
                         </ul>
                     </td>
@@ -142,126 +131,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="ColType"></a>
+                        <a name="Filter"></a>
                         <span class="name">
                             <b>
                                 <span class="modifier">Public</span>
-                            ColType</b>
-                            <a href="#ColType"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="2" class="link-to-prism">projects/common/src/lib/models/column-config.model.ts:2</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="Icon"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                            Icon</b>
-                            <a href="#Icon"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="3" class="link-to-prism">projects/common/src/lib/models/column-config.model.ts:3</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="IconConfigFunc"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                                <span class="modifier">Optional</span>
-                            IconConfigFunc</b>
-                            <a href="#IconConfigFunc"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" target="_blank" >Function</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">projects/common/src/lib/models/column-config.model.ts:4</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="Pipe"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                                <span class="modifier">Optional</span>
-                            Pipe</b>
-                            <a href="#Pipe"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">projects/common/src/lib/models/column-config.model.ts:5</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="ShowIcon"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                            ShowIcon</b>
-                            <a href="#ShowIcon"><span class="icon ion-ios-link"></span></a>
+                            Filter</b>
+                            <a href="#Filter"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -271,9 +146,14 @@
 
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">projects/common/src/lib/models/column-config.model.ts:6</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">projects/common/src/lib/configs/data-grid-features.config.ts:6</a></div>
                             </td>
                         </tr>
 
@@ -284,24 +164,24 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="ShowValue"></a>
+                        <a name="Paginator"></a>
                         <span class="name">
                             <b>
                                 <span class="modifier">Public</span>
-                            ShowValue</b>
-                            <a href="#ShowValue"><span class="icon ion-ios-link"></span></a>
+                            Paginator</b>
+                            <a href="#Paginator"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                            <i>Type : </i>    <code><a href="../classes/DataGridPagination.html" target="_self" >DataGridPagination</a></code>
 
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">projects/common/src/lib/models/column-config.model.ts:7</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">projects/common/src/lib/configs/data-grid-features.config.ts:4</a></div>
                             </td>
                         </tr>
 
@@ -312,41 +192,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="Sortable"></a>
+                        <a name="RowColorEven"></a>
                         <span class="name">
                             <b>
                                 <span class="modifier">Public</span>
-                                <span class="modifier">Optional</span>
-                            Sortable</b>
-                            <a href="#Sortable"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">projects/common/src/lib/models/column-config.model.ts:8</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="Title"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                            Title</b>
-                            <a href="#Title"><span class="icon ion-ios-link"></span></a>
+                            RowColorEven</b>
+                            <a href="#RowColorEven"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -356,9 +207,14 @@
 
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;#ececec&#x27;</code>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">projects/common/src/lib/models/column-config.model.ts:9</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">projects/common/src/lib/configs/data-grid-features.config.ts:7</a></div>
                             </td>
                         </tr>
 
@@ -369,12 +225,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="Value"></a>
+                        <a name="RowColorOdd"></a>
                         <span class="name">
                             <b>
                                 <span class="modifier">Public</span>
-                            Value</b>
-                            <a href="#Value"><span class="icon ion-ios-link"></span></a>
+                            RowColorOdd</b>
+                            <a href="#RowColorOdd"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -384,9 +240,113 @@
 
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;#f5f5f5&#x27;</code>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">projects/common/src/lib/models/column-config.model.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">projects/common/src/lib/configs/data-grid-features.config.ts:8</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="RowSelectable"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            RowSelectable</b>
+                            <a href="#RowSelectable"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">projects/common/src/lib/configs/data-grid-features.config.ts:5</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ShowLoader"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            ShowLoader</b>
+                            <a href="#ShowLoader"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">projects/common/src/lib/configs/data-grid-features.config.ts:9</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ShowSelection"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            ShowSelection</b>
+                            <a href="#ShowSelection"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">projects/common/src/lib/configs/data-grid-features.config.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -405,16 +365,16 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export class ColumnConfigModel {
-  public ColType: string;
-  public Icon: string;
-  public IconConfigFunc?: Function;
-  public Pipe?: string;
-  public ShowIcon: boolean;
-  public ShowValue: boolean;
-  public Sortable?: boolean;
-  public Title: string;
-  public Value: string;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DataGridPagination } from &#x27;./data-grid-pagination.config&#x27;;
+
+export class DataGridFeatures {
+  public Paginator: DataGridPagination;
+  public RowSelectable: boolean &#x3D; false;
+  public Filter: boolean &#x3D; false;
+  public RowColorEven: string &#x3D; &#x27;#ececec&#x27;;
+  public RowColorOdd: string &#x3D; &#x27;#f5f5f5&#x27;;
+  public ShowLoader: boolean &#x3D; false;
+  public ShowSelection: boolean &#x3D; false;
 }
 </code></pre>
     </div>
@@ -443,7 +403,7 @@
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'ColumnConfigModel.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'DataGridFeatures.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

@@ -1,11 +1,14 @@
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+
 import { Component,
   ViewChild,
   AfterViewInit,
   Input,
   AfterContentChecked,
   ChangeDetectorRef } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
 
 import { DataGridConfig } from '../../configs/data-grid.config';
 import { ColumnConfigModel } from '../../models/column-config.model';
@@ -227,7 +230,7 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
     this.RowColorOdd = this.Config.Features.RowColorOdd;
   }
 
-  public RowColors(even, odd): string {
+  public RowColors(even: number, odd: number): string {
     if (even) {
       return this.RowColorEven;
     } else {

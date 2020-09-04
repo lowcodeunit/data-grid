@@ -5,9 +5,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { DataGridModule, MaterialModule } from '@lowcodeunit/data-grid';
-import { FathymSharedModule } from '@lcu-ide/common';
-
+import { DataGridModule } from '@lowcodeunit/data-grid';
+import { FathymSharedModule, MaterialModule } from '@lcu/common';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,7 @@ import { FathymSharedModule } from '@lcu-ide/common';
     AppRoutingModule,
     DataGridModule,
     FathymSharedModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
