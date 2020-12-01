@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 import { DataGridModule } from '@lowcodeunit/data-grid';
 import { FathymSharedModule, MaterialModule } from '@lcu/common';
+import { FlexLayoutModule, FlexModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FathymSharedModule, MaterialModule } from '@lcu/common';
     DataGridModule,
     FathymSharedModule,
     MaterialModule,
+    FlexModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,11 +1,17 @@
 
+
 <div fxLayoutAlign=" start">
   <mat-form-field *ngIf="Config?.Features?.Filter" class="filter-field">
     <input matInput type="text" (keyup)="ApplyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
 </div>
 <mat-progress-bar mode="indeterminate" *ngIf="ShowLoader"></mat-progress-bar>
-<mat-table [dataSource]="dataSource" matSort *ngIf="Config" (matSortChange)="Sorting($event)">
+<mat-table 
+  [dataSource]="dataSource" 
+  matSort 
+  *ngIf="Config" 
+  (matSortChange)="Sorting($event)"
+  multiTemplateDataRows>
   <ng-container *ngFor="let column of Config.ColumnDefs" matColumnDef="{{ column.ColType }}">
     <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!column.Sortable" fxLayoutAlign="center center">
 
@@ -43,9 +49,16 @@
         <!-- <mat-icon *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)">{{column.SetIcon(item)}}</mat-icon> -->
 
         <!--When adding a button to the table cell-->
-          <button *ngIf="column.Action && column.Action.ActionType === 'button'" 
-            mat-button (click)="column.Action.ActionHandler(item)">
+          <button 
+            *ngIf="column.Action && column.Action.ActionType === 'button'" 
+            mat-button 
+            class="margin-left-2 cursor-pointer"
+            (click)="column.Action.ActionHandler(item)">
             <mat-icon>{{column.SetIcon(item)}}</mat-icon>
+            <span 
+              *ngIf="column.Action.ActionLabel">
+              {{ column.Action.ActionLabel }}
+            </span>
           </button>
 
           <!--When adding an href-->
@@ -69,6 +82,35 @@
                        columns: displayedColumns;"
                        [ngStyle]="{'background-color': RowColors(even, odd)}"
                        (click)="selection.toggle(row)"></mat-row>
+
+  <!-- Template for details row -->
+  <ng-container matColumnDef="rowDetails">
+    <mat-cell *matCellDef="let element" [attr.colspan]="Config.ColumnDefs.length">
+      <pre>dssd {{ element | json }}</pre>
+      <div class="row student-element-detail" [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
+        <mat-list>
+          <div mat-subheader>Subjects of {{element.name}}</div>
+          <mat-list-item *ngFor="let subject of element.subjects">
+            <div mat-line>{{subject.name}}</div>
+            <div mat-line> {{subject.type}} | Grade: {{subject.grade}}</div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+    </mat-cell>
+  </ng-container>
+
+  <!-- <mat-header-row *matHeaderRowDef="displayedStudentsColumnsList;sticky: true"></mat-header-row> -->
+      <!-- <mat-row 
+        *matRowDef="let element; columns: displayedStudentsColumnsList;" 
+        class="student-element-row"
+        [class.student-expanded-row]="element.isExpanded">
+      </mat-row> -->
+  <!-- Extra row to show detail content column -->
+  <mat-row *matRowDef="let row; columns: ['rowDetails']" class="student-detail-row">
+    
+  </mat-row>
+    
 
 </mat-table>
 <mat-paginator

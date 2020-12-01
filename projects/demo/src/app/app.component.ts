@@ -3,12 +3,14 @@ import {
   ColumnDefinition,
   PipeConstants,
   DataGridFeatures,
-  DataGridPagination } from '@lowcodeunit/data-grid';
+  DataGridPagination,
+  ExpandableData} from '@lowcodeunit/data-grid';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DepartureTableModel } from './models/departure-table-config.model';
 import { WeatherCloudConditionIcons } from './utils/icons/weather-cloud-conditions-icons.util';
 import { WeatherCloudService } from './services/weathercloud.service';
+import { of } from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'lcu-root',
@@ -34,6 +36,11 @@ export class AppComponent implements OnInit {
    * Page title
    */
   public Title: string = 'demo';
+
+  /**
+   * Toggle additional row details
+   */
+  public ToggleRowDetails: any;
 
   /**
    * Token key for service call
@@ -71,10 +78,13 @@ export class AppComponent implements OnInit {
     this._gridFeatures = val;
   }
 
-  constructor(private weatherCloudService: WeatherCloudService) {}
+  constructor(private weatherCloudService: WeatherCloudService,
+              protected expandableData: ExpandableData) {
+              }
 
   public ngOnInit(): void {
-    this.SetGridParameters();
+    // this.SetGridParameters();
+    this.SetExpandedParameters();
   }
 
   /**
@@ -147,6 +157,71 @@ export class AppComponent implements OnInit {
 
     // showing grid column headers
     this.GridParameters = new DataGridConfig(null, this.columnDefs);
+    }
+
+    public SetExpandedParameters(): void {
+      this.columnDefs = [
+        new ColumnDefinition(
+          'id',
+          'ID',
+          true,
+          false,
+          false
+          ),
+        new ColumnDefinition(
+          'name',
+          'Name',
+          true,
+          true,
+          false
+          ),
+        new ColumnDefinition(
+          'age',
+          'Age',
+          true,
+          true,
+          false
+          ),
+        new ColumnDefinition(
+          'address',
+          'Address',
+          true,
+          true,
+          false
+          ),
+          new ColumnDefinition(
+            'actions',
+            'Actions',
+            true,
+            true,
+            false,
+            null,
+            () => 'preview',
+            {
+              ActionHandler: this.RowDetails.bind(this),
+              ActionLabel: 'JSON',
+              ActionType: 'button',
+            }
+          )
+        ];
+    }
+
+    /**
+     *
+     * @param val selected row element
+     *
+     * pass row data
+     */
+    protected RowDetails(val: any): void {
+      val.isExpanded = !val.isExpanded;
+    }
+
+    public ExpandableGridData(): void {
+      this.GridParameters = new DataGridConfig(
+          of(this.expandableData.StudentData), // mock observable
+          this.columnDefs,
+          this.GridFeatures
+      );
     }
 
     /**

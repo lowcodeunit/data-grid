@@ -9,3 +9,5 @@ export * from './lib/configs/data-grid-features.config';
 export * from './lib/configs/data-grid-pagination.config';
 export * from './lib/models/cell-action.model';
 export * from './lib/models/data-grid-config.model';
+export * from './lib/controls/expand-data-grid/expand-data-grid.component';
+export * from './lib/controls/expandable.data';

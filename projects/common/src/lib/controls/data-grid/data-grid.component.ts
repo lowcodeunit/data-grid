@@ -13,11 +13,19 @@ import { Component,
 import { DataGridConfig } from '../../configs/data-grid.config';
 import { ColumnConfigModel } from '../../models/column-config.model';
 import { throwError } from 'rxjs';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'lcu-data-grid',
   templateUrl: './data-grid.component.html',
-  styleUrls: ['./data-grid.component.scss']
+  styleUrls: ['./data-grid.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
 })
 export class DataGridComponent implements AfterViewInit, AfterContentChecked {
 
@@ -91,12 +99,14 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
    */
   public ShowLoader: boolean = false;
 
-  constructor(private cdref: ChangeDetectorRef) { }
+  constructor(private cdref: ChangeDetectorRef) { 
+
+  }
 
   /**
    * When loaded set sorting and pagination
    */
-  ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.Sorting();
     this.Pagination();
   }
@@ -104,7 +114,7 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
   /**
    * Check view and children for changes
    */
-  ngAfterContentChecked() {
+  public ngAfterContentChecked(): void {
     this.cdref.detectChanges();
   }
 
