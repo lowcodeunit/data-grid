@@ -22,8 +22,8 @@ export class DynamicComponent implements OnInit, AfterViewInit  {
   // tslint:disable-next-line:no-input-rename
   @Input('dynamic-components')
   set DynamicComponents(val: Array<DynamicComponentModel>) {
-    
     if (!val) { return; }
+
     this._dynamicComponents = val;
     this.renderComponent(0);
   }
@@ -34,10 +34,12 @@ export class DynamicComponent implements OnInit, AfterViewInit  {
 
 private _dynamicViewContainer: ViewContainerRef;
 
-@Input('dynamic-view-container')
+// @Input('dynamic-view-container')
 set DynamicViewContainer(val: ViewContainerRef) {
-  debugger;
+  if (!val) { return; }
+
   this._dynamicViewContainer = val;
+  this.renderComponent(0);
 }
 
 get DynamicViewContainer(): ViewContainerRef {
@@ -61,15 +63,13 @@ get DynamicViewContainer(): ViewContainerRef {
       return;
     }
 
-    debugger;
     // factory for creating a dynamic component
     const factory: ComponentFactory<any> = this.componentFactoryResolver
     .resolveComponentFactory(this.DynamicComponents[index].Component);
 
     // component created by a factory
-    debugger;
-    const componentRef: ComponentRef<any> = this.viewContainer.createComponent(factory);
-    // const componentRef: ComponentRef<any> = this.DynamicViewContainer.createComponent(factory);
+    // const componentRef: ComponentRef<any> = this.viewContainer.createComponent(factory);
+    const componentRef: ComponentRef<any> = this.DynamicViewContainer.createComponent(factory);
 
     // current component instance
     const instance: DynamicComponent = componentRef.instance as DynamicComponent;
