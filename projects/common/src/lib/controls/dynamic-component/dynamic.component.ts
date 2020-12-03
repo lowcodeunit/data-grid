@@ -18,12 +18,32 @@ import { DynamicComponentModel } from '../../models/dynamic-component.model';
 })
 export class DynamicComponent implements OnInit, AfterViewInit  {
 
+  private _dynamicComponents: Array<DynamicComponentModel>;
   // tslint:disable-next-line:no-input-rename
   @Input('dynamic-components')
-  public DynamicComponents: Array<DynamicComponentModel>;
+  set DynamicComponents(val: Array<DynamicComponentModel>) {
+    if (!val) { return; }
+    this._dynamicComponents = val;
+    this.renderComponent(0);
+  }
 
-  @ViewChild('dynamicComponent', {read: ViewContainerRef, static: false})
-  protected viewContainer: ViewContainerRef;
+  get DynamicComponents(): Array<DynamicComponentModel> {
+    return this._dynamicComponents;
+  }
+
+private _dynamicViewContainer: ViewContainerRef;
+
+@Input('dynamic-view-container')
+set DynamicViewContainer(val: ViewContainerRef) {
+  this._dynamicViewContainer = val;
+}
+
+get DynamicViewContainer(): ViewContainerRef {
+  return this._dynamicViewContainer;
+}
+
+  // @ViewChild('dynamicComponent', {read: ViewContainerRef, static: false})
+  // protected viewContainer: ViewContainerRef;
 
   constructor(protected componentFactoryResolver: ComponentFactoryResolver) { }
 
@@ -31,21 +51,22 @@ export class DynamicComponent implements OnInit, AfterViewInit  {
   }
 
   public ngAfterViewInit(): void {
-    this.renderComponent(0);
+    // this.renderComponent(0);
   }
 
   protected renderComponent(index: number) {
-    debugger;
-    if (!this.DynamicComponents) {
+    if (!this.DynamicComponents || !this.DynamicViewContainer) {
       return;
     }
 
+    debugger;
     // factory for creating a dynamic component
     const factory: ComponentFactory<any> = this.componentFactoryResolver
     .resolveComponentFactory(this.DynamicComponents[index].Component);
 
     // component created by a factory
-    const componentRef: ComponentRef<any> = this.viewContainer.createComponent(factory);
+    // const componentRef: ComponentRef<any> = this.viewContainer.createComponent(factory);
+    const componentRef: ComponentRef<any> = this.DynamicViewContainer.createComponent(factory);
 
     // current component instance
     const instance: DynamicComponent = componentRef.instance as DynamicComponent;

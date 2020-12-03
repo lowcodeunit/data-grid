@@ -9,7 +9,8 @@ import { Component,
   Input,
   AfterContentChecked,
   ChangeDetectorRef,
-  ComponentFactoryResolver} from '@angular/core';
+  ComponentFactoryResolver,
+  ViewContainerRef} from '@angular/core';
 
 import { DataGridConfig } from '../../configs/data-grid.config';
 import { ColumnConfigModel } from '../../models/column-config.model';
@@ -81,6 +82,20 @@ export class DataGridComponent extends DynamicComponent implements AfterViewInit
     return this._expand;
   }
 
+  // private _dynaViewContainer: ViewContainerRef;
+
+  // @Input('dyna-view-container')
+  // set DynaViewContainer(val: ViewContainerRef) {
+  //   this._dynaViewContainer = val;
+  // }
+  
+  // get DynaViewContainer(): ViewContainerRef {
+  //   return this._dynaViewContainer;
+  // }
+
+ @ViewChild('dynaComponent', {read: ViewContainerRef, static: false})
+  protected viewContainer: ViewContainerRef;
+
   /**
    * Material Sorter
    */
@@ -127,9 +142,9 @@ export class DataGridComponent extends DynamicComponent implements AfterViewInit
    * When loaded set sorting and pagination
    */
   public ngAfterViewInit(): void {
-    super.ngAfterViewInit();
     this.Sorting();
     this.Pagination();
+    super.DynamicViewContainer = this.viewContainer;
   }
 
   /**
