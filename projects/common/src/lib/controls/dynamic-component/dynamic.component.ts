@@ -12,7 +12,7 @@ import {
 import { DynamicComponentModel } from '../../models/dynamic-component.model';
 
 @Component({
-  selector: 'lcu-dynamic',
+  selector: 'lcu-dynamic-container',
   templateUrl: './dynamic.component.html',
   styleUrls: ['./dynamic.component.scss']
 })
@@ -68,8 +68,8 @@ get DynamicViewContainer(): ViewContainerRef {
     .resolveComponentFactory(this.DynamicComponents[index].Component);
 
     // component created by a factory
-    // const componentRef: ComponentRef<any> = this.viewContainer.createComponent(factory);
-    const componentRef: ComponentRef<any> = this.DynamicViewContainer.createComponent(factory);
+    const componentRef: ComponentRef<any> = this.viewContainer.createComponent(factory);
+    // const componentRef: ComponentRef<any> = this.DynamicViewContainer.createComponent(factory);
 
     // current component instance
     const instance: DynamicComponent = componentRef.instance as DynamicComponent;

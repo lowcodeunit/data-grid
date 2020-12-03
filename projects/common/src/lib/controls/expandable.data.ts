@@ -36,9 +36,9 @@ export class ExpandableData {
                  'grade':'A'
               },
               {
-                 'name':'Chemistry',
-                 'type':'Medical',
-                 'grade':'A'
+                 'name':'weqweqwe',
+                 'type':'FF',
+                 'grade':'e'
               },
               {
                  'name':'Physics',
@@ -59,12 +59,12 @@ export class ExpandableData {
                  'grade':'A'
               },
               {
-                 'name':'Chemistry',
+                 'name':'ddrrrer',
                  'type':'Medical',
                  'grade':'A'
               },
               {
-                 'name':'Physics',
+                 'name':'rerwerw',
                  'type':'Medical',
                  'grade':'A'
               }

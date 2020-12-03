@@ -88,7 +88,9 @@
           class="details-con" 
           [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
           
-          <div #dynaComponent></div>
+          <!-- <div #dynaComponent>dssdds</div> -->
+          <!-- <lcu-dynamic-test></lcu-dynamic-test> -->
+          <lcu-dynamic-container>sdf</lcu-dynamic-container>
           <mat-list>
             <div mat-subheader>Subjects of {{element.name}}</div>
             <mat-list-item *ngFor="let subject of element.subjects">
