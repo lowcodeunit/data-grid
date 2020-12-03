@@ -88,10 +88,10 @@ export class DataGridComponent extends DynamicComponent implements AfterViewInit
   // set DynaViewContainer(val: ViewContainerRef) {
   //   this._dynaViewContainer = val;
   // }
-  
   // get DynaViewContainer(): ViewContainerRef {
   //   return this._dynaViewContainer;
   // }
+
 
  @ViewChild('dynaComponent', {read: ViewContainerRef, static: false})
   protected viewContainer: ViewContainerRef;

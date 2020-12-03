@@ -273,6 +273,9 @@ export class AppComponent implements OnInit {
       this.GridFeatures = features;
     }
 
+    /**
+     * Setup dynamic components to inject into datagrid
+     */
     protected setupDynamicComponents(): void {
       this.DynamicComponents = [
         new DynamicComponentModel({ Component: JsonDisplayComponent,

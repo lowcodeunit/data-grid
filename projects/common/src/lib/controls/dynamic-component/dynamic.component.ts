@@ -22,6 +22,7 @@ export class DynamicComponent implements OnInit, AfterViewInit  {
   // tslint:disable-next-line:no-input-rename
   @Input('dynamic-components')
   set DynamicComponents(val: Array<DynamicComponentModel>) {
+    
     if (!val) { return; }
     this._dynamicComponents = val;
     this.renderComponent(0);
