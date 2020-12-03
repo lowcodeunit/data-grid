@@ -35,6 +35,7 @@ private _dynamicViewContainer: ViewContainerRef;
 
 @Input('dynamic-view-container')
 set DynamicViewContainer(val: ViewContainerRef) {
+  debugger;
   this._dynamicViewContainer = val;
 }
 
@@ -42,8 +43,8 @@ get DynamicViewContainer(): ViewContainerRef {
   return this._dynamicViewContainer;
 }
 
-  // @ViewChild('dynamicComponent', {read: ViewContainerRef, static: false})
-  // protected viewContainer: ViewContainerRef;
+  @ViewChild('container', {read: ViewContainerRef, static: false})
+  protected viewContainer: ViewContainerRef;
 
   constructor(protected componentFactoryResolver: ComponentFactoryResolver) { }
 
@@ -65,8 +66,9 @@ get DynamicViewContainer(): ViewContainerRef {
     .resolveComponentFactory(this.DynamicComponents[index].Component);
 
     // component created by a factory
-    // const componentRef: ComponentRef<any> = this.viewContainer.createComponent(factory);
-    const componentRef: ComponentRef<any> = this.DynamicViewContainer.createComponent(factory);
+    debugger;
+    const componentRef: ComponentRef<any> = this.viewContainer.createComponent(factory);
+    // const componentRef: ComponentRef<any> = this.DynamicViewContainer.createComponent(factory);
 
     // current component instance
     const instance: DynamicComponent = componentRef.instance as DynamicComponent;

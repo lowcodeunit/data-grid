@@ -144,7 +144,6 @@ export class DataGridComponent extends DynamicComponent implements AfterViewInit
   public ngAfterViewInit(): void {
     this.Sorting();
     this.Pagination();
-    super.DynamicViewContainer = this.viewContainer;
   }
 
   /**

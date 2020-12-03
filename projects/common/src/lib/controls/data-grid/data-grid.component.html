@@ -75,6 +75,7 @@
     </ng-container>
     
     <!-- Template for details (expand) row -->
+    <div #dynaComponent></div>
     <ng-container *ngIf="Expand" matColumnDef="expandedDetail">
       <td 
         mat-cell 
@@ -84,7 +85,7 @@
           fxLayoutAlign="center"
           class="details-con" 
           [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
-            <div #dynaComponent></div>
+           
           <mat-list>
             <div mat-subheader>Subjects of {{element.name}}</div>
             <mat-list-item *ngFor="let subject of element.subjects">
