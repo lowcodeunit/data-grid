@@ -6,7 +6,6 @@ export class ExpandableData {
            'name':'Abby Jaskolski ',
            'age':21,
            'address':1.0079,
-           'isExpanded':false,
            'subjects':[
               {
                  'name':'Bio',
@@ -30,7 +29,6 @@ export class ExpandableData {
            'name':'Jabari Fritsch',
            'age':20,
            'address':1.0079,
-           'isExpanded':false,
            'subjects':[
               {
                  'name':'Bio',
@@ -54,7 +52,6 @@ export class ExpandableData {
            'name':'Maybell Simonis',
            'age':21,
            'address':1.0079,
-           'isExpanded':false,
            'subjects':[
               {
                  'name':'Bio',

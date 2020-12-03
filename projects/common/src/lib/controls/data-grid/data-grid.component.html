@@ -1,123 +1,128 @@
-
-
 <div fxLayoutAlign=" start">
   <mat-form-field *ngIf="Config?.Features?.Filter" class="filter-field">
     <input matInput type="text" (keyup)="ApplyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
 </div>
-<mat-progress-bar mode="indeterminate" *ngIf="ShowLoader"></mat-progress-bar>
-<mat-table 
-  [dataSource]="dataSource" 
-  matSort 
-  *ngIf="Config" 
-  (matSortChange)="Sorting($event)"
-  multiTemplateDataRows>
-  <ng-container *ngFor="let column of Config.ColumnDefs" matColumnDef="{{ column.ColType }}">
-    <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="!column.Sortable" fxLayoutAlign="center center">
 
-      <!--
-        Show select checkbox in the header
-      -->
-      <mat-checkbox *ngIf="ToggleSelection(Config, column)"
-                    (change)="$event ? MasterToggle() : null"
-                    [checked]="selection.hasValue() && IsAllSelected()"
-                    [indeterminate]="selection.hasValue() && !IsAllSelected()">
-      </mat-checkbox>
+<div fxLayout="column">
+  <mat-progress-bar mode="indeterminate" *ngIf="ShowLoader"></mat-progress-bar>
+  <table 
+    fxFlex
+    mat-table 
+    matSort
+    [dataSource]="dataSource"
+    *ngIf="Config" 
+    (matSortChange)="Sorting($event)"
+    multiTemplateDataRows>
+    <ng-container *ngFor="let column of Config.ColumnDefs" matColumnDef="{{ column.ColType }}">
+      <th 
+        mat-header-cell 
+        *matHeaderCellDef 
+        mat-sort-header 
+        [disabled]="!column.Sortable" >
 
-      <!--
-        Show the header title
-      -->
-      {{ column.Title }}
+        <!--
+          Show select checkbox in the header
+        -->
+        <mat-checkbox *ngIf="ToggleSelection(Config, column)"
+                      (change)="$event ? MasterToggle() : null"
+                      [checked]="selection.hasValue() && IsAllSelected()"
+                      [indeterminate]="selection.hasValue() && !IsAllSelected()">
+        </mat-checkbox>
 
-    </mat-header-cell>
+        <!--
+          Show the header title
+        -->
+        {{ column.Title }}
+      </th>
 
-    <mat-cell *matCellDef="let item" fxLayoutAlign="center center">
+      <td mat-cell *matCellDef="let item" >
+        <mat-checkbox *ngIf="ToggleSelection(Config, column)"
+                      (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(item) : null"
+                      [checked]="selection.isSelected(item)">
+        </mat-checkbox>
 
-      <!--
-        Show select checkbox in the row
-      -->
-      <mat-checkbox *ngIf="ToggleSelection(Config, column)"
-                    (click)="$event.stopPropagation()"
-                    (change)="$event ? selection.toggle(item) : null"
-                    [checked]="selection.isSelected(item)">
-      </mat-checkbox>
+        <span *ngIf="column.ColType !== 'select'">
 
-      <span *ngIf="column.ColType !== 'select'" fxLayoutAlign="center center">
+          <!--Toggle icons on and off-->
+          <i *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)"></i>
 
-        <!--Toggle icons on and off-->
-        <i *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)"></i>
-        <!-- <mat-icon *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)">{{column.SetIcon(item)}}</mat-icon> -->
+            <!--When adding a button to the table cell-->
+            <button 
+              *ngIf="column.Action && column.Action.ActionType === 'button'" 
+              mat-button 
+              class="margin-left-2 cursor-pointer"
+              (click)="column.Action.ActionHandler(item)">
+              <mat-icon>{{column.SetIcon(item)}}</mat-icon>
+              <span 
+                *ngIf="column.Action.ActionLabel">
+                {{ column.Action.ActionLabel }}
+              </span>
+            </button>
 
-        <!--When adding a button to the table cell-->
-          <button 
-            *ngIf="column.Action && column.Action.ActionType === 'button'" 
-            mat-button 
-            class="margin-left-2 cursor-pointer"
-            (click)="column.Action.ActionHandler(item)">
-            <mat-icon>{{column.SetIcon(item)}}</mat-icon>
-            <span 
-              *ngIf="column.Action.ActionLabel">
-              {{ column.Action.ActionLabel }}
-            </span>
-          </button>
+            <!--When adding an href-->
+            <a *ngIf="column.Action && column.Action.ActionType === 'href'"  
+              style="text-decoration:none;" href="{{ column.Action.ActionHandler(item) }}" target="_blank">
+              <mat-icon>{{column.SetIcon(item)}}</mat-icon>
+            </a>
 
-          <!--When adding an href-->
-          <a *ngIf="column.Action && column.Action.ActionType === 'href'"  
-            style="text-decoration:none;" href="{{ column.Action.ActionHandler(item) }}" target="_blank">
-            <mat-icon>{{column.SetIcon(item)}}</mat-icon>
-          </a>
-
-        <!--Toggle data value on and off and set pipes, if available-->
-        <!--column.pipe value comes from columnDefinition-->
-        <span *ngIf="column.ShowValue">{{ item[column.ColType] | dataPipes: column.Pipe }}</span>
-      </span>
-
-    </mat-cell>
-  </ng-container>
-
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row;
-                       let odd = odd;
-                       let even = even;
-                       columns: displayedColumns;"
-                       [ngStyle]="{'background-color': RowColors(even, odd)}"
-                       (click)="selection.toggle(row)"></mat-row>
-
-  <!-- Template for details row -->
-  <ng-container matColumnDef="rowDetails">
-    <mat-cell *matCellDef="let element" [attr.colspan]="Config.ColumnDefs.length">
-      <pre>dssd {{ element | json }}</pre>
-      <div class="row student-element-detail" [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
-        <mat-list>
-          <div mat-subheader>Subjects of {{element.name}}</div>
-          <mat-list-item *ngFor="let subject of element.subjects">
-            <div mat-line>{{subject.name}}</div>
-            <div mat-line> {{subject.type}} | Grade: {{subject.grade}}</div>
-          </mat-list-item>
-        </mat-list>
-      </div>
-
-    </mat-cell>
-  </ng-container>
-
-  <!-- <mat-header-row *matHeaderRowDef="displayedStudentsColumnsList;sticky: true"></mat-header-row> -->
-      <!-- <mat-row 
-        *matRowDef="let element; columns: displayedStudentsColumnsList;" 
-        class="student-element-row"
-        [class.student-expanded-row]="element.isExpanded">
-      </mat-row> -->
-  <!-- Extra row to show detail content column -->
-  <mat-row *matRowDef="let row; columns: ['rowDetails']" class="student-detail-row">
+            <!--Toggle data value on and off and set pipes, if available-->
+            <!--column.pipe value comes from columnDefinition-->
+          <span *ngIf="column.ShowValue">{{ item[column.ColType] | dataPipes: column.Pipe }}</span>
+        </span>
+      </td>
+    </ng-container>
     
-  </mat-row>
-    
+    <!-- Template for details (expand) row -->
+    <ng-container *ngIf="Expand" matColumnDef="expandedDetail">
+      <td 
+        mat-cell 
+        *matCellDef="let element" 
+        [attr.colspan]="displayedColumns.length">
+        <div
+          fxLayoutAlign="center"
+          class="details-con" 
+          [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
+            <div #dynamicComponent></div>
+          <mat-list>
+            <div mat-subheader>Subjects of {{element.name}}</div>
+            <mat-list-item *ngFor="let subject of element.subjects">
+              <div mat-line>{{subject.name}}</div>
+              <div mat-line> {{subject.type}} | Grade: {{subject.grade}}</div>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </td>
+    </ng-container>
 
-</mat-table>
-<mat-paginator
-  #paginator
-  *ngIf="Config?.Features?.Paginator"
-  [pageSize]="Config?.Features?.Paginator.PageSize"
-  [pageSizeOptions]="Config?.Features?.Paginator.PageSizeOptions"
-  showFirstLastButtons>
-</mat-paginator>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;" 
+        [ngClass]="{'details-element-row' : Expand == true}">
+    </tr>
+
+    <!-- Extra row to show detail content column -->
+    <div *ngIf="Expand">
+      <tr 
+        mat-row 
+        *matRowDef="let row; 
+        columns: ['expandedDetail'];
+        let odd = odd;
+        let even = even"
+        class="details-row"
+        [ngStyle]="{'background-color': RowColors(even, odd)}"
+        (click)="selection.toggle(row)">
+      </tr>
+    </div>
+  </table>
+  
+
+  <mat-paginator
+    #paginator
+    *ngIf="Config?.Features?.Paginator"
+    [pageSize]="Config?.Features?.Paginator.PageSize"
+    [pageSizeOptions]="Config?.Features?.Paginator.PageSizeOptions"
+    showFirstLastButtons>
+  </mat-paginator>
+</div>
 

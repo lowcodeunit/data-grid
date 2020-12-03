@@ -8,12 +8,15 @@ import { Component,
   AfterViewInit,
   Input,
   AfterContentChecked,
-  ChangeDetectorRef } from '@angular/core';
+  ChangeDetectorRef,
+  ComponentFactoryResolver} from '@angular/core';
 
 import { DataGridConfig } from '../../configs/data-grid.config';
 import { ColumnConfigModel } from '../../models/column-config.model';
 import { throwError } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { DynamicComponent } from '../dynamic-component/dynamic.component';
 
 @Component({
   selector: 'lcu-data-grid',
@@ -27,7 +30,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ]),
   ]
 })
-export class DataGridComponent implements AfterViewInit, AfterContentChecked {
+export class DataGridComponent extends DynamicComponent implements AfterViewInit, AfterContentChecked {
 
    /**
    * DataGrid configuration properties
@@ -47,7 +50,7 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
     */
   private _config: DataGridConfig;
 
-  @Input()
+  @Input('config')
   set Config(val: DataGridConfig) {
     if (!val) {
       return;
@@ -65,10 +68,23 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
   }
 
   /**
+   * Sets grid rows to be expandable
+   */
+  private _expand: boolean;
+
+  @Input('expand')
+  set Expand(val: boolean) {
+    this._expand = coerceBooleanProperty(val);
+  }
+
+  get Expand() {
+    return this._expand;
+  }
+
+  /**
    * Material Sorter
    */
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-
 
   /**
    * Material Paginator
@@ -79,6 +95,8 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
    * Columns to display
    */
   public displayedColumns: Array<string> = [];
+
+  // public DynamicComponents: Array<DynamicComponentModel>;
 
   /**
    * Grid data source
@@ -99,14 +117,17 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
    */
   public ShowLoader: boolean = false;
 
-  constructor(private cdref: ChangeDetectorRef) { 
-
+  constructor(
+    protected cdref: ChangeDetectorRef,
+    protected componentFactoryResolver: ComponentFactoryResolver) {
+    super(componentFactoryResolver);
   }
 
   /**
    * When loaded set sorting and pagination
    */
   public ngAfterViewInit(): void {
+    super.ngAfterViewInit();
     this.Sorting();
     this.Pagination();
   }

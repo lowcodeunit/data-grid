@@ -4,13 +4,15 @@ import {
   PipeConstants,
   DataGridFeatures,
   DataGridPagination,
-  ExpandableData} from '@lowcodeunit/data-grid';
+  ExpandableData,
+  DynamicComponentModel} from '@lowcodeunit/data-grid';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DepartureTableModel } from './models/departure-table-config.model';
 import { WeatherCloudConditionIcons } from './utils/icons/weather-cloud-conditions-icons.util';
 import { WeatherCloudService } from './services/weathercloud.service';
 import { of } from 'rxjs/internal/observable/of';
+import { JsonDisplayComponent } from './components/json-display/json-display.component';
 
 @Component({
   selector: 'lcu-root',
@@ -31,6 +33,8 @@ export class AppComponent implements OnInit {
   public get GridParameters(): DataGridConfig {
     return this. _gridParameters;
   }
+
+  public DynamicComponents: Array<DynamicComponentModel>;
 
   /**
    * Page title
@@ -83,8 +87,9 @@ export class AppComponent implements OnInit {
               }
 
   public ngOnInit(): void {
-    // this.SetGridParameters();
-    this.SetExpandedParameters();
+    setTimeout(() => {
+      this.setupDynamicComponents();
+    }, 1000);
   }
 
   /**
@@ -175,7 +180,7 @@ export class AppComponent implements OnInit {
           true,
           false
           ),
-        new ColumnDefinition(
+        new ColumnDefinition( 
           'age',
           'Age',
           true,
@@ -217,6 +222,7 @@ export class AppComponent implements OnInit {
     }
 
     public ExpandableGridData(): void {
+      this.SetExpandedParameters();
       this.GridParameters = new DataGridConfig(
           of(this.expandableData.StudentData), // mock observable
           this.columnDefs,
@@ -228,6 +234,7 @@ export class AppComponent implements OnInit {
      * Setting up the grid data, columns, and features
      */
     public GridData(): void {
+      this.SetGridParameters();
       const origin = '40.58897,-105.08246';
       const destination = '40.3978,-105.0750';
       const includeAlts = true;
@@ -264,5 +271,13 @@ export class AppComponent implements OnInit {
       features.RowColorOdd = 'light-gray';
 
       this.GridFeatures = features;
+    }
+
+    protected setupDynamicComponents(): void {
+      this.DynamicComponents = [
+        new DynamicComponentModel({ Component: JsonDisplayComponent,
+                                    Data: {},
+                                    Label: 'JSON Display' })
+      ];
     }
 }

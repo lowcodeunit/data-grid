@@ -5,9 +5,10 @@
 </div>
 <div fxLayout="column" fxLayoutGap="10px">
     <lcu-data-grid 
-        [Config]="GridParameters">
+        expand
+        [config]="GridParameters"
+        [dynamic-components]="DynamicComponents">
     </lcu-data-grid>
-    <lcu-expand-data-grid></lcu-expand-data-grid>
 </div>
 <router-outlet></router-outlet>
 

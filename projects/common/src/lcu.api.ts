@@ -11,3 +11,5 @@ export * from './lib/models/cell-action.model';
 export * from './lib/models/data-grid-config.model';
 export * from './lib/controls/expand-data-grid/expand-data-grid.component';
 export * from './lib/controls/expandable.data';
+export * from './lib/controls/dynamic-component/dynamic.component';
+export * from './lib/models/dynamic-component.model';

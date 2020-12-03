@@ -6,13 +6,13 @@ table {
     height: 0;
   }
   
-  // .student-element-row:not(.student-expanded-row):hover {
-  //   background: whitesmoke;
-  // }
+  .student-element-row:not(.student-expanded-row):hover {
+    background: whitesmoke;
+  }
   
-  // .student-element-row:not(.student-expanded-row):active {
-  //   background: #efefef;
-  // }
+  .student-element-row:not(.student-expanded-row):active {
+    background: #efefef;
+  }
   
   .student-element-row td {
     border-bottom-width: 0;
