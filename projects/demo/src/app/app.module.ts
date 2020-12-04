@@ -7,10 +7,13 @@ import { AppComponent } from './app.component';
 
 import { DataGridModule } from '@lowcodeunit/data-grid';
 import { FathymSharedModule, MaterialModule } from '@lcu/common';
+import { FlexLayoutModule, FlexModule } from '@angular/flex-layout';
+import { JsonDisplayComponent } from './components/json-display/json-display.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    JsonDisplayComponent
   ],
   imports: [
     BrowserModule,
@@ -19,8 +22,11 @@ import { FathymSharedModule, MaterialModule } from '@lcu/common';
     DataGridModule,
     FathymSharedModule,
     MaterialModule,
+    FlexModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [JsonDisplayComponent],
+  entryComponents: [JsonDisplayComponent]
 })
 export class AppModule { }

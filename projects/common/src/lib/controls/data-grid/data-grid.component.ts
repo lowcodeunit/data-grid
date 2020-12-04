@@ -8,18 +8,34 @@ import { Component,
   AfterViewInit,
   Input,
   AfterContentChecked,
-  ChangeDetectorRef } from '@angular/core';
+  ChangeDetectorRef,
+  ComponentFactoryResolver,
+  ViewContainerRef,
+  ViewChildren,
+  QueryList,
+  ElementRef} from '@angular/core';
 
 import { DataGridConfig } from '../../configs/data-grid.config';
 import { ColumnConfigModel } from '../../models/column-config.model';
 import { throwError } from 'rxjs';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { DynamicComponent } from '../dynamic-component/dynamic.component';
+import { DynamicComponentService } from '../../services/dynamic-component.service';
 
 @Component({
   selector: 'lcu-data-grid',
   templateUrl: './data-grid.component.html',
-  styleUrls: ['./data-grid.component.scss']
+  styleUrls: ['./data-grid.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
 })
-export class DataGridComponent implements AfterViewInit, AfterContentChecked {
+export class DataGridComponent<T> extends DynamicComponent<T> implements AfterViewInit, AfterContentChecked {
 
    /**
    * DataGrid configuration properties
@@ -39,7 +55,7 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
     */
   private _config: DataGridConfig;
 
-  @Input()
+  @Input('config')
   set Config(val: DataGridConfig) {
     if (!val) {
       return;
@@ -57,10 +73,31 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
   }
 
   /**
+   * Sets grid rows to be expandable
+   */
+  private _expand: boolean;
+
+  @Input('expand')
+  set Expand(val: boolean) {
+    this._expand = coerceBooleanProperty(val);
+  }
+
+  get Expand(): boolean {
+    return this._expand;
+  }
+
+
+@ViewChild('dynaComponent', { read: ViewContainerRef, static: false })
+set dynaViewComponent(content: ViewContainerRef) {
+  if (content) {
+    this.setViewComponent(content);
+  }
+}
+
+  /**
    * Material Sorter
    */
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-
 
   /**
    * Material Paginator
@@ -71,6 +108,8 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
    * Columns to display
    */
   public displayedColumns: Array<string> = [];
+
+  // public DynamicComponents: Array<DynamicComponentModel>;
 
   /**
    * Grid data source
@@ -91,12 +130,17 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
    */
   public ShowLoader: boolean = false;
 
-  constructor(private cdref: ChangeDetectorRef) { }
+  constructor(
+    protected cdref: ChangeDetectorRef,
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    protected dynamicComponentService: DynamicComponentService) {
+    super(componentFactoryResolver, dynamicComponentService);
+  }
 
   /**
    * When loaded set sorting and pagination
    */
-  ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.Sorting();
     this.Pagination();
   }
@@ -104,8 +148,12 @@ export class DataGridComponent implements AfterViewInit, AfterContentChecked {
   /**
    * Check view and children for changes
    */
-  ngAfterContentChecked() {
+  public ngAfterContentChecked(): void {
     this.cdref.detectChanges();
+  }
+
+  protected setViewComponent(content: ViewContainerRef): void {
+    // super.DynamicViewContainer = content;
   }
 
   /**
