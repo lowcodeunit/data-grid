@@ -1,2 +1,6 @@
-<p>Dynamic Component Works!</p>
-<div #container></div>
+<!--Container for displaying dynamically loaded components-->
+<div #DynamicDisplayContainer>
+    <span class="margin-5" *ngIf="ComponentError">
+        Component not found!
+    </span>
+</div>

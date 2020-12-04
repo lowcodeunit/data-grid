@@ -95,6 +95,7 @@
           <mat-list>
             <div mat-subheader>Subjects of {{element.name}}</div>
             <mat-list-item *ngFor="let subject of element.subjects">
+              
               <div mat-line>{{subject.name}}</div>
               <div mat-line> {{subject.type}} | Grade: {{subject.grade}}</div>
             </mat-list-item>
