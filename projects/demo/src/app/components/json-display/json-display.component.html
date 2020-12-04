@@ -1,7 +1,7 @@
 <div fxFlex>
     <mat-list>
-        <div mat-subheader class="secondary-text">Subjects of {{ DataSource?.name }}</div>
-        <mat-list-item *ngFor="let subject of DataSource?.subjects">
+        <div mat-subheader class="secondary-text">Subjects of {{ DataSource.name }}</div>
+        <mat-list-item *ngFor="let subject of DataSource.subjects">
           <div mat-line>{{ subject.name }}</div>
           <div mat-line> {{ subject.type }} | Grade: {{ subject.grade }}</div>
         </mat-list-item>

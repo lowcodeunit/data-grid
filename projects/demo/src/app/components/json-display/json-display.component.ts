@@ -7,6 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class JsonDisplayComponent implements OnInit {
 
+  // tslint:disable-next-line:no-input-rename
+  @Input('datasource')
+  public DataSource: any;
+
   constructor() { }
 
   ngOnInit(): void {
