@@ -95,7 +95,10 @@ export class AppComponent implements OnInit {
     }, 1000);
   }
 
-    public SetExpandedParameters(): void {
+  /**
+   * Create grid columns
+   */
+    public SetupGridParameters(): void {
       this.colunmDefsModel = [
         new ColumnDefinitionModel({ ColType: 'id', Title: 'ID', ShowValue: true }),
         new ColumnDefinitionModel({ ColType: 'name', Title: 'Name', ShowValue: true }),
@@ -110,21 +113,28 @@ export class AppComponent implements OnInit {
                                       ActionType: 'button',
                                     }
                                   })];
+
+      this.setGridFeatures();
     }
 
     /**
      *
      * @param val selected row element
      *
-     * pass row data
-     * TODO: move off the data to something better, maybe for Jack - shannon
+     * This sets 'isExpanded' property to row data, really shouldn't mutate the data like this
+     * 'isExpanded' is used to expand or collapse selected row details container
+     *
+     * TODO: move off the data mutation to something better, maybe for Jack - shannon
      */
     protected RowDetails(val: any): void {
       val.isExpanded = !val.isExpanded;
     }
 
+    /**
+     * Build out grid data
+     */
     public GridData(): void {
-      this.SetExpandedParameters();
+      this.SetupGridParameters();
       this.GridParameters = new DataGridConfig(
           of(this.expandableData.StudentData), // mock observable
           this.colunmDefsModel,
