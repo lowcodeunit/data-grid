@@ -1,3 +1,4 @@
+import { DynamicComponentService } from './services/dynamic-component.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataGridComponent } from './controls/data-grid/data-grid.component';
@@ -21,7 +22,7 @@ import { DynamicTestComponent } from './controls/dynamic-test/dynamic-test.compo
     PipeModule,
     FlexModule
   ],
-  providers: [ExpandableData],
+  providers: [ExpandableData, DynamicComponentService],
   exports: [DataGridComponent, ExpandDataGridComponent, DynamicComponent, DynamicTestComponent, ],
   entryComponents: [DataGridComponent, ExpandDataGridComponent, DynamicComponent, DynamicTestComponent]
 })

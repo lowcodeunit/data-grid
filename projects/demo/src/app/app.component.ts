@@ -216,6 +216,7 @@ export class AppComponent implements OnInit {
      * @param val selected row element
      *
      * pass row data
+     * TODO: move off the data to something better, maybe for Jack - shannon
      */
     protected RowDetails(val: any): void {
       val.isExpanded = !val.isExpanded;

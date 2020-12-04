@@ -13,3 +13,4 @@ export * from './lib/controls/expand-data-grid/expand-data-grid.component';
 export * from './lib/controls/expandable.data';
 export * from './lib/controls/dynamic-component/dynamic.component';
 export * from './lib/models/dynamic-component.model';
+export * from './lib/services/dynamic-component.service';

@@ -21,6 +21,7 @@ import { throwError } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DynamicComponent } from '../dynamic-component/dynamic.component';
+import { DynamicComponentService } from '../../services/dynamic-component.service';
 
 @Component({
   selector: 'lcu-data-grid',
@@ -131,8 +132,9 @@ set dynaViewComponent(content: ViewContainerRef) {
 
   constructor(
     protected cdref: ChangeDetectorRef,
-    protected componentFactoryResolver: ComponentFactoryResolver) {
-    super(componentFactoryResolver);
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    protected dynamicComponentService: DynamicComponentService) {
+    super(componentFactoryResolver, dynamicComponentService);
   }
 
   /**
@@ -148,14 +150,10 @@ set dynaViewComponent(content: ViewContainerRef) {
    */
   public ngAfterContentChecked(): void {
     this.cdref.detectChanges();
-   // super.DynamicViewContainer = this.dynaViewComponent;
-  //  this.dynaViewComponent.changes.subscribe((comps: QueryList<any>) => {
-  //   super.DynamicViewContainer = comps.first;
-  //  });
   }
 
   protected setViewComponent(content: ViewContainerRef): void {
-    super.DynamicViewContainer = content;
+    // super.DynamicViewContainer = content;
   }
 
   /**
