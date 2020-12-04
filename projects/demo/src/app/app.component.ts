@@ -1,3 +1,4 @@
+import { CellAction } from './../../../common/src/lib/models/cell-action.model';
 import {
   DataGridConfig,
   ColumnDefinition,
@@ -13,6 +14,7 @@ import { WeatherCloudConditionIcons } from './utils/icons/weather-cloud-conditio
 import { WeatherCloudService } from './services/weathercloud.service';
 import { of } from 'rxjs/internal/observable/of';
 import { JsonDisplayComponent } from './components/json-display/json-display.component';
+import { ColumnDefinitionModel } from 'projects/common/src/lcu.api';
 
 @Component({
   selector: 'lcu-root',
@@ -55,6 +57,7 @@ export class AppComponent implements OnInit {
    * Sets column names and order
    */
   protected columnDefs: Array<ColumnDefinition> = [];
+  protected colunmDefsModel: Array<ColumnDefinitionModel>;
 
   /**
    * Store grid parameters
@@ -67,8 +70,6 @@ export class AppComponent implements OnInit {
   protected get params(): DepartureTableModel {
     return this._params;
   }
-  // protected departureTableSubsscription: Subscription;
-  // protected routeChangeSubscription: Subscription;
 
 /**
  * Grid features, such as: Pagination, Filtering, Loader, etc.
@@ -84,7 +85,9 @@ export class AppComponent implements OnInit {
 
   constructor(private weatherCloudService: WeatherCloudService,
               protected expandableData: ExpandableData) {
-              }
+
+      this.colunmDefsModel = [];
+  }
 
   public ngOnInit(): void {
     setTimeout(() => {
@@ -92,123 +95,21 @@ export class AppComponent implements OnInit {
     }, 1000);
   }
 
-  /**
-   * This sets up the grid parameters (columns, data, and features)
-   */
-  public SetGridParameters(): void {
-
-    // hardcoding values for demo, real world these would be pushed in
-    this.params = new DepartureTableModel('32.7499,-97.33034', '40.58897,-105.08246', '1545937200', false);
-
-    this.apiKey = 'fathym';
-
-    this.columnDefs = [
-     new ColumnDefinition(
-       'VtimesStart',
-       '',
-       true,
-       false,
-       false,
-       PipeConstants.PIPE_EPOCH
-       ),
-     new ColumnDefinition(
-       'TempMin',
-       'Temp Min',
-       true,
-       true,
-       false,
-       PipeConstants.PIPE_TEMP_FAHRENHEIT,
-       WeatherCloudConditionIcons
-       ),
-     new ColumnDefinition(
-       'TempMax',
-       'Temp Max',
-       true,
-       true,
-       false,
-       PipeConstants.PIPE_TEMP_FAHRENHEIT,
-       WeatherCloudConditionIcons
-       ),
-     new ColumnDefinition(
-       'PrecipMax',
-       'Precipitation',
-       false,
-       true,
-       false,
-       null,
-       WeatherCloudConditionIcons
-       ),
-     new ColumnDefinition(
-       'WindSpdMax',
-       'Wind Speed',
-       true,
-       true,
-       false,
-       PipeConstants.PIPE_MPH,
-       WeatherCloudConditionIcons
-       ),
-     new ColumnDefinition(
-       'WindGustMax',
-       'Wind Gust',
-       true,
-       true,
-       false,
-       PipeConstants.PIPE_MPH,
-       WeatherCloudConditionIcons
-       )
-     ];
-
-     this.setGridFeatures();
-
-    // showing grid column headers
-    this.GridParameters = new DataGridConfig(null, this.columnDefs);
-    }
-
     public SetExpandedParameters(): void {
-      this.columnDefs = [
-        new ColumnDefinition(
-          'id',
-          'ID',
-          true,
-          false,
-          false
-          ),
-        new ColumnDefinition(
-          'name',
-          'Name',
-          true,
-          true,
-          false
-          ),
-        new ColumnDefinition( 
-          'age',
-          'Age',
-          true,
-          true,
-          false
-          ),
-        new ColumnDefinition(
-          'address',
-          'Address',
-          true,
-          true,
-          false
-          ),
-          new ColumnDefinition(
-            'actions',
-            'Actions',
-            true,
-            true,
-            false,
-            null,
-            () => 'preview',
-            {
-              ActionHandler: this.RowDetails.bind(this),
-              ActionLabel: 'JSON',
-              ActionType: 'button',
-            }
-          )
-        ];
+      this.colunmDefsModel = [
+        new ColumnDefinitionModel({ ColType: 'id', Title: 'ID', ShowValue: true }),
+        new ColumnDefinitionModel({ ColType: 'name', Title: 'Name', ShowValue: true }),
+        new ColumnDefinitionModel({ ColType: 'age', Title: 'Age', ShowValue: true }),
+        new ColumnDefinitionModel({ ColType: 'address', Title: 'Address', ShowValue: true }),
+        new ColumnDefinitionModel({ ColType: 'actions', Title: 'Action', ShowValue: true, ShowIcon: true,
+                                    IconConfigFunc: () => 'preview', // function that returns the material icon to display
+                                    Action:
+                                    {
+                                      ActionHandler: this.RowDetails.bind(this),
+                                      ActionLabel: 'JSON',
+                                      ActionType: 'button',
+                                    }
+                                  })];
     }
 
     /**
@@ -222,38 +123,13 @@ export class AppComponent implements OnInit {
       val.isExpanded = !val.isExpanded;
     }
 
-    public ExpandableGridData(): void {
+    public GridData(): void {
       this.SetExpandedParameters();
       this.GridParameters = new DataGridConfig(
           of(this.expandableData.StudentData), // mock observable
-          this.columnDefs,
+          this.colunmDefsModel,
           this.GridFeatures
       );
-    }
-
-    /**
-     * Setting up the grid data, columns, and features
-     */
-    public GridData(): void {
-      this.SetGridParameters();
-      const origin = '40.58897,-105.08246';
-      const destination = '40.3978,-105.0750';
-      const includeAlts = true;
-      const departTime = '1566503558';
-
-        this.GridParameters = new DataGridConfig(
-          this.weatherCloudService.departureTableData(this.apiKey, origin, destination, departTime, includeAlts),
-          this.columnDefs,
-          this.GridFeatures
-        );
-
-      // this.GridParameters = new DataGridConfig(
-      //   this.weatherCloudService.departureTableData(
-      //                                              this.apiKey,
-      //                                              this.params.origin,
-      //                                              this.params.destination,
-      //                                              this.params.departureTime,
-      //                                              this.params.includeAltRoutes), this.columnDefs, this.GridFeatures);
     }
 
     /**

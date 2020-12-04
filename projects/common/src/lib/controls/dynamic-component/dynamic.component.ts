@@ -11,14 +11,16 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DynamicComponentModel } from '../../models/dynamic-component.model';
+import { DynamicDatasourceModel } from '../../models/dynamic-datasource.model';
 import { DynamicComponentService } from './../../services/dynamic-component.service';
 
 @Component({
   selector: 'lcu-dynamic-container',
   templateUrl: './dynamic.component.html',
   styleUrls: ['./dynamic.component.scss']
+  
 })
-export class DynamicComponent implements OnInit, OnDestroy  {
+export class DynamicComponent<T> implements OnInit, OnDestroy  {
 
   @ViewChild('DynamicDisplayContainer', { read: ViewContainerRef, static: false })
   protected set dynamicDisplayContainer(content: ViewContainerRef) {
@@ -37,6 +39,10 @@ export class DynamicComponent implements OnInit, OnDestroy  {
 
     this.dynamicComponentService.DynamicComponents = val;
   }
+
+  // tslint:disable-next-line:no-input-rename
+  @Input('datasource')
+  public DataSource: DynamicDatasourceModel<T>;
 
   public ComponentError: boolean;
 
@@ -77,17 +83,21 @@ export class DynamicComponent implements OnInit, OnDestroy  {
     const factory: ComponentFactory<any> = this.componentFactoryResolver
     .resolveComponentFactory(this.dynamicComponentService.DynamicComponents[index].Component);
 
+    // clear previous container
+    // this.dynamicComponentService.DynamicDisplayContainer.clear();
+
     // component created by a factory
     const componentRef: ComponentRef<any> =
         this.dynamicComponentService.DynamicDisplayContainer.createComponent(factory);
 
     // current component instance
-    const instance: DynamicComponent = componentRef.instance as DynamicComponent;
+    const instance: DynamicComponent<T> = componentRef.instance as DynamicComponent<T>;
 
     // find the current component in TabComponents and set its data
     this.dynamicComponentService.DynamicComponents.find((comp: DynamicComponentModel) => {
       if (comp.Component.name === instance.constructor.name) {
-        instance['Data'] = comp.Data;
+        // instance['Data'] = comp.Data;
+        instance['DataSource'] = this.DataSource;
       }
     });
   }
@@ -99,7 +109,7 @@ export class DynamicComponent implements OnInit, OnDestroy  {
    * @param index index postion to test for
    */
   protected arrayHasIndex(array: Array<DynamicComponentModel>, index: number): boolean {
-    return Array.isArray(array) && array.hasOwnProperty(index)
+    return Array.isArray(array) && array.hasOwnProperty(index);
 
     // this.dynamicComponentService.DynamicComponentError(true);
     // return false;

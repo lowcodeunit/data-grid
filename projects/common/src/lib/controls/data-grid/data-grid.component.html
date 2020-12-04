@@ -83,23 +83,13 @@
         mat-cell 
         *matCellDef="let element" 
         [attr.colspan]="displayedColumns.length">
+
+
         <div
           fxLayoutAlign="center"
           class="details-con" 
           [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
-          
-          <!-- <div #dynaComponent>dssdds</div> -->
-          <!-- <lcu-dynamic-test></lcu-dynamic-test> -->
-          
-          <lcu-dynamic-container></lcu-dynamic-container>
-          <mat-list>
-            <div mat-subheader>Subjects of {{element.name}}</div>
-            <mat-list-item *ngFor="let subject of element.subjects">
-              
-              <div mat-line>{{subject.name}}</div>
-              <div mat-line> {{subject.type}} | Grade: {{subject.grade}}</div>
-            </mat-list-item>
-          </mat-list>
+          <lcu-dynamic-container [datasource]="element"></lcu-dynamic-container>
         </div>
       </td>
     </ng-container>

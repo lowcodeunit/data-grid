@@ -35,7 +35,7 @@ import { DynamicComponentService } from '../../services/dynamic-component.servic
     ]),
   ]
 })
-export class DataGridComponent extends DynamicComponent implements AfterViewInit, AfterContentChecked {
+export class DataGridComponent<T> extends DynamicComponent<T> implements AfterViewInit, AfterContentChecked {
 
    /**
    * DataGrid configuration properties
