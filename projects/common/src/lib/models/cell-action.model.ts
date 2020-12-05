@@ -8,6 +8,11 @@ export class CellAction {
     public ActionHandler: Function;
 
     /**
+     * action label
+     */
+    public ActionLabel?: string;
+
+    /**
      * params to pass to action handler
      */
     public ActionParams?: Array<string>;

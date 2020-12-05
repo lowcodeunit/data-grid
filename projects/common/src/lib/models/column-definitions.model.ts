@@ -1,14 +1,13 @@
 import { CellAction } from './../models/cell-action.model';
-import { ColumnConfigModel } from '../models/column-config.model';
 
-export class ColumnDefinition {
+export class ColumnDefinitionModel {
   public Action?: CellAction;
   public ColType: string;
   public IconConfigFunc?: Function;
   public Pipe?: string;
   public Title: string;
-  public ShowIcon: boolean;
-  public ShowValue: boolean;
+  public ShowIcon?: boolean;
+  public ShowValue?: boolean;
   public Sortable?: boolean;
 
 /**
@@ -23,24 +22,9 @@ export class ColumnDefinition {
  * @param IconConfigFunc Callback function for setting icons
  */
 
-  constructor(colType: string,
-              title: string,
-              showValue: boolean,
-              showIcon?: boolean,
-              sortable?: boolean,
-              pipe?: string,
-              iconConfigFunc?: Function,
-              action?: CellAction) {
-
-    this.ColType = colType;
-    this.Title = title;
-    this.ShowValue = showValue;
-    this.ShowIcon = showIcon;
-    this.Sortable = sortable;
-    this.Pipe = pipe;
-    this.IconConfigFunc = iconConfigFunc;
-    this.Action = action;
-  }
+constructor(opts: ColumnDefinitionModel) {
+    Object.assign(this, opts); // destructure values
+}
 
   /**
    * Toggle icons or data values on / off
