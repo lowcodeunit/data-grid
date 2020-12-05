@@ -54,6 +54,7 @@
             <button 
               *ngIf="column.Action && column.Action.ActionType === 'button'" 
               mat-button 
+              [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''"
               class="margin-left-2 cursor-pointer"
               (click)="column.Action.ActionHandler(item)">
               <mat-icon>{{column.SetIcon(item)}}</mat-icon>
@@ -65,7 +66,10 @@
 
             <!--When adding an href-->
             <a *ngIf="column.Action && column.Action.ActionType === 'href'"  
-              style="text-decoration:none;" href="{{ column.Action.ActionHandler(item) }}" target="_blank">
+              style="text-decoration:none;" 
+              href="{{ column.Action.ActionHandler(item) }}" 
+              target="_blank"
+              [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''">
               <mat-icon>{{column.SetIcon(item)}}</mat-icon>
             </a>
 
@@ -88,7 +92,7 @@
         <div
           fxLayoutAlign="center"
           class="details-con background-fill" 
-          [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
+          [@detailExpand]="element.$IsExpanded ? 'expanded' : 'collapsed'">
           <lcu-dynamic-container [datasource]="element"></lcu-dynamic-container>
         </div>
       </td>

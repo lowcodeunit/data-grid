@@ -111,6 +111,7 @@ export class AppComponent implements OnInit {
                                       ActionHandler: this.RowDetails.bind(this),
                                       ActionLabel: 'JSON',
                                       ActionType: 'button',
+                                      ActionTooltip: 'sadfsd'
                                     }
                                   })];
 
@@ -121,13 +122,13 @@ export class AppComponent implements OnInit {
      *
      * @param val selected row element
      *
-     * This sets 'isExpanded' property to row data, really shouldn't mutate the data like this
-     * 'isExpanded' is used to expand or collapse selected row details container
+     * This sets '$IsExpanded' property to row data, really shouldn't mutate the data like this
+     * '$IsExpanded' is used to expand or collapse selected row details container
      *
      * TODO: move off the data mutation to something better, maybe for Jack - shannon
      */
     protected RowDetails(val: any): void {
-      val.isExpanded = !val.isExpanded;
+      val.$IsExpanded = !val.$IsExpanded;
     }
 
     /**
