@@ -21,4 +21,9 @@ export class CellAction {
      * action type, such as button or href
      */
     public ActionType: string;
+
+    /**
+     * tooltip for action
+     */
+    public ActionTooltip?: string;
 }

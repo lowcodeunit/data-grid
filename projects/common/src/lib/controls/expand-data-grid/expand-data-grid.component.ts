@@ -34,7 +34,7 @@ export class ExpandDataGridComponent implements OnInit {
     this.isTableExpanded = !this.isTableExpanded;
 
     this.dataStudentsList.data.forEach((row: any) => {
-      row.isExpanded = this.isTableExpanded;
+      row.$IsExpanded = this.isTableExpanded;
     });
   }
 
