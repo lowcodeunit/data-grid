@@ -22,6 +22,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DynamicComponent } from '../dynamic-component/dynamic.component';
 import { DynamicComponentService } from '../../services/dynamic-component.service';
+import { Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'lcu-data-grid',
@@ -86,6 +88,9 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
     return this._expand;
   }
 
+  @Output('page-event')
+  public PageEvent: EventEmitter<any>;
+
 
 @ViewChild('dynaComponent', { read: ViewContainerRef, static: false })
 set dynaViewComponent(content: ViewContainerRef) {
@@ -135,6 +140,7 @@ set dynaViewComponent(content: ViewContainerRef) {
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected dynamicComponentService: DynamicComponentService) {
     super(componentFactoryResolver, dynamicComponentService);
+    this.PageEvent = new EventEmitter<any>();
   }
 
   /**
@@ -213,6 +219,15 @@ set dynaViewComponent(content: ViewContainerRef) {
    */
   public MasterToggle(): void {
     this.IsAllSelected() ? this.selection.clear() : this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+/**
+ * Handles the page change event from mat-paginator
+ * @param event 
+ */
+  public HandlePageChange(event: any): void{
+    // console.log("Page event: ", event);
+    this.PageEvent.emit(event);
   }
 
   /**
