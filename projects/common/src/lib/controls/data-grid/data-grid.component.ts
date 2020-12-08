@@ -140,7 +140,7 @@ set dynaViewComponent(content: ViewContainerRef) {
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected dynamicComponentService: DynamicComponentService) {
     super(componentFactoryResolver, dynamicComponentService);
-    this.PageEvent = new EventEmitter<any>();
+    this.PageEvent = new EventEmitter();
   }
 
   /**
