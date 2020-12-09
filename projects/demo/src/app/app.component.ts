@@ -1,7 +1,6 @@
 import {
   DataGridConfig,
   ColumnDefinition,
-  PipeConstants,
   DataGridPagination,
   ExpandableData,
   DynamicComponentModel,
@@ -12,6 +11,7 @@ import { DepartureTableModel } from './models/departure-table-config.model';
 import { WeatherCloudService } from './services/weathercloud.service';
 import { of } from 'rxjs/internal/observable/of';
 import { JsonDisplayComponent } from './components/json-display/json-display.component';
+import { DataPipeConstants } from '@lcu/common';
 
 @Component({
   selector: 'lcu-root',
@@ -20,7 +20,7 @@ import { JsonDisplayComponent } from './components/json-display/json-display.com
 })
 
 export class AppComponent implements OnInit {
-
+  utctest: string = '2020-12-09T20:20:46Z';
  /**
   * Array for storing dynamic component that are added to grid row
   */
@@ -31,6 +31,8 @@ export class AppComponent implements OnInit {
   */
 
  public GridParameters: DataGridConfig; 
+
+  test: DataPipeConstants = DataPipeConstants.DATE_TIME_ZONE_FMT;
 
   /**
    * Page title
@@ -110,9 +112,9 @@ export class AppComponent implements OnInit {
         ),
         new ColumnDefinitionModel(
           {
-            ColType: 'age', 
-            Title: 'Age', 
-            ShowValue: true 
+            ColType: 'age',
+            Title: 'Age',
+            ShowValue: true
           }
         ),
         new ColumnDefinitionModel(

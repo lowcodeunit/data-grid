@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { DataGridModule } from '@lowcodeunit/data-grid';
-import { FathymSharedModule, MaterialModule } from '@lcu/common';
+import { FathymSharedModule, MaterialModule, PipeModule } from '@lcu/common';
 import { FlexLayoutModule, FlexModule } from '@angular/flex-layout';
 import { JsonDisplayComponent } from './components/json-display/json-display.component';
 
@@ -22,7 +22,8 @@ import { JsonDisplayComponent } from './components/json-display/json-display.com
     DataGridModule,
     FathymSharedModule,
     MaterialModule,
-    FlexModule
+    FlexModule,
+    PipeModule
   ],
   providers: [],
   bootstrap: [AppComponent],

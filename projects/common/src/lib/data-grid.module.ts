@@ -14,7 +14,7 @@ import { DynamicTestComponent } from './controls/dynamic-test/dynamic-test.compo
     DataGridComponent,
     ExpandDataGridComponent,
     DynamicComponent,
-    DynamicTestComponent,
+    DynamicTestComponent
   ],
   imports: [
     CommonModule,
