@@ -124,6 +124,7 @@
     *ngIf="Config?.Features?.Paginator"
     [pageSize]="Config?.Features?.Paginator.PageSize"
     [pageSizeOptions]="Config?.Features?.Paginator.PageSizeOptions"
+    (page)="HandlePageChange($event)"
     showFirstLastButtons>
   </mat-paginator>
 </div>
