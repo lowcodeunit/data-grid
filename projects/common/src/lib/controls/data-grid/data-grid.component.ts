@@ -54,7 +54,6 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
     * This contains column definitions, data, and grid features
     */
   private _config: DataGridConfig;
-
   @Input('config')
   set Config(val: DataGridConfig) {
     if (!val) {
@@ -76,7 +75,6 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    * Sets grid rows to be expandable
    */
   private _expand: boolean;
-
   @Input('expand')
   set Expand(val: boolean) {
     this._expand = coerceBooleanProperty(val);
@@ -87,12 +85,12 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
   }
 
 
-@ViewChild('dynaComponent', { read: ViewContainerRef, static: false })
-set dynaViewComponent(content: ViewContainerRef) {
-  if (content) {
-    this.setViewComponent(content);
-  }
-}
+// @ViewChild('dynaComponent', { read: ViewContainerRef, static: false })
+// set dynaViewComponent(content: ViewContainerRef) {
+//   if (content) {
+//     this.setViewComponent(content);
+//   }
+// }
 
   /**
    * Material Sorter
@@ -142,6 +140,7 @@ set dynaViewComponent(content: ViewContainerRef) {
    */
   public ngAfterViewInit(): void {
     this.Sorting();
+
     this.Pagination();
   }
 
@@ -152,14 +151,15 @@ set dynaViewComponent(content: ViewContainerRef) {
     this.cdref.detectChanges();
   }
 
-  protected setViewComponent(content: ViewContainerRef): void {
-    // super.DynamicViewContainer = content;
-  }
+  // protected setViewComponent(content: ViewContainerRef): void {
+  //   // super.DynamicViewContainer = content;
+  // }
 
   /**
    * When sorting is set in columnDef
    */
   public Sorting(evt?: Event): void {
+
     this.dataSource.sort = this.sort;
   }
 
@@ -168,6 +168,7 @@ set dynaViewComponent(content: ViewContainerRef) {
    * Pagination properties
    */
   public Pagination(): void {
+
     if (!this.Config || !this.Config.Features || !this.Config.Features.Paginator) {
       return;
     }
@@ -203,8 +204,11 @@ set dynaViewComponent(content: ViewContainerRef) {
  * Check to see if all rows are selected
  */
   public IsAllSelected(): boolean {
+
     const numSelected = this.selection.selected.length;
+
     const numRows = this.dataSource.data.length;
+
     return numSelected === numRows;
   }
 
@@ -212,6 +216,7 @@ set dynaViewComponent(content: ViewContainerRef) {
    * Select all rows with the master toggle checkbox
    */
   public MasterToggle(): void {
+
     this.IsAllSelected() ? this.selection.clear() : this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
@@ -231,15 +236,18 @@ set dynaViewComponent(content: ViewContainerRef) {
    * Set grid data
    */
   private setData(): void {
+
     if (!this.Config || !this.Config.ColumnDefs) {
       return;
     }
 
     this.createDisplayedColumns();
+
     this.setRowColors();
 
       if (this.Config.Service) {
         this.showLoaderIndicator(true);
+
         // service is passed in from parent component using the grid
        this.Config.Service
         .subscribe((res) => {
@@ -257,11 +265,13 @@ set dynaViewComponent(content: ViewContainerRef) {
    * Return array of columns to display
    */
   protected createDisplayedColumns(): void {
+
     if (!this.Config || !this.Config.ColumnDefs) {
       return;
     }
 
     this.displayedColumns = this.Config.ColumnDefs.map(itm => {
+
       return itm.ColType;
     });
   }
@@ -270,15 +280,18 @@ set dynaViewComponent(content: ViewContainerRef) {
    * set datagrid row colors
    */
   protected setRowColors(): void {
+
     if (!this.Config || !this.Config.Features) {
       return;
     }
 
     this.RowColorEven = this.Config.Features.RowColorEven;
+
     this.RowColorOdd = this.Config.Features.RowColorOdd;
   }
 
   public RowColors(even: number, odd: number): string {
+
     if (even) {
       return this.RowColorEven;
     } else {
@@ -286,12 +299,5 @@ set dynaViewComponent(content: ViewContainerRef) {
         return this.RowColorOdd;
       }
     }
-    // const classes = {
-    //   important: this.isImportant,
-    //   inactive: !this.isActive,
-    //   saved: this.isSaved,
-    //   long: this.name.length > 6
-    // };
-    // return classes;
   }
 }

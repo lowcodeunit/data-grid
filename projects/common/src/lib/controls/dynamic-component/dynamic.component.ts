@@ -18,17 +18,15 @@ import { DynamicComponentService } from './../../services/dynamic-component.serv
   selector: 'lcu-dynamic-container',
   templateUrl: './dynamic.component.html',
   styleUrls: ['./dynamic.component.scss']
-  
 })
 export class DynamicComponent<T> implements OnInit, OnDestroy  {
 
-  @ViewChild('DynamicDisplayContainer', { read: ViewContainerRef, static: false })
-  protected set dynamicDisplayContainer(content: ViewContainerRef) {
-    if (content) {
-      this.dynamicComponentService.DynamicDisplayContainer = content;
-      this.renderComponent();
-    }
-  }
+  // properties
+  public ComponentError: boolean;
+
+  // tslint:disable-next-line:no-input-rename
+  @Input('data-source')
+  public DataSource: DynamicDatasourceModel<T>;
 
   // tslint:disable-next-line:no-input-rename
   @Input('dynamic-components')
@@ -40,19 +38,23 @@ export class DynamicComponent<T> implements OnInit, OnDestroy  {
     this.dynamicComponentService.DynamicComponents = val;
   }
 
-  // tslint:disable-next-line:no-input-rename
-  @Input('datasource')
-  public DataSource: DynamicDatasourceModel<T>;
-
-  public ComponentError: boolean;
-
   protected componentErrorSubscription: Subscription;
+
+  @ViewChild('DynamicDisplayContainer', { read: ViewContainerRef, static: false })
+  protected set dynamicDisplayContainer(content: ViewContainerRef) {
+    if (content) {
+      this.dynamicComponentService.DynamicDisplayContainer = content;
+      this.renderComponent();
+    }
+  }
 
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
+
     protected dynamicComponentService: DynamicComponentService
     ) { }
 
+  // lifecycle hooks
   public ngOnInit(): void {
 
     this.componentErrorSubscription = this.dynamicComponentService.OnDynamicComponentError
@@ -63,9 +65,14 @@ export class DynamicComponent<T> implements OnInit, OnDestroy  {
     });
   }
 
+  /**
+   * Clean up
+   */
   public ngOnDestroy(): void {
     this.componentErrorSubscription.unsubscribe();
   }
+
+  // helpers
 
   /**
    * Render the selected dynamic component
@@ -83,7 +90,7 @@ export class DynamicComponent<T> implements OnInit, OnDestroy  {
     const factory: ComponentFactory<any> = this.componentFactoryResolver
     .resolveComponentFactory(this.dynamicComponentService.DynamicComponents[index].Component);
 
-    // clear previous container
+    // clear previous container TODO: look into this more - shannon
     // this.dynamicComponentService.DynamicDisplayContainer.clear();
 
     // component created by a factory
@@ -96,7 +103,6 @@ export class DynamicComponent<T> implements OnInit, OnDestroy  {
     // find the current component in TabComponents and set its data
     this.dynamicComponentService.DynamicComponents.find((comp: DynamicComponentModel) => {
       if (comp.Component.name === instance.constructor.name) {
-        // instance['Data'] = comp.Data;
         instance['DataSource'] = this.DataSource;
       }
     });
@@ -110,8 +116,5 @@ export class DynamicComponent<T> implements OnInit, OnDestroy  {
    */
   protected arrayHasIndex(array: Array<DynamicComponentModel>, index: number): boolean {
     return Array.isArray(array) && array.hasOwnProperty(index);
-
-    // this.dynamicComponentService.DynamicComponentError(true);
-    // return false;
   }
 }
