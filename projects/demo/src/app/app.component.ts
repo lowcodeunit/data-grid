@@ -1,20 +1,17 @@
-import { CellAction } from './../../../common/src/lib/models/cell-action.model';
 import {
   DataGridConfig,
   ColumnDefinition,
   PipeConstants,
-  DataGridFeatures,
   DataGridPagination,
   ExpandableData,
-  DynamicComponentModel} from '@lowcodeunit/data-grid';
+  DynamicComponentModel,
+  ColumnDefinitionModel,
+  DataGridFeaturesModel} from '@lowcodeunit/data-grid';
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { DepartureTableModel } from './models/departure-table-config.model';
-import { WeatherCloudConditionIcons } from './utils/icons/weather-cloud-conditions-icons.util';
 import { WeatherCloudService } from './services/weathercloud.service';
 import { of } from 'rxjs/internal/observable/of';
 import { JsonDisplayComponent } from './components/json-display/json-display.component';
-import { ColumnDefinitionModel } from 'projects/common/src/lcu.api';
 
 @Component({
   selector: 'lcu-root',
@@ -24,19 +21,16 @@ import { ColumnDefinitionModel } from 'projects/common/src/lcu.api';
 
 export class AppComponent implements OnInit {
 
-  /**
+ /**
+  * Array for storing dynamic component that are added to grid row
+  */
+  public DynamicComponents: Array<DynamicComponentModel>;
+
+ /**
    * Parameters needed for the grid
   */
-  protected _gridParameters: DataGridConfig;
-  public set GridParameters(val: DataGridConfig) {
-    this._gridParameters = val;
-  }
 
-  public get GridParameters(): DataGridConfig {
-    return this. _gridParameters;
-  }
-
-  public DynamicComponents: Array<DynamicComponentModel>;
+ public GridParameters: DataGridConfig; 
 
   /**
    * Page title
@@ -74,12 +68,12 @@ export class AppComponent implements OnInit {
 /**
  * Grid features, such as: Pagination, Filtering, Loader, etc.
  */
-  protected _gridFeatures: DataGridFeatures;
-  public get GridFeatures(): DataGridFeatures {
+  protected _gridFeatures: DataGridFeaturesModel;
+  public get GridFeatures(): DataGridFeaturesModel {
     return this._gridFeatures;
   }
 
-  public set GridFeatures(val: DataGridFeatures) {
+  public set GridFeatures(val: DataGridFeaturesModel) {
     this._gridFeatures = val;
   }
 
@@ -100,20 +94,50 @@ export class AppComponent implements OnInit {
    */
     public SetupGridParameters(): void {
       this.colunmDefsModel = [
-        new ColumnDefinitionModel({ ColType: 'id', Title: 'ID', ShowValue: true }),
-        new ColumnDefinitionModel({ ColType: 'name', Title: 'Name', ShowValue: true }),
-        new ColumnDefinitionModel({ ColType: 'age', Title: 'Age', ShowValue: true }),
-        new ColumnDefinitionModel({ ColType: 'address', Title: 'Address', ShowValue: true }),
-        new ColumnDefinitionModel({ ColType: 'actions', Title: 'Action', ShowValue: true, ShowIcon: true,
-                                    IconConfigFunc: () => 'preview', // function that returns the material icon to display
-                                    Action:
-                                    {
-                                      ActionHandler: this.RowDetails.bind(this),
-                                      ActionLabel: 'JSON',
-                                      ActionType: 'button',
-                                      ActionTooltip: 'sadfsd'
-                                    }
-                                  })];
+        new ColumnDefinitionModel(
+          {
+            ColType: 'id',
+            Title: 'ID',
+            ShowValue: true
+          }
+        ),
+        new ColumnDefinitionModel(
+          {
+            ColType: 'name',
+            Title: 'Name',
+            ShowValue: true
+          }
+        ),
+        new ColumnDefinitionModel(
+          {
+            ColType: 'age', 
+            Title: 'Age', 
+            ShowValue: true 
+          }
+        ),
+        new ColumnDefinitionModel(
+          {
+            ColType: 'address',
+            Title: 'Address',
+            ShowValue: true
+          }
+        ),
+        new ColumnDefinitionModel(
+          {
+            ColType: 'actions',
+            Title: 'Action',
+            ShowValue: true,
+            ShowIcon: true,
+            IconConfigFunc: () => 'preview', // function that returns the material icon to display
+            Action:
+            {
+              ActionHandler: this.RowDetails.bind(this),
+              ActionLabel: 'JSON',
+              ActionType: 'button',
+              ActionTooltip: 'sadfsd'
+            }
+          })
+        ];
 
       this.setGridFeatures();
     }
@@ -128,6 +152,7 @@ export class AppComponent implements OnInit {
      * TODO: move off the data mutation to something better, maybe for Jack - shannon
      */
     protected RowDetails(val: any): void {
+
       val.$IsExpanded = !val.$IsExpanded;
     }
 
@@ -135,7 +160,9 @@ export class AppComponent implements OnInit {
      * Build out grid data
      */
     public GridData(): void {
+
       this.SetupGridParameters();
+
       this.GridParameters = new DataGridConfig(
           of(this.expandableData.StudentData), // mock observable
           this.colunmDefsModel,
@@ -147,16 +174,22 @@ export class AppComponent implements OnInit {
      * Setting up grid features
      */
     protected setGridFeatures(): void {
+
       const paginationDetails: DataGridPagination = new DataGridPagination();
+
       paginationDetails.PageSize = 10;
+
       paginationDetails.PageSizeOptions = [1, 5, 10, 20, 30];
 
-      const features: DataGridFeatures = new DataGridFeatures();
-      features.Paginator = paginationDetails;
-      features.Filter = true;
-      features.ShowLoader = true;
-      features.RowColorEven = 'gray';
-      features.RowColorOdd = 'light-gray';
+      const features: DataGridFeaturesModel = new DataGridFeaturesModel(
+        {
+         Paginator: paginationDetails,
+         Filter: true,
+         ShowLoader: true,
+         RowColorEven: 'gray',
+         RowColorOdd: 'light-gray',
+        }
+      );
 
       this.GridFeatures = features;
     }
