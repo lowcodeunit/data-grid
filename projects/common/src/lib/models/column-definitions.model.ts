@@ -2,7 +2,7 @@ import { CellAction } from './../models/cell-action.model';
 
 export class ColumnDefinitionModel {
   public Action?: CellAction;
-  public ColType: string;
+  public ColType?: string;
   public IconConfigFunc?: Function;
   public Pipe?: string;
   public Title: string;
@@ -23,6 +23,17 @@ export class ColumnDefinitionModel {
  */
 
 constructor(opts: ColumnDefinitionModel) {
+
+    /**
+     * if no colType set default value
+     *
+     * This could be useful for adding a button to a cell, when
+     * there isn't data to go with it
+     */
+    if (!opts.ColType) {
+      opts.ColType = 'noColTypeDefined';
+    }
+
     Object.assign(this, opts); // destructure values
 }
 

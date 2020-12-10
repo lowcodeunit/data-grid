@@ -1,13 +1,12 @@
 import { Observable } from 'rxjs/internal/Observable';
 import { ColumnDefinition } from './column-def.config';
 import { DataGridFeaturesModel } from '../models/data-grid-features.model';
-import { DataGridFeatures } from './data-grid-features.config';
 import { ColumnDefinitionModel } from '../models/column-definitions.model';
 
 export class DataGridConfig {
 
     public ColumnDefs: Array<ColumnDefinitionModel>;
-    public Features: DataGridFeatures;
+    public Features: DataGridFeaturesModel;
     public Service: Observable<any[]>;
 
   /**
@@ -21,7 +20,7 @@ export class DataGridConfig {
    *
    */
 
-  constructor(service: Observable<any[]>, columnDefs: Array<ColumnDefinitionModel>, features?: DataGridFeatures) {
+  constructor(service: Observable<any[]>, columnDefs: Array<ColumnDefinitionModel>, features?: DataGridFeaturesModel) {
     this.ColumnDefs = columnDefs;
     this.Features = features;
     this.Service = service;
