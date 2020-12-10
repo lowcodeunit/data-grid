@@ -1,3 +1,4 @@
+import { ColumnDefinitionModel } from './../../models/column-definitions.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,13 +10,9 @@ import { Component,
   Input,
   AfterContentChecked,
   ChangeDetectorRef,
-  ComponentFactoryResolver,
-  ViewContainerRef,
-  ViewChildren,
-  QueryList,
-  ElementRef} from '@angular/core';
+  ComponentFactoryResolver
+} from '@angular/core';
 
-import { DataGridConfig } from '../../configs/data-grid.config';
 import { ColumnConfigModel } from '../../models/column-config.model';
 import { throwError } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -24,6 +21,7 @@ import { DynamicComponent } from '../dynamic-component/dynamic.component';
 import { DynamicComponentService } from '../../services/dynamic-component.service';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { DataGridConfigModel } from '../../models/data-grid-config.model';
 
 @Component({
   selector: 'lcu-data-grid',
@@ -55,9 +53,9 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
     *
     * This contains column definitions, data, and grid features
     */
-  private _config: DataGridConfig;
+  private _config: DataGridConfigModel;
   @Input('config')
-  set Config(val: DataGridConfig) {
+  set Config(val: DataGridConfigModel) {
     if (!val) {
       return;
     }
@@ -65,7 +63,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
     this._config = val;
     this.setData();
   }
-  get Config(): DataGridConfig {
+  get Config(): DataGridConfigModel {
 
     if (!this._config) {
       return;
@@ -195,7 +193,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    * @param col grid column
    *
    */
-  public ToggleSelection(config: DataGridConfig, col: ColumnConfigModel): boolean {
+  public ToggleSelection(config: DataGridConfigModel, col: ColumnConfigModel): boolean {
     return col.ColType === 'select';
   }
 /**
@@ -223,7 +221,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
  * @param event page change event
  */
   public HandlePageChange(event: any): void {
-    // console.log("Page event: ", event);
+    
     this.PageEvent.emit(event);
   }
 
@@ -257,9 +255,9 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
 
         // service is passed in from parent component using the grid
        this.Config.Service
-        .subscribe((res) => {
+        .subscribe((res: any) => {
           this.dataSource.data = res;
-        }, (err) => {
+        }, (err: any) => {
           return throwError(err);
         }, () => {
           this.showLoaderIndicator(false);
@@ -277,7 +275,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
       return;
     }
 
-    this.displayedColumns = this.Config.ColumnDefs.map(itm => {
+    this.displayedColumns = this.Config.ColumnDefs.map( (itm: ColumnDefinitionModel) => {
 
       return itm.ColType;
     });
