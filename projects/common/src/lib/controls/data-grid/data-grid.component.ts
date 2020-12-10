@@ -84,6 +84,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
     return this._expand;
   }
 
+  // tslint:disable-next-line:no-output-rename
   @Output('page-event')
   public PageEvent: EventEmitter<any>;
 
@@ -221,7 +222,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
  * @param event page change event
  */
   public HandlePageChange(event: any): void {
-    
+
     this.PageEvent.emit(event);
   }
 
