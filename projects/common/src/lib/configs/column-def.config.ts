@@ -3,7 +3,7 @@ import { ColumnConfigModel } from '../models/column-config.model';
 
 export class ColumnDefinition {
   public Action?: CellAction;
-  public ColType: string;
+  public ColType?: string;
   public IconConfigFunc?: Function;
   public Pipe?: string;
   public Title: string;

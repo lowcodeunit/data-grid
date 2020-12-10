@@ -1,4 +1,3 @@
-
 <div fxLayoutAlign=" start">
   <mat-form-field *ngIf="Config?.Features?.Filter" class="filter-field">
     <input matInput type="text" (keyup)="ApplyFilter($event.target.value)" placeholder="Filter">
@@ -93,7 +92,7 @@
           fxLayoutAlign="center"
           class="details-con background-fill" 
           [@detailExpand]="element.$IsExpanded ? 'expanded' : 'collapsed'">
-          <lcu-dynamic-container [datasource]="element"></lcu-dynamic-container>
+          <lcu-dynamic-container [data-source]="element"></lcu-dynamic-container>
         </div>
       </td>
     </ng-container>
