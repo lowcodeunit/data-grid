@@ -89,14 +89,6 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
   @Output('page-event')
   public PageEvent: EventEmitter<any>;
 
-
-// @ViewChild('dynaComponent', { read: ViewContainerRef, static: false })
-// set dynaViewComponent(content: ViewContainerRef) {
-//   if (content) {
-//     this.setViewComponent(content);
-//   }
-// }
-
   /**
    * Material Sorter
    */
@@ -228,9 +220,9 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
 
 /**
  * Handles the page change event from mat-paginator
- * @param event 
+ * @param event page change event
  */
-  public HandlePageChange(event: any): void{
+  public HandlePageChange(event: any): void {
     // console.log("Page event: ", event);
     this.PageEvent.emit(event);
   }
