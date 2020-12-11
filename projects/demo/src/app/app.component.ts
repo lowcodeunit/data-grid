@@ -1,17 +1,16 @@
 import {
-  DataGridConfig,
-  ColumnDefinition,
-  DataGridPagination,
   ExpandableData,
   DynamicComponentModel,
   ColumnDefinitionModel,
-  DataGridFeaturesModel} from '@lowcodeunit/data-grid';
+  DataGridFeaturesModel,
+  DataGridConfigModel,
+  DataGridPaginationModel,
+} from '@lowcodeunit/data-grid';
 import { Component, OnInit } from '@angular/core';
 import { DepartureTableModel } from './models/departure-table-config.model';
 import { WeatherCloudService } from './services/weathercloud.service';
 import { of } from 'rxjs/internal/observable/of';
 import { JsonDisplayComponent } from './components/json-display/json-display.component';
-import { DataPipeConstants } from '@lcu/common';
 
 @Component({
   selector: 'lcu-root',
@@ -30,7 +29,7 @@ export class AppComponent implements OnInit {
    * Parameters needed for the grid
   */
 
- public GridParameters: DataGridConfig;
+ public GridParameters: DataGridConfigModel;
 
   /**
    * Page title
@@ -43,14 +42,8 @@ export class AppComponent implements OnInit {
   public ToggleRowDetails: any;
 
   /**
-   * Token key for service call
-   */
-  protected apiKey: string = '';
-
-  /**
    * Sets column names and order
    */
-  protected columnDefs: Array<ColumnDefinition> = [];
   protected colunmDefsModel: Array<ColumnDefinitionModel>;
 
   /**
@@ -163,7 +156,7 @@ export class AppComponent implements OnInit {
 
       this.SetupGridParameters();
 
-      this.GridParameters = new DataGridConfig(
+      this.GridParameters = new DataGridConfigModel(
           of(this.expandableData.StudentData), // mock observable
           this.colunmDefsModel,
           this.GridFeatures
@@ -175,11 +168,12 @@ export class AppComponent implements OnInit {
      */
     protected setGridFeatures(): void {
 
-      const paginationDetails: DataGridPagination = new DataGridPagination();
-
-      paginationDetails.PageSize = 10;
-
-      paginationDetails.PageSizeOptions = [1, 5, 10, 20, 30];
+      const paginationDetails: DataGridPaginationModel = new DataGridPaginationModel(
+        {
+          PageSize: 10,
+          PageSizeOptions: [1, 5, 10, 20, 30]
+        }
+      );
 
       const features: DataGridFeaturesModel = new DataGridFeaturesModel(
         {
@@ -199,9 +193,12 @@ export class AppComponent implements OnInit {
      */
     protected setupDynamicComponents(): void {
       this.DynamicComponents = [
-        new DynamicComponentModel({ Component: JsonDisplayComponent,
-                                    Data: {},
-                                    Label: 'JSON Display' })
+        new DynamicComponentModel(
+          {
+            Component: JsonDisplayComponent,
+            Data: {},
+            Label: 'JSON Display' 
+          })
       ];
     }
 }
