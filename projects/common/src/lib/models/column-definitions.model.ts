@@ -30,9 +30,9 @@ constructor(opts: ColumnDefinitionModel) {
      * This could be useful for adding a button to a cell, when
      * there isn't data to go with it
      */
-    if (!opts.ColType) {
-      opts.ColType = 'noColTypeDefined';
-    }
+    // if (!opts.ColType) {
+    //   opts.ColType = 'noColTypeDefined';
+    // }
 
     Object.assign(this, opts); // destructure values
 }

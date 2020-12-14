@@ -88,3 +88,19 @@ a:not(.mat-button) {
         fill: $secondary-text;
     }
 }
+
+
+/**
+* Styles for data grid 
+**/
+.highlight:hover {
+    background-color: rgba(map-get($warn, 500), 1);
+}
+
+.evenRowColor {
+    background-color: mat-color($primary) !important;
+}
+
+.oddRowColor {
+    background-color: mat-color($accent) !important;
+}

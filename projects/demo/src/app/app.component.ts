@@ -80,6 +80,8 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.setupDynamicComponents();
     }, 1000);
+
+    // this.GridData();
   }
 
   /**
@@ -144,9 +146,9 @@ export class AppComponent implements OnInit {
      *
      * TODO: move off the data mutation to something better, maybe for Jack - shannon
      */
-    protected RowDetails(val: any): void {
+    protected RowDetails(val: ColumnDefinitionModel): void {
 
-      val.$IsExpanded = !val.$IsExpanded;
+      val['$IsExpanded'] = !val['$IsExpanded'];
     }
 
     /**
@@ -180,8 +182,9 @@ export class AppComponent implements OnInit {
          Paginator: paginationDetails,
          Filter: true,
          ShowLoader: true,
-         RowColorEven: 'gray',
-         RowColorOdd: 'light-gray',
+         Highlight: 'highlight',
+         RowColorEven: 'evenRowColor',
+         RowColorOdd: 'oddRowColor',
         }
       );
 

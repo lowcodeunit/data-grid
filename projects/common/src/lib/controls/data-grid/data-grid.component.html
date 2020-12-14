@@ -86,8 +86,7 @@
         mat-cell 
         *matCellDef="let element" 
         [attr.colspan]="displayedColumns.length">
-
-
+        
         <div
           fxLayoutAlign="center"
           class="details-con background-fill" 
@@ -97,27 +96,39 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
-    <tr mat-row *matRowDef="let element; columns: displayedColumns;" 
-        [ngClass]="{'details-element-row' : Expand == true}">
+    <tr 
+      mat-header-row 
+      *matHeaderRowDef="displayedColumns;sticky: true">
     </tr>
-
-    <!-- Extra row to show detail content column -->
+    <tr 
+      mat-row *matRowDef="let element; 
+        let odd = odd;
+        let even = even;
+        let index = index;
+        let count = count;
+        columns: displayedColumns"
+      (mouseover)="RowHover=true"
+      (mouseleave)="RowHover=false"
+      class="details-element-row"
+      [className]="Config?.Features?.Highlight"
+     >
+     <!-- TODO: figure out alternating row color with highlight and alternating row color with expand -shannon -->
+     <!-- [ngClass]="{alternate: index % 2 == 0 }" -->
+     <!-- [ngClass]="{evenRowColor: even}" -->
+     <!-- [ngClass]="even ? Config?.Features?.RowColorEven : Config?.Features?.RowColorOdd" -->
+     <!-- [className]="Config?.Features?.Highlight" -->
+    </tr>
     <div *ngIf="Expand">
       <tr 
         mat-row 
         *matRowDef="let row; 
-        columns: ['expandedDetail'];
-        let odd = odd;
-        let even = even"
+        columns: ['expandedDetail']"
         class="details-row"
-        [ngStyle]="{'background-color': RowColors(even, odd)}"
         (click)="selection.toggle(row)">
       </tr>
     </div>
   </table>
   
-
   <mat-paginator
     #paginator
     *ngIf="Config?.Features?.Paginator"
