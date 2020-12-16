@@ -13,7 +13,6 @@ import { Component,
   ComponentFactoryResolver
 } from '@angular/core';
 
-import { ColumnConfigModel } from '../../models/column-config.model';
 import { throwError } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -114,6 +113,8 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
 
   public RowColorOdd: string;
 
+  public RowHover: boolean;
+
   /**
    * Maintain the selected state
    */
@@ -194,9 +195,10 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    * @param col grid column
    *
    */
-  public ToggleSelection(config: DataGridConfigModel, col: ColumnConfigModel): boolean {
+  public ToggleSelection(config: DataGridConfigModel, col: ColumnDefinitionModel): boolean {
     return col.ColType === 'select';
   }
+
 /**
  * Check to see if all rows are selected
  */
@@ -221,15 +223,43 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
  * Handles the page change event from mat-paginator
  * @param event page change event
  */
-  public HandlePageChange(event: any): void {
-
+  public HandlePageChange(event: Event): void {
     this.PageEvent.emit(event);
+  }
+
+  /**
+   * Handle click on the row itself
+   * 
+   * @param val row data 
+   */
+  public ElementClicked(val: ColumnDefinitionModel): void {
+
+    // val['$IsExpanded'] = !val['$IsExpanded'];
+  }
+
+  /**
+   * Set row background colors
+   * 
+   * There's a issue with this working when the expand is working
+   * 
+   * @param even even numbered grid row
+   * @param odd odd number grid row
+   */
+  public RowColors(even: number, odd: number): string {
+
+    if (even) {
+      return this.RowColorEven;
+    } else {
+      if (odd) {
+        return this.RowColorOdd;
+      }
+    }
   }
 
   /**
    * @param val property to toggle loading indicator
    */
-  private showLoaderIndicator(val: boolean): void {
+  protected showLoaderIndicator(val: boolean): void {
 
     if (!this.Config.Features || !this.Config.Features.ShowLoader) {
       return;
@@ -241,7 +271,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
   /**
    * Set grid data
    */
-  private setData(): void {
+  protected setData(): void {
 
     if (!this.Config || !this.Config.ColumnDefs) {
       return;
@@ -294,16 +324,5 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
     this.RowColorEven = this.Config.Features.RowColorEven;
 
     this.RowColorOdd = this.Config.Features.RowColorOdd;
-  }
-
-  public RowColors(even: number, odd: number): string {
-
-    if (even) {
-      return this.RowColorEven;
-    } else {
-      if (odd) {
-        return this.RowColorOdd;
-      }
-    }
   }
 }
