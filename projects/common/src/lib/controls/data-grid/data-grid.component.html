@@ -37,7 +37,9 @@
         {{ column.Title }}
       </th>
 
-      <td mat-cell *matCellDef="let item" >
+      <td mat-cell *matCellDef="let item" 
+          [ngStyle]="{'width': column.ColWidth ? column.ColWidth : null,
+                  'background-color' : column.ColBGColor ? column.ColBGColor : null}">
         <mat-checkbox *ngIf="ToggleSelection(Config, column)"
                       (click)="$event.stopPropagation()"
                       (change)="$event ? selection.toggle(item) : null"
@@ -54,9 +56,9 @@
               *ngIf="column.Action && column.Action.ActionType === 'button'" 
               mat-button 
               [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''"
-              class="margin-left-2 cursor-pointer"
+              class="cursor-pointer"
               (click)="column.Action.ActionHandler(item)">
-              <mat-icon>{{column.SetIcon(item)}}</mat-icon>
+              <mat-icon>{{ column.SetIcon(item) }}</mat-icon>
               <span 
                 *ngIf="column.Action.ActionLabel">
                 {{ column.Action.ActionLabel }}
@@ -69,7 +71,7 @@
               href="{{ column.Action.ActionHandler(item) }}" 
               target="_blank"
               [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''">
-              <mat-icon>{{column.SetIcon(item)}}</mat-icon>
+              <mat-icon>{{ column.SetIcon(item) }}</mat-icon>
             </a>
 
             <!--Toggle data value on and off and set pipes, if available-->
@@ -117,6 +119,9 @@
      <!-- [ngClass]="{evenRowColor: even}" -->
      <!-- [ngClass]="even ? Config?.Features?.RowColorEven : Config?.Features?.RowColorOdd" -->
      <!-- [className]="Config?.Features?.Highlight" -->
+     <!-- <div (mouseover)="hover=true" (mouseleave)="hover=false">
+          <span [ngStyle]="{backgroundColor: hover==true  ? 'lightgrey' : 'grey' }">hello {{ hover }}</span>
+          </div> -->
     </tr>
     <div *ngIf="Expand">
       <tr 

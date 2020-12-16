@@ -3,6 +3,8 @@ import { CellAction } from './../models/cell-action.model';
 export class ColumnDefinitionModel {
   public Action?: CellAction;
   public ColType?: string;
+  public ColWidth?: string;
+  public ColBGColor?: string;
   public IconConfigFunc?: Function;
   public Pipe?: string;
   public Title: string;
@@ -14,6 +16,8 @@ export class ColumnDefinitionModel {
  * Constructor for Grid column definitions
  * @param Action Cell action
  * @param ColType Column data type
+ * @param ColWidth Width of the column
+ * @param ColBGColor color of cell
  * @param Title Column title
  * @param ShowValue Boolean for toggling icons
  * @param ShowIcon Boolean for toggling icons
@@ -23,16 +27,6 @@ export class ColumnDefinitionModel {
  */
 
 constructor(opts: ColumnDefinitionModel) {
-
-    /**
-     * if no colType set default value
-     *
-     * This could be useful for adding a button to a cell, when
-     * there isn't data to go with it
-     */
-    // if (!opts.ColType) {
-    //   opts.ColType = 'noColTypeDefined';
-    // }
 
     Object.assign(this, opts); // destructure values
 }

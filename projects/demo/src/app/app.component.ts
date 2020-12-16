@@ -112,14 +112,9 @@ export class AppComponent implements OnInit {
         ),
         new ColumnDefinitionModel(
           {
-            ColType: 'address',
-            Title: 'Address',
-            ShowValue: true
-          }
-        ),
-        new ColumnDefinitionModel(
-          {
             ColType: 'actions',
+            ColWidth: '10px',
+            ColBGColor: '#ffcc11',
             Title: 'Action',
             ShowValue: true,
             ShowIcon: true,
@@ -127,11 +122,18 @@ export class AppComponent implements OnInit {
             Action:
             {
               ActionHandler: this.RowDetails.bind(this),
-              ActionLabel: 'JSON',
+              ActionLabel: '',
               ActionType: 'button',
               ActionTooltip: 'View'
             }
-          })
+          }),
+        new ColumnDefinitionModel(
+          {
+            ColType: 'address',
+            Title: 'Address',
+            ShowValue: true
+          }
+        )
         ];
 
       this.setGridFeatures();

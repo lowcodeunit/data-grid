@@ -13,7 +13,6 @@ import { Component,
   ComponentFactoryResolver
 } from '@angular/core';
 
-import { ColumnConfigModel } from '../../models/column-config.model';
 import { throwError } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -196,7 +195,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    * @param col grid column
    *
    */
-  public ToggleSelection(config: DataGridConfigModel, col: ColumnConfigModel): boolean {
+  public ToggleSelection(config: DataGridConfigModel, col: ColumnDefinitionModel): boolean {
     return col.ColType === 'select';
   }
 
@@ -247,6 +246,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    * @param odd odd number grid row
    */
   public RowColors(even: number, odd: number): string {
+
     if (even) {
       return this.RowColorEven;
     } else {
