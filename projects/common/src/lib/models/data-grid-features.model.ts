@@ -4,6 +4,7 @@ import { DataGridPaginationModel } from './data-grid-pagination.model';
 export class DataGridFeaturesModel {
 
     public Filter?: boolean;
+    public Highlight?: string;
     public Paginator?: DataGridPaginationModel;
     public RowSelectable?: boolean = false;
     public RowColorEven?: string = '#ececec';

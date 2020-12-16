@@ -80,6 +80,8 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.setupDynamicComponents();
     }, 1000);
+
+    // this.GridData();
   }
 
   /**
@@ -110,14 +112,9 @@ export class AppComponent implements OnInit {
         ),
         new ColumnDefinitionModel(
           {
-            ColType: 'address',
-            Title: 'Address',
-            ShowValue: true
-          }
-        ),
-        new ColumnDefinitionModel(
-          {
             ColType: 'actions',
+            ColWidth: '10px',
+            ColBGColor: '#ffcc11',
             Title: 'Action',
             ShowValue: true,
             ShowIcon: true,
@@ -125,11 +122,18 @@ export class AppComponent implements OnInit {
             Action:
             {
               ActionHandler: this.RowDetails.bind(this),
-              ActionLabel: 'JSON',
+              ActionLabel: '',
               ActionType: 'button',
               ActionTooltip: 'View'
             }
-          })
+          }),
+        new ColumnDefinitionModel(
+          {
+            ColType: 'address',
+            Title: 'Address',
+            ShowValue: true
+          }
+        )
         ];
 
       this.setGridFeatures();
@@ -144,9 +148,9 @@ export class AppComponent implements OnInit {
      *
      * TODO: move off the data mutation to something better, maybe for Jack - shannon
      */
-    protected RowDetails(val: any): void {
+    protected RowDetails(val: ColumnDefinitionModel): void {
 
-      val.$IsExpanded = !val.$IsExpanded;
+      val['$IsExpanded'] = !val['$IsExpanded'];
     }
 
     /**
@@ -180,8 +184,9 @@ export class AppComponent implements OnInit {
          Paginator: paginationDetails,
          Filter: true,
          ShowLoader: true,
-         RowColorEven: 'gray',
-         RowColorOdd: 'light-gray',
+         Highlight: 'highlight',
+         RowColorEven: 'evenRowColor',
+         RowColorOdd: 'oddRowColor',
         }
       );
 
