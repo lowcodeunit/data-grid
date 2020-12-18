@@ -196,6 +196,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    *
    */
   public ToggleSelection(config: DataGridConfigModel, col: ColumnDefinitionModel): boolean {
+
     return col.ColType === 'select';
   }
 
