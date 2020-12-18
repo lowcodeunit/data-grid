@@ -49,7 +49,11 @@
         <span *ngIf="column.ColType !== 'select'">
 
           <!--Toggle icons on and off-->
-          <i *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)"></i>
+          <i 
+            *ngIf="column.ShowIcon" 
+            class="dg-icons" 
+            [ngStyle]="{'color': column.IconColor}"
+            [ngClass]="column.SetIcon(item)"></i>
 
             <!--When adding a button to the table cell-->
             <button 
@@ -58,7 +62,7 @@
               [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''"
               class="cursor-pointer"
               (click)="column.Action.ActionHandler(item)">
-              <mat-icon>{{ column.SetIcon(item) }}</mat-icon>
+              <mat-icon [ngStyle]="{'color': column.IconColor}">{{ column.SetIcon(item) }}</mat-icon>
               <span 
                 *ngIf="column.Action.ActionLabel">
                 {{ column.Action.ActionLabel }}
@@ -67,11 +71,11 @@
 
             <!--When adding an href-->
             <a *ngIf="column.Action && column.Action.ActionType === 'href'"  
-              style="text-decoration:none;" 
-              href="{{ column.Action.ActionHandler(item) }}" 
-              target="_blank"
-              [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''">
-              <mat-icon>{{ column.SetIcon(item) }}</mat-icon>
+               style="text-decoration:none;" 
+               href="{{ column.Action.ActionHandler(item) }}" 
+               target="_blank"
+               [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''">
+              <mat-icon [ngStyle]="{'color': column.IconColor}">{{ column.SetIcon(item) }}</mat-icon>
             </a>
 
             <!--Toggle data value on and off and set pipes, if available-->

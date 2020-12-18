@@ -6,6 +6,7 @@ export class ColumnDefinitionModel {
   public ColWidth?: string;
   public ColBGColor?: string;
   public IconConfigFunc?: Function;
+  public IconColor?: string;
   public Pipe?: string;
   public Title: string;
   public ShowIcon?: boolean;
@@ -17,13 +18,15 @@ export class ColumnDefinitionModel {
  * @param Action Cell action
  * @param ColType Column data type
  * @param ColWidth Width of the column
- * @param ColBGColor color of cell
+ * @param ColBGColor Set color of cell
+ * @param IconConfigFunc Callback function for setting icons
+ * @param IconColor Set icon color
  * @param Title Column title
  * @param ShowValue Boolean for toggling icons
  * @param ShowIcon Boolean for toggling icons
  * @param Sortable Allow column to be sorted
  * @param Pipe String value of pipe to use
- * @param IconConfigFunc Callback function for setting icons
+
  */
 
 constructor(opts: ColumnDefinitionModel) {
