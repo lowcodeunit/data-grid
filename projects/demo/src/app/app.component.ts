@@ -118,7 +118,7 @@ export class AppComponent implements OnInit {
             Title: 'Action',
             ShowValue: true,
             ShowIcon: true,
-            IconColor: '#990000',
+            IconColor: 'accent-primary-text',
             IconConfigFunc: () => {
               return 'preview'; // function that returns the material icon to display
             },
