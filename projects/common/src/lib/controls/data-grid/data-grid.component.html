@@ -137,6 +137,8 @@
   <mat-paginator
     #paginator
     *ngIf="Config?.Features?.Paginator"
+    [length]="Config?.Features?.Paginator.Length"
+    [pageIndex]="Config?.Features?.Paginator.PageIndex"
     [pageSize]="Config?.Features?.Paginator.PageSize"
     [pageSizeOptions]="Config?.Features?.Paginator.PageSizeOptions"
     (page)="HandlePageChange($event)"
