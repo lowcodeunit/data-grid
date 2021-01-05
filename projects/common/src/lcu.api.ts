@@ -14,3 +14,5 @@ export * from './lib/models/dynamic-component.model';
 export * from './lib/services/dynamic-component.service';
 export * from './lib/models/dynamic-datasource.model';
 export * from './lib/models/column-definitions.model';
+export * from './lib/controls/no-grid-data/no-grid-data.component';
+export * from './lib/models/data-grid-no-data.model';

@@ -21,6 +21,7 @@ import { DynamicComponentService } from '../../services/dynamic-component.servic
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { DataGridConfigModel } from '../../models/data-grid-config.model';
+import { DynamicComponentModel } from '../../models/dynamic-component.model';
 
 @Component({
   selector: 'lcu-data-grid',
@@ -124,6 +125,8 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    * Toggle loading indicator
    */
   public ShowLoader: boolean = false;
+
+  public NoDataDynamicComponents: Array<DynamicComponentModel>;
 
   constructor(
     protected cdref: ChangeDetectorRef,
