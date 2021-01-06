@@ -117,11 +117,14 @@ export class AppComponent implements OnInit {
           {
             ColType: 'actions',
             ColWidth: '10px',
-            ColBGColor: '#ffcc11',
+            ColBGColor: '',
             Title: 'Action',
             ShowValue: true,
             ShowIcon: true,
-            IconConfigFunc: () => 'preview', // function that returns the material icon to display
+            IconColor: 'accent-primary-text',
+            IconConfigFunc: () => {
+              return 'preview'; // function that returns the material icon to display
+            },
             Action:
             {
               ActionHandler: this.RowDetails.bind(this),
