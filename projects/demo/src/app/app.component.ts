@@ -11,6 +11,7 @@ import { DepartureTableModel } from './models/departure-table-config.model';
 import { WeatherCloudService } from './services/weathercloud.service';
 import { of } from 'rxjs/internal/observable/of';
 import { JsonDisplayComponent } from './components/json-display/json-display.component';
+import { DummyTesterComponent } from './components/dummy-tester/dummy-tester.component';
 
 @Component({
   selector: 'lcu-root',
@@ -24,6 +25,8 @@ export class AppComponent implements OnInit {
   * Array for storing dynamic component that are added to grid row
   */
   public DynamicComponents: Array<DynamicComponentModel>;
+
+  public NoDataDynmaicComponents: Array<DynamicComponentModel>;
 
  /**
    * Parameters needed for the grid
@@ -114,11 +117,14 @@ export class AppComponent implements OnInit {
           {
             ColType: 'actions',
             ColWidth: '10px',
-            ColBGColor: '#ffcc11',
+            ColBGColor: '',
             Title: 'Action',
             ShowValue: true,
             ShowIcon: true,
-            IconConfigFunc: () => 'preview', // function that returns the material icon to display
+            IconColor: 'accent-primary-text',
+            IconConfigFunc: () => {
+              return 'preview'; // function that returns the material icon to display
+            },
             Action:
             {
               ActionHandler: this.RowDetails.bind(this),
@@ -161,7 +167,7 @@ export class AppComponent implements OnInit {
       this.SetupGridParameters();
 
       this.GridParameters = new DataGridConfigModel(
-          of(this.expandableData.StudentData), // mock observable
+          of(this.expandableData.EmptyData), // mock observable
           this.colunmDefsModel,
           this.GridFeatures
       );
@@ -183,6 +189,11 @@ export class AppComponent implements OnInit {
 
       const features: DataGridFeaturesModel = new DataGridFeaturesModel(
         {
+         NoData: {
+           Title: 'No Data',
+           Info: 'Testing no data info',
+           Component: DummyTesterComponent
+          },
          Paginator: paginationDetails,
          Filter: true,
          ShowLoader: true,
@@ -204,7 +215,13 @@ export class AppComponent implements OnInit {
           {
             Component: JsonDisplayComponent,
             Data: {},
-            Label: 'JSON Display' 
+            Label: 'JSON Display'
+          }),
+        new DynamicComponentModel(
+          {
+            Component: DummyTesterComponent,
+            Data: {},
+            Label: 'No data test component'
           })
       ];
     }
