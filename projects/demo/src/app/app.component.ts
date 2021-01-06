@@ -105,7 +105,6 @@ export class AppComponent implements OnInit {
             Title: 'Name',
             ShowValue: true,
             Pipe: (rowData: any) => {
-              console.log(rowData);
               return 'password';
             }
         }),
