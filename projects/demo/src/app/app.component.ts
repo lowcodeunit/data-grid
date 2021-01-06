@@ -11,6 +11,7 @@ import { DepartureTableModel } from './models/departure-table-config.model';
 import { WeatherCloudService } from './services/weathercloud.service';
 import { of } from 'rxjs/internal/observable/of';
 import { JsonDisplayComponent } from './components/json-display/json-display.component';
+import { DummyTesterComponent } from './components/dummy-tester/dummy-tester.component';
 
 @Component({
   selector: 'lcu-root',
@@ -24,6 +25,8 @@ export class AppComponent implements OnInit {
   * Array for storing dynamic component that are added to grid row
   */
   public DynamicComponents: Array<DynamicComponentModel>;
+
+  public NoDataDynmaicComponents: Array<DynamicComponentModel>;
 
  /**
    * Parameters needed for the grid
@@ -100,9 +103,11 @@ export class AppComponent implements OnInit {
           {
             ColType: 'name',
             Title: 'Name',
-            ShowValue: true
-          }
-        ),
+            ShowValue: true,
+            Pipe: (rowData: any) => {
+              return 'password';
+            }
+        }),
         new ColumnDefinitionModel(
           {
             ColType: 'age',
@@ -114,11 +119,14 @@ export class AppComponent implements OnInit {
           {
             ColType: 'actions',
             ColWidth: '10px',
-            ColBGColor: '#ffcc11',
+            ColBGColor: '',
             Title: 'Action',
             ShowValue: true,
             ShowIcon: true,
-            IconConfigFunc: () => 'preview', // function that returns the material icon to display
+            IconColor: 'accent-primary-text',
+            IconConfigFunc: () => {
+              return 'preview'; // function that returns the material icon to display
+            },
             Action:
             {
               ActionHandler: this.RowDetails.bind(this),
@@ -174,13 +182,20 @@ export class AppComponent implements OnInit {
 
       const paginationDetails: DataGridPaginationModel = new DataGridPaginationModel(
         {
-          PageSize: 10,
+          Length: 3,
+          PageIndex: 0,
+          PageSize: 1,
           PageSizeOptions: [1, 5, 10, 20, 30]
         }
       );
 
       const features: DataGridFeaturesModel = new DataGridFeaturesModel(
         {
+         NoData: {
+           Title: 'No Data',
+           Info: 'Testing no data info',
+           Component: DummyTesterComponent
+          },
          Paginator: paginationDetails,
          Filter: true,
          ShowLoader: true,
@@ -202,7 +217,13 @@ export class AppComponent implements OnInit {
           {
             Component: JsonDisplayComponent,
             Data: {},
-            Label: 'JSON Display' 
+            Label: 'JSON Display'
+          }),
+        new DynamicComponentModel(
+          {
+            Component: DummyTesterComponent,
+            Data: {},
+            Label: 'No data test component'
           })
       ];
     }

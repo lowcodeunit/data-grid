@@ -28,6 +28,7 @@ export class DynamicComponent<T> implements OnInit, OnDestroy  {
   @Input('data-source')
   public DataSource: DynamicDatasourceModel<T>;
 
+  protected _dynamicComponents: Array<DynamicComponentModel>;
   // tslint:disable-next-line:no-input-rename
   @Input('dynamic-components')
   set DynamicComponents(val: Array<DynamicComponentModel>) {
@@ -35,13 +36,19 @@ export class DynamicComponent<T> implements OnInit, OnDestroy  {
       return;
     }
 
+    this._dynamicComponents = val;
     this.dynamicComponentService.DynamicComponents = val;
+  }
+
+  get DynamicComponents(): Array<DynamicComponentModel> {
+    return this._dynamicComponents;
   }
 
   protected componentErrorSubscription: Subscription;
 
   @ViewChild('DynamicDisplayContainer', { read: ViewContainerRef, static: false })
   protected set dynamicDisplayContainer(content: ViewContainerRef) {
+
     if (content) {
       this.dynamicComponentService.DynamicDisplayContainer = content;
       this.renderComponent();
@@ -49,8 +56,8 @@ export class DynamicComponent<T> implements OnInit, OnDestroy  {
   }
 
   constructor(
-    protected componentFactoryResolver: ComponentFactoryResolver,
 
+    protected componentFactoryResolver: ComponentFactoryResolver,
     protected dynamicComponentService: DynamicComponentService
     ) { }
 
@@ -80,6 +87,7 @@ export class DynamicComponent<T> implements OnInit, OnDestroy  {
    * @param index position in array to target
    */
   protected renderComponent(index: number = 0) {
+
     if (!this.dynamicComponentService.DynamicComponents ||
         !this.dynamicComponentService.DynamicDisplayContainer ||
         !this.arrayHasIndex(this.dynamicComponentService.DynamicComponents, index)) {

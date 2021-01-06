@@ -21,6 +21,7 @@ import { DynamicComponentService } from '../../services/dynamic-component.servic
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { DataGridConfigModel } from '../../models/data-grid-config.model';
+import { DynamicComponentModel } from '../../models/dynamic-component.model';
 
 @Component({
   selector: 'lcu-data-grid',
@@ -125,6 +126,8 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    */
   public ShowLoader: boolean = false;
 
+  public NoDataDynamicComponents: Array<DynamicComponentModel>;
+
   constructor(
     protected cdref: ChangeDetectorRef,
     protected componentFactoryResolver: ComponentFactoryResolver,
@@ -196,6 +199,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    *
    */
   public ToggleSelection(config: DataGridConfigModel, col: ColumnDefinitionModel): boolean {
+
     return col.ColType === 'select';
   }
 
@@ -224,6 +228,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
  * @param event page change event
  */
   public HandlePageChange(event: Event): void {
+    // console.log("page event: ", event)
     this.PageEvent.emit(event);
   }
 

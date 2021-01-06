@@ -1,3 +1,24 @@
+<!-- When there isn't data -->
+  <!-- Use the config to pass in some values -->
+  <lcu-no-grid-data 
+    *ngIf="dataSource.data.length < 1 
+           && Config?.Features?.NoData?.Title"
+    [config]="Config">
+  </lcu-no-grid-data>
+
+  <!-- Use content projection to pass something in -->
+  <ng-template #content>
+    <ng-content></ng-content>
+  </ng-template>
+  <ng-container 
+    *ngTemplateOutlet="dataSource.data.length < 1 
+                       && Config?.Features?.NoData?.ShowInline ? content: null">
+  </ng-container>
+
+
+
+
+<div *ngIf="dataSource.data.length > 1">
 <div fxLayoutAlign=" start">
   <mat-form-field *ngIf="Config?.Features?.Filter" class="filter-field">
     <input matInput type="text" (keyup)="ApplyFilter($event.target.value)" placeholder="Filter">
@@ -39,7 +60,7 @@
 
       <td mat-cell *matCellDef="let item" 
           [ngStyle]="{'width': column.ColWidth ? column.ColWidth : null,
-                  'background-color' : column.ColBGColor ? column.ColBGColor : null}">
+                      'background-color' : column.ColBGColor ? column.ColBGColor : null}">
         <mat-checkbox *ngIf="ToggleSelection(Config, column)"
                       (click)="$event.stopPropagation()"
                       (change)="$event ? selection.toggle(item) : null"
@@ -49,7 +70,13 @@
         <span *ngIf="column.ColType !== 'select'">
 
           <!--Toggle icons on and off-->
-          <i *ngIf="column.ShowIcon" class="dg-icons" [ngClass]="column.SetIcon(item)"></i>
+          <i 
+            *ngIf="column.ShowIcon" 
+            class="dg-icons" 
+            [ngStyle]="{'color': column.IconColor}"
+            [ngClass]="column.SetIcon(item)"
+            [ngClass]="column.IconColor">
+          </i>
 
             <!--When adding a button to the table cell-->
             <button 
@@ -58,7 +85,10 @@
               [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''"
               class="cursor-pointer"
               (click)="column.Action.ActionHandler(item)">
-              <mat-icon>{{ column.SetIcon(item) }}</mat-icon>
+              <mat-icon 
+                [ngStyle]="{'color': column.IconColor}"
+                [ngClass]="column.IconColor">
+                {{ column.SetIcon(item) }}</mat-icon>
               <span 
                 *ngIf="column.Action.ActionLabel">
                 {{ column.Action.ActionLabel }}
@@ -67,16 +97,20 @@
 
             <!--When adding an href-->
             <a *ngIf="column.Action && column.Action.ActionType === 'href'"  
-              style="text-decoration:none;" 
-              href="{{ column.Action.ActionHandler(item) }}" 
-              target="_blank"
-              [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''">
-              <mat-icon>{{ column.SetIcon(item) }}</mat-icon>
+               style="text-decoration:none;" 
+               href="{{ column.Action.ActionHandler(item) }}" 
+               target="_blank"
+               [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''">
+              <mat-icon 
+                [ngStyle]="{'color': column.IconColor}"
+                [ngClass]="column.IconColor">
+                {{ column.SetIcon(item) }}
+              </mat-icon>
             </a>
 
             <!--Toggle data value on and off and set pipes, if available-->
             <!--column.pipe value comes from columnDefinition-->
-          <span *ngIf="column.ShowValue">{{ item[column.ColType] | dataPipes: column.Pipe }}</span>
+          <span *ngIf="column.ShowValue">{{ item[column.ColType] | dataPipes: column.SetPipe(item, column.Pipe) }}</span>
         </span>
       </td>
     </ng-container>
@@ -137,6 +171,8 @@
   <mat-paginator
     #paginator
     *ngIf="Config?.Features?.Paginator"
+    [length]="Config?.Features?.Paginator.Length"
+    [pageIndex]="Config?.Features?.Paginator.PageIndex"
     [pageSize]="Config?.Features?.Paginator.PageSize"
     [pageSizeOptions]="Config?.Features?.Paginator.PageSizeOptions"
     (page)="HandlePageChange($event)"
@@ -144,3 +180,4 @@
   </mat-paginator>
 </div>
 
+</div>

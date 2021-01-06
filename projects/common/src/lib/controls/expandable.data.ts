@@ -71,4 +71,6 @@ export class ExpandableData {
            ]
         }
      ];
+
+     public EmptyData: Array<{}> = [];
 }
