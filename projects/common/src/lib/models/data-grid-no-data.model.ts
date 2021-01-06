@@ -3,10 +3,11 @@
  * Model for handling no data in the grid
  */
 export class DataGridNoDataModel {
+
     /**
-     * Message title
+     * Dynamic component to pass in
      */
-    public Title?: string;
+    public Component?: any;
 
     /**
      * No data message
@@ -14,7 +15,13 @@ export class DataGridNoDataModel {
     public Info?: string;
 
     /**
-     * Dynamic component to pass in
+     * Display message inline, using content projection
      */
-    public Component?: any;
+    public ShowInline?: boolean;
+
+    /**
+     * Message title
+     */
+    public Title?: string;
+
 }
