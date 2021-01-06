@@ -224,7 +224,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
  * @param event page change event
  */
   public HandlePageChange(event: Event): void {
-    console.log("page event: ", event)
+    // console.log("page event: ", event)
     this.PageEvent.emit(event);
   }
 
