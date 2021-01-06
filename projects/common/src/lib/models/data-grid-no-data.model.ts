@@ -17,7 +17,7 @@ export class DataGridNoDataModel {
     /**
      * Display message inline, using content projection
      */
-    public ShowInline: boolean;
+    public ShowInline?: boolean;
 
     /**
      * Message title
