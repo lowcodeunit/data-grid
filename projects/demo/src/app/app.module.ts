@@ -1,3 +1,4 @@
+import { DummyTesterComponent } from './components/dummy-tester/dummy-tester.component';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -12,7 +13,8 @@ import { JsonDisplayComponent } from './components/json-display/json-display.com
 @NgModule({
   declarations: [
     AppComponent,
-    JsonDisplayComponent
+    JsonDisplayComponent,
+    DummyTesterComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,7 @@ import { JsonDisplayComponent } from './components/json-display/json-display.com
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports: [JsonDisplayComponent],
-  entryComponents: [JsonDisplayComponent]
+  exports: [JsonDisplayComponent, DummyTesterComponent],
+  entryComponents: [JsonDisplayComponent, DummyTesterComponent]
 })
 export class AppModule { }
