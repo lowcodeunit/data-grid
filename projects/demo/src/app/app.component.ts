@@ -103,9 +103,11 @@ export class AppComponent implements OnInit {
           {
             ColType: 'name',
             Title: 'Name',
-            ShowValue: true
-          }
-        ),
+            ShowValue: true,
+            Pipe: (rowData: any) => {
+              return 'password';
+            }
+        }),
         new ColumnDefinitionModel(
           {
             ColType: 'age',
@@ -167,7 +169,7 @@ export class AppComponent implements OnInit {
       this.SetupGridParameters();
 
       this.GridParameters = new DataGridConfigModel(
-          of(this.expandableData.EmptyData), // mock observable
+          of(this.expandableData.StudentData), // mock observable
           this.colunmDefsModel,
           this.GridFeatures
       );
