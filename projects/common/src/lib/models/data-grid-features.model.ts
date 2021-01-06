@@ -1,8 +1,10 @@
+import { DataGridNoDataModel } from './data-grid-no-data.model';
 import { DataGridPaginationModel } from './data-grid-pagination.model';
 
 /**Datagrid Features */
 export class DataGridFeaturesModel {
 
+    public NoData?: DataGridNoDataModel;
     public Filter?: boolean;
     public Highlight?: string;
     public Paginator?: DataGridPaginationModel;
