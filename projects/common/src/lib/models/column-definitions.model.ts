@@ -7,7 +7,7 @@ export class ColumnDefinitionModel {
   public ColBGColor?: string;
   public IconConfigFunc?: Function;
   public IconColor?: string;
-  public Pipe?: string;
+  public Pipe?: string | Function;
   public Title: string;
   public ShowIcon?: boolean;
   public ShowValue?: boolean;
@@ -43,6 +43,15 @@ constructor(opts: ColumnDefinitionModel) {
     if (this.ShowIcon && this.IconConfigFunc) {
      return this.IconConfigFunc(colObj, this.ColType);
     }
+  }
+
+  public SetPipe?<T>(colObj: T, val: any): any {
+
+    if (this.Pipe && typeof this.Pipe !== 'string') {
+      return this.Pipe(colObj, this.ColType);
+     }
+
+     return val;
   }
 }
 

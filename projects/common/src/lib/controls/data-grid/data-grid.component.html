@@ -110,7 +110,7 @@
 
             <!--Toggle data value on and off and set pipes, if available-->
             <!--column.pipe value comes from columnDefinition-->
-          <span *ngIf="column.ShowValue">{{ item[column.ColType] | dataPipes: column.Pipe }}</span>
+          <span *ngIf="column.ShowValue">{{ item[column.ColType] | dataPipes: column.SetPipe(item, column.Pipe) }}</span>
         </span>
       </td>
     </ng-container>
