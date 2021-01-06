@@ -1,3 +1,22 @@
+<!-- When there isn't data -->
+  <!-- Use the config to pass in some values -->
+  <lcu-no-grid-data 
+    *ngIf="dataSource.data.length < 1 && Config?.Features?.NoData"
+    [config]="Config">
+  </lcu-no-grid-data>
+
+  <!-- Use content projection to pass something in -->
+  <ng-template #content>
+    <ng-content></ng-content>
+  </ng-template>
+  <ng-container 
+    *ngTemplateOutlet="dataSource.data.length < 1 && Config?.Features?.NoData ? content: null">
+  </ng-container>
+
+
+
+
+<div *ngIf="dataSource.data.length > 1">
 <div fxLayoutAlign=" start">
   <mat-form-field *ngIf="Config?.Features?.Filter" class="filter-field">
     <input matInput type="text" (keyup)="ApplyFilter($event.target.value)" placeholder="Filter">
@@ -144,3 +163,4 @@
   </mat-paginator>
 </div>
 
+</div>

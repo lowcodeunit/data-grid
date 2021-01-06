@@ -7,12 +7,14 @@ import { ExpandDataGridComponent } from './controls/expand-data-grid/expand-data
 import { ExpandableData } from './controls/expandable.data';
 import { FlexModule } from '@angular/flex-layout';
 import { DynamicComponent } from './controls/dynamic-component/dynamic.component';
+import { NoGridDataComponent } from './controls/no-grid-data/no-grid-data.component';
 
 @NgModule({
   declarations: [
     DataGridComponent,
     ExpandDataGridComponent,
-    DynamicComponent
+    DynamicComponent,
+    NoGridDataComponent
   ],
   imports: [
     CommonModule,
@@ -29,13 +31,15 @@ import { DynamicComponent } from './controls/dynamic-component/dynamic.component
   [
     DataGridComponent,
     ExpandDataGridComponent,
-    DynamicComponent
+    DynamicComponent,
+    NoGridDataComponent
   ],
   entryComponents:
   [
     DataGridComponent,
     ExpandDataGridComponent,
-    DynamicComponent
+    DynamicComponent,
+    NoGridDataComponent
   ]
 })
 export class DataGridModule { }
