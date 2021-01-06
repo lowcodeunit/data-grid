@@ -180,7 +180,9 @@ export class AppComponent implements OnInit {
 
       const paginationDetails: DataGridPaginationModel = new DataGridPaginationModel(
         {
-          PageSize: 10,
+          Length: 3,
+          PageIndex: 0,
+          PageSize: 1,
           PageSizeOptions: [1, 5, 10, 20, 30]
         }
       );
