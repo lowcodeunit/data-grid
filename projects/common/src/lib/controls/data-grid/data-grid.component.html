@@ -1,7 +1,8 @@
 <!-- When there isn't data -->
   <!-- Use the config to pass in some values -->
   <lcu-no-grid-data 
-    *ngIf="dataSource.data.length < 1 && Config?.Features?.NoData"
+    *ngIf="dataSource.data.length < 1 
+           && Config?.Features?.NoData?.Title"
     [config]="Config">
   </lcu-no-grid-data>
 
@@ -10,7 +11,8 @@
     <ng-content></ng-content>
   </ng-template>
   <ng-container 
-    *ngTemplateOutlet="dataSource.data.length < 1 && Config?.Features?.NoData ? content: null">
+    *ngTemplateOutlet="dataSource.data.length < 1 
+                       && Config?.Features?.NoData?.ShowInline ? content: null">
   </ng-container>
 
 
