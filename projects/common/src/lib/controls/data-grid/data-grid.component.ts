@@ -21,7 +21,6 @@ import { DynamicComponentService } from '../../services/dynamic-component.servic
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { DataGridConfigModel } from '../../models/data-grid-config.model';
-import { DynamicComponentModel } from '../../models/dynamic-component.model';
 
 @Component({
   selector: 'lcu-data-grid',
@@ -110,10 +109,19 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    */
   public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
+  /**
+   * Even row color
+   */
   public RowColorEven: string;
 
+  /**
+   * Odd row color
+   */
   public RowColorOdd: string;
 
+  /**
+   * Row hover toggle
+   */
   public RowHover: boolean;
 
   /**
@@ -125,8 +133,6 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    * Toggle loading indicator
    */
   public ShowLoader: boolean = false;
-
-  public NoDataDynamicComponents: Array<DynamicComponentModel>;
 
   constructor(
     protected cdref: ChangeDetectorRef,
@@ -228,18 +234,8 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
  * @param event page change event
  */
   public HandlePageChange(event: Event): void {
-    // console.log("page event: ", event)
+
     this.PageEvent.emit(event);
-  }
-
-  /**
-   * Handle click on the row itself
-   * 
-   * @param val row data 
-   */
-  public ElementClicked(val: ColumnDefinitionModel): void {
-
-    // val['$IsExpanded'] = !val['$IsExpanded'];
   }
 
   /**
@@ -259,6 +255,20 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
         return this.RowColorOdd;
       }
     }
+  }
+
+  /**
+   * Check if NoData message should be shown inline,
+   * this uses content projection
+   */
+  public ShowInline(): boolean {
+
+   if (!this.dataSource || this.dataSource.data.length < 1 
+    && (this.Config && this.Config?.Features?.NoData?.ShowInline)) {
+      return true;
+    }
+
+   return false;
   }
 
   /**
