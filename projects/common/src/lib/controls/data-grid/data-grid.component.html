@@ -1,18 +1,22 @@
 <!-- When there isn't data -->
   <!-- Use the config to pass in some values -->
-  <lcu-no-grid-data 
+
+  <!--
+    TODO: Get dynamic components working -shannon 
+  -->
+  <!-- <lcu-no-grid-data 
     *ngIf="dataSource.data.length < 1 
            && Config?.Features?.NoData?.Title"
     [config]="Config">
-  </lcu-no-grid-data>
+  </lcu-no-grid-data> -->
 
   <!-- Use content projection to pass something in -->
   <ng-template #content>
     <ng-content></ng-content>
   </ng-template>
   <ng-container 
-    *ngTemplateOutlet="dataSource.data.length < 1 
-                       && Config?.Features?.NoData?.ShowInline ? content: null">
+ 
+    *ngTemplateOutlet="ShowInline() ? content: null">
   </ng-container>
 
 
@@ -110,7 +114,9 @@
 
             <!--Toggle data value on and off and set pipes, if available-->
             <!--column.pipe value comes from columnDefinition-->
-          <span *ngIf="column.ShowValue">{{ item[column.ColType] | dataPipes: column.SetPipe(item, column.Pipe) }}</span>
+          <span *ngIf="column.ShowValue">
+            {{ item[column.ColType] | dataPipes: column.SetPipe(item, column.Pipe) }}
+          </span>
         </span>
       </td>
     </ng-container>
