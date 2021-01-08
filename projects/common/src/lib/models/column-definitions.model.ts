@@ -36,6 +36,7 @@ constructor(opts: ColumnDefinitionModel) {
 
   /**
    * Toggle icons or data values on / off
+   * 
    * @param colObj Each item coming from the grid rows
    */
   public SetIcon?<T>(colObj: T): void {
@@ -45,7 +46,13 @@ constructor(opts: ColumnDefinitionModel) {
     }
   }
 
-  public SetPipe?<T>(colObj: T, val: any): any {
+  /**
+   * Setting a data pipe to the cell value, can be a function or a string
+   * 
+   * @param colObj row data
+   * @param val string value if the function isn't being used
+   */
+  public SetPipe?<T>(colObj: T, val: string): any {
 
     if (this.Pipe && typeof this.Pipe !== 'string') {
       return this.Pipe(colObj, this.ColType);
