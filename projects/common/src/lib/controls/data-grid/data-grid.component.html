@@ -15,7 +15,6 @@
     <ng-content></ng-content>
   </ng-template>
   <ng-container 
- 
     *ngTemplateOutlet="ShowInline() ? content: null">
   </ng-container>
 
@@ -42,7 +41,8 @@
           mat-header-cell 
           *matHeaderCellDef 
           mat-sort-header 
-          [disabled]="!column.Sortable" >
+          [disabled]="!column.Sortable" 
+          class="padding-right-3">
 
           <!--
             Show select checkbox in the header
@@ -59,8 +59,9 @@
           {{ column.Title }}
         </th>
 
-        <td mat-cell *matCellDef="let item" 
-            [ngStyle]="{'width': column.ColWidth ? column.ColWidth : null,
+        <td mat-cell *matCellDef="let item"
+            class="padding-right-3"
+            [ngStyle]="{'width': CellWidth(column),
                         'background-color' : column.ColBGColor ? column.ColBGColor : null}">
           <mat-checkbox *ngIf="ToggleSelection(Config, column)"
                         (click)="$event.stopPropagation()"

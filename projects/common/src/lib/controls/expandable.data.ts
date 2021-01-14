@@ -26,7 +26,7 @@ export class ExpandableData {
         },
         {
            'id':2,
-           'name':'Jabari Fritsch',
+           'name':'Jabari Fritsch asfas fasdfasfasfas sfdsdf asfasdf asdf asdf sdf ',
            'age':20,
            'address':1.0079,
            'subjects':[

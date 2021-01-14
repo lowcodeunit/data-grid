@@ -30,7 +30,7 @@ import { DataGridConfigModel } from '../../models/data-grid-config.model';
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
       state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      transition('expanded <=> collapsed', animate('500ms ease-in-out')),
     ]),
   ]
 })
@@ -269,6 +269,15 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
     }
 
    return false;
+  }
+
+  public CellWidth(col: ColumnDefinitionModel): string {
+
+    if (col.ColWidth) {
+      return col.ColWidth.includes('px') ? col.ColWidth : col.ColWidth + 'px';
+    }
+
+    return '';
   }
 
   /**

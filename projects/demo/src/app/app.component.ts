@@ -105,7 +105,7 @@ export class AppComponent implements OnInit {
             Title: 'Name',
             ShowValue: true,
             Pipe: (rowData: any) => {
-              return 'password';
+              return '';
             }
         }),
         new ColumnDefinitionModel(
@@ -118,7 +118,7 @@ export class AppComponent implements OnInit {
         new ColumnDefinitionModel(
           {
             ColType: 'actions',
-            ColWidth: '10px',
+            ColWidth: '10',
             ColBGColor: '',
             Title: 'Action',
             ShowValue: true,
@@ -157,7 +157,6 @@ export class AppComponent implements OnInit {
      * TODO: move off the data mutation to something better, maybe for Jack - shannon
      */
     protected RowDetails(val: ColumnDefinitionModel): void {
-
       val['$IsExpanded'] = !val['$IsExpanded'];
     }
 
@@ -169,7 +168,7 @@ export class AppComponent implements OnInit {
       this.SetupGridParameters();
 
       this.GridParameters = new DataGridConfigModel(
-          of(this.expandableData.EmptyData), // mock observable
+          of(this.expandableData.StudentData), // mock observable
           this.colunmDefsModel,
           this.GridFeatures
       );
