@@ -3,6 +3,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import {
+  BreakpointObserver
+} from '@angular/cdk/layout';
 
 import { Component,
   ViewChild,
@@ -30,7 +33,7 @@ import { DataGridConfigModel } from '../../models/data-grid-config.model';
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
       state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      transition('expanded <=> collapsed', animate('500ms ease-in-out')),
     ]),
   ]
 })
@@ -107,7 +110,9 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
   /**
    * Grid data source
    */
-  public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+  public dataSource: MatTableDataSource<ColumnDefinitionModel>;
+
+  public IsMobile: boolean;
 
   /**
    * Even row color
@@ -137,9 +142,23 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
   constructor(
     protected cdref: ChangeDetectorRef,
     protected componentFactoryResolver: ComponentFactoryResolver,
-    protected dynamicComponentService: DynamicComponentService) {
+    protected dynamicComponentService: DynamicComponentService,
+    protected breakpointObserver: BreakpointObserver) {
+
     super(componentFactoryResolver, dynamicComponentService);
+
+    this.dataSource = new MatTableDataSource<ColumnDefinitionModel>();
     this.PageEvent = new EventEmitter();
+
+    breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
+      // 
+    
+      this.IsMobile = result.matches;
+      // debugger;
+      // this.displayedColumns = result.matches
+      //   ? ['position', 'name', 'weight']
+      //   : ['position', 'name', 'weight', 'symbol'];
+    });
   }
 
   /**
@@ -166,7 +185,6 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    * When sorting is set in columnDef
    */
   public Sorting(evt?: Event): void {
-
     this.dataSource.sort = this.sort;
   }
 
@@ -180,7 +198,8 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
       return;
     }
 
-    this.dataSource.paginator =  this.paginator;
+    // this.dataSource.paginator =  this.paginator;
+
   }
 
   /**
@@ -271,6 +290,15 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    return false;
   }
 
+  public CellWidth(col: ColumnDefinitionModel): string {
+
+    if (col.ColWidth) {
+      return col.ColWidth.includes('px') ? col.ColWidth : col.ColWidth + 'px';
+    }
+
+    return '';
+  }
+
   /**
    * @param val property to toggle loading indicator
    */
@@ -287,7 +315,6 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    * Set grid data
    */
   protected setData(): void {
-
     if (!this.Config || !this.Config.ColumnDefs) {
       return;
     }
@@ -302,7 +329,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
         // service is passed in from parent component using the grid
        this.Config.Service
         .subscribe((res: any) => {
-          this.dataSource.data = res;
+          this.dataSource.data = [...res];
         }, (err: any) => {
           return throwError(err);
         }, () => {
@@ -325,6 +352,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
 
       return itm.ColType;
     });
+
   }
 
   /**

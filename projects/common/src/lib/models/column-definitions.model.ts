@@ -12,6 +12,7 @@ export class ColumnDefinitionModel {
   public ShowIcon?: boolean;
   public ShowValue?: boolean;
   public Sortable?: boolean;
+  public Width?: number;
 
 /**
  * Constructor for Grid column definitions
@@ -26,6 +27,7 @@ export class ColumnDefinitionModel {
  * @param ShowIcon Boolean for toggling icons
  * @param Sortable Allow column to be sorted
  * @param Pipe String value of pipe to use
+ * @param Width Cell width
 
  */
 
