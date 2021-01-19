@@ -181,8 +181,8 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
       return;
     }
 
-    this.dataSource.paginator =  this.paginator;
-    console.log("PAGINATOR: ", this.dataSource.paginator);
+    // this.dataSource.paginator =  this.paginator;
+    // console.log("PAGINATOR: ", this.dataSource.paginator);
 
   }
 
