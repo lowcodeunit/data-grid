@@ -1,5 +1,32 @@
 export class ExpandableData {
-    public StudentData: Array<{}> =
+   public StudentDataOne: Array<{}> = 
+   [
+      {
+         'id':1,
+         'name':'Abby Jaskolski ',
+         'age':21,
+         'address':1.0079,
+         'subjects':[
+            {
+               'name':'Bio',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'Chemistry',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'Physics',
+               'type':'Medical',
+               'grade':'A'
+            }
+         ]
+      }
+   ];
+   
+   public StudentData: Array<{}> =
      [
         {
            'id':1,
