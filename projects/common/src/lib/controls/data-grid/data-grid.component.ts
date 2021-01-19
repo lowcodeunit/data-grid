@@ -166,7 +166,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    * When sorting is set in columnDef
    */
   public Sorting(evt?: Event): void {
-
+    console.log("DATA SOURCE: ", this.dataSource)
     this.dataSource.sort = this.sort;
   }
 
@@ -177,10 +177,13 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
   public Pagination(): void {
 
     if (!this.Config || !this.Config.Features || !this.Config.Features.Paginator) {
+      console.log("RETURNING: ", this.Config)
       return;
     }
 
     this.dataSource.paginator =  this.paginator;
+    console.log("PAGINATOR: ", this.dataSource.paginator);
+
   }
 
   /**
@@ -287,6 +290,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    * Set grid data
    */
   protected setData(): void {
+    console.log("SET DATA Config: ", this.Config)
 
     if (!this.Config || !this.Config.ColumnDefs) {
       return;
@@ -325,6 +329,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
 
       return itm.ColType;
     });
+
   }
 
   /**

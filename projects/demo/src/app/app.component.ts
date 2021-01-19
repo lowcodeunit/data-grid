@@ -169,7 +169,7 @@ export class AppComponent implements OnInit {
       this.SetupGridParameters();
 
       this.GridParameters = new DataGridConfigModel(
-          of(this.expandableData.EmptyData), // mock observable
+          of(this.expandableData.StudentData), // mock observable
           this.colunmDefsModel,
           this.GridFeatures
       );
@@ -182,7 +182,7 @@ export class AppComponent implements OnInit {
 
       const paginationDetails: DataGridPaginationModel = new DataGridPaginationModel(
         {
-          Length: 3,
+          Length: 12,
           PageIndex: 0,
           PageSize: 1,
           PageSizeOptions: [1, 5, 10, 20, 30]
