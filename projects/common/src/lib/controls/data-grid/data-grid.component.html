@@ -64,6 +64,9 @@
                  fxLayoutGap="10px"
                  fxLayoutAlign="start center">
         
+                 <!-- 
+                   In mobile mode add column name next to the values
+                  -->
               <div *ngIf="IsMobile === true">{{column.Title }}: </div>
 
             <!--Toggle icons on and off-->
