@@ -2,6 +2,7 @@ import { ExpandableData } from '../expandable.data';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { bindCallback } from 'rxjs';
 
 @Component({
   selector: 'lcu-expand-data-grid',
