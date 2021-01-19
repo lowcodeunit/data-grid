@@ -1,16 +1,5 @@
 <!-- When there isn't data -->
-  <!-- Use the config to pass in some values -->
-
-  <!--
-    TODO: Get dynamic components working -shannon 
-  -->
-  <!-- <lcu-no-grid-data 
-    *ngIf="dataSource.data.length < 1 
-           && Config?.Features?.NoData?.Title"
-    [config]="Config">
-  </lcu-no-grid-data> -->
-
-  <!-- Use content projection to pass something in -->
+<!-- Use content projection to pass something in -->
   <ng-template #content>
     <ng-content></ng-content>
   </ng-template>
@@ -42,7 +31,7 @@
           *matHeaderCellDef 
           mat-sort-header 
           [disabled]="!column.Sortable" 
-          class="padding-right-3">
+          class="padding-right-3 mobile-label">
 
           <!--
             Show select checkbox in the header
@@ -56,7 +45,7 @@
           <!--
             Show the header title
           -->
-          {{ column.Title }}
+         {{ column.Title }}
         </th>
 
         <td mat-cell *matCellDef="let item"
@@ -71,6 +60,12 @@
 
           <span *ngIf="column.ColType !== 'select'">
 
+            <div fxLayout="row" 
+                 fxLayoutGap="10px"
+                 fxLayoutAlign="start center">
+        
+              <div *ngIf="IsMobile === true">{{column.Title }}: </div>
+
             <!--Toggle icons on and off-->
             <i 
               *ngIf="column.ShowIcon" 
@@ -80,41 +75,42 @@
               [ngClass]="column.IconColor">
             </i>
 
-              <!--When adding a button to the table cell-->
-              <button 
-                *ngIf="column.Action && column.Action.ActionType === 'button'" 
-                mat-button 
-                [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''"
-                class="cursor-pointer"
-                (click)="column.Action.ActionHandler(item)">
-                <mat-icon 
-                  [ngStyle]="{'color': column.IconColor}"
-                  [ngClass]="column.IconColor">
-                  {{ column.SetIcon(item) }}</mat-icon>
-                <span 
-                  *ngIf="column.Action.ActionLabel">
-                  {{ column.Action.ActionLabel }}
-                </span>
-              </button>
+            <!--When adding a button to the table cell-->
+            <button 
+              *ngIf="column.Action && column.Action.ActionType === 'button'" 
+              mat-button 
+              [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''"
+              class="cursor-pointer"
+              (click)="column.Action.ActionHandler(item)">
+              <mat-icon 
+                [ngStyle]="{'color': column.IconColor}"
+                [ngClass]="column.IconColor">
+                {{ column.SetIcon(item) }}</mat-icon>
+              <span 
+                *ngIf="column.Action.ActionLabel">
+                {{ column.Action.ActionLabel }}
+              </span>
+            </button>
 
-              <!--When adding an href-->
-              <a *ngIf="column.Action && column.Action.ActionType === 'href'"  
-                style="text-decoration:none;" 
-                href="{{ column.Action.ActionHandler(item) }}" 
-                target="_blank"
-                [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''">
-                <mat-icon 
-                  [ngStyle]="{'color': column.IconColor}"
-                  [ngClass]="column.IconColor">
-                  {{ column.SetIcon(item) }}
-                </mat-icon>
-              </a>
+            <!--When adding an href-->
+            <a *ngIf="column.Action && column.Action.ActionType === 'href'"  
+              style="text-decoration:none;" 
+              href="{{ column.Action.ActionHandler(item) }}" 
+              target="_blank"
+              [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''">
+              <mat-icon 
+                [ngStyle]="{'color': column.IconColor}"
+                [ngClass]="column.IconColor">
+                {{ column.SetIcon(item) }}
+              </mat-icon>
+            </a>
 
-              <!--Toggle data value on and off and set pipes, if available-->
-              <!--column.pipe value comes from columnDefinition-->
-            <span *ngIf="column.ShowValue">
-              {{ item[column.ColType] | dataPipes: column.SetPipe(item, column.Pipe) }}
-            </span>
+            <!--Toggle data value on and off and set pipes, if available-->
+            <!--column.pipe value comes from columnDefinition-->
+              <span *ngIf="column.ShowValue">
+                {{ item[column.ColType] | dataPipes: column.SetPipe(item, column.Pipe) }}
+              </span>
+            </div>
           </span>
         </td>
       </ng-container>
@@ -140,7 +136,7 @@
         mat-header-row 
         *matHeaderRowDef="displayedColumns;sticky: true">
       </tr>
-      <tr 
+      <tr
         mat-row *matRowDef="let element; 
           let odd = odd;
           let even = even;
@@ -152,16 +148,8 @@
         class="details-element-row"
         [className]="Config?.Features?.Highlight"
       >
-      <!-- TODO: figure out alternating row color with highlight and alternating row color with expand -shannon -->
-      <!-- [ngClass]="{alternate: index % 2 == 0 }" -->
-      <!-- [ngClass]="{evenRowColor: even}" -->
-      <!-- [ngClass]="even ? Config?.Features?.RowColorEven : Config?.Features?.RowColorOdd" -->
-      <!-- [className]="Config?.Features?.Highlight" -->
-      <!-- <div (mouseover)="hover=true" (mouseleave)="hover=false">
-            <span [ngStyle]="{backgroundColor: hover==true  ? 'lightgrey' : 'grey' }">hello {{ hover }}</span>
-            </div> -->
       </tr>
-      <div *ngIf="Expand">
+      <div *ngIf="Expand" style="position: relative; display: block;">
         <tr 
           mat-row 
           *matRowDef="let row; 

@@ -3,6 +3,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import {
+  BreakpointObserver
+} from '@angular/cdk/layout';
 
 import { Component,
   ViewChild,
@@ -107,7 +110,9 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
   /**
    * Grid data source
    */
-  public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+  public dataSource: MatTableDataSource<ColumnDefinitionModel>;
+
+  public IsMobile: boolean;
 
   /**
    * Even row color
@@ -137,9 +142,23 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
   constructor(
     protected cdref: ChangeDetectorRef,
     protected componentFactoryResolver: ComponentFactoryResolver,
-    protected dynamicComponentService: DynamicComponentService) {
+    protected dynamicComponentService: DynamicComponentService,
+    protected breakpointObserver: BreakpointObserver) {
+
     super(componentFactoryResolver, dynamicComponentService);
+
+    this.dataSource = new MatTableDataSource<ColumnDefinitionModel>();
     this.PageEvent = new EventEmitter();
+
+    breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
+      // 
+    
+      this.IsMobile = result.matches;
+      // debugger;
+      // this.displayedColumns = result.matches
+      //   ? ['position', 'name', 'weight']
+      //   : ['position', 'name', 'weight', 'symbol'];
+    });
   }
 
   /**
@@ -311,7 +330,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
         // service is passed in from parent component using the grid
        this.Config.Service
         .subscribe((res: any) => {
-          this.dataSource.data = res;
+          this.dataSource.data = [...res];
         }, (err: any) => {
           return throwError(err);
         }, () => {
