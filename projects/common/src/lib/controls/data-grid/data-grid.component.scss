@@ -1,27 +1,60 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
-.filter-field {
-  font-size: 14px;
-  width: 100%;
-}
+:host {
+  .filter-field {
+    font-size: 14px;
+    width: 100%;
+  }
 
-.mat-column-select {
-  overflow: initial;
-}
+  .mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
+    min-width: auto;
+    padding: 0;
+    margin: 0;
+  }
 
-.dg-icons {
-font-size: 27px;
-margin-right: 5px;
-}
+  .mat-column-select {
+    overflow: initial;
+  }
 
-.details-row {
-  height: 0;
-}
+  .dg-icons {
+  // font-size: 27px;
+  // margin-right: 5px;
+  }
 
-.details-element-row td {
-  border-bottom-width: 0;
-}
+  .details-row {
+    height: 0;
+  }
 
-.details-con {
-  overflow: hidden;
+  .details-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .details-con {
+    overflow: hidden;
+  }
+
+ @mixin mat-cell-mobile {
+  display: flex;
+  padding-left: 10px;
+  padding-top: 10px;
+  flex-direction: column;
+ }
+
+ .mobile-cell {
+  @include mat-cell-mobile;
+ }
+
+  @media (max-width: 600px) {
+    .mat-cell {
+      @include mat-cell-mobile;
+    }
+
+    .mobile-label {
+      display: none;
+    }
+ 
+  }
+  
+  
+  
 }

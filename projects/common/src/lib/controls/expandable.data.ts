@@ -1,5 +1,32 @@
 export class ExpandableData {
-    public StudentData: Array<{}> =
+   public StudentDataOne: Array<{}> = 
+   [
+      {
+         'id':1,
+         'name':'Abby Jaskolski ',
+         'age':21,
+         'address':1.0079,
+         'subjects':[
+            {
+               'name':'Bio',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'Chemistry',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'Physics',
+               'type':'Medical',
+               'grade':'A'
+            }
+         ]
+      }
+   ];
+   
+   public StudentData: Array<{}> =
      [
         {
            'id':1,
@@ -26,7 +53,7 @@ export class ExpandableData {
         },
         {
            'id':2,
-           'name':'Jabari Fritsch',
+           'name':'Jabari Fritsch asfas fasdfasfasfas sfdsdf asfasdf asdf asdf sdf ',
            'age':20,
            'address':1.0079,
            'subjects':[
@@ -69,7 +96,213 @@ export class ExpandableData {
                  'grade':'A'
               }
            ]
-        }
+        },
+        {
+         'id':4,
+         'name':'Maybell Simonis',
+         'age':21,
+         'address':1.0079,
+         'subjects':[
+            {
+               'name':'Bio',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'ddrrrer',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'rerwerw',
+               'type':'Medical',
+               'grade':'A'
+            }
+         ]
+      },
+      {
+         'id':5,
+         'name':'Maybell Simonis',
+         'age':21,
+         'address':1.0079,
+         'subjects':[
+            {
+               'name':'Bio',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'ddrrrer',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'rerwerw',
+               'type':'Medical',
+               'grade':'A'
+            }
+         ]
+      },
+      {
+         'id':6,
+         'name':'Maybell Simonis',
+         'age':21,
+         'address':1.0079,
+         'subjects':[
+            {
+               'name':'Bio',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'ddrrrer',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'rerwerw',
+               'type':'Medical',
+               'grade':'A'
+            }
+         ]
+      },
+      {
+         'id':7,
+         'name':'Maybell Simonis',
+         'age':21,
+         'address':1.0079,
+         'subjects':[
+            {
+               'name':'Bio',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'ddrrrer',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'rerwerw',
+               'type':'Medical',
+               'grade':'A'
+            }
+         ]
+      },
+      {
+         'id':8,
+         'name':'Maybell Simonis',
+         'age':21,
+         'address':1.0079,
+         'subjects':[
+            {
+               'name':'Bio',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'ddrrrer',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'rerwerw',
+               'type':'Medical',
+               'grade':'A'
+            }
+         ]
+      },
+      {
+         'id':9,
+         'name':'Maybell Simonis',
+         'age':21,
+         'address':1.0079,
+         'subjects':[
+            {
+               'name':'Bio',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'ddrrrer',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'rerwerw',
+               'type':'Medical',
+               'grade':'A'
+            }
+         ]
+      },
+      {
+         'id':10,
+         'name':'Maybell Simonis',
+         'age':21,
+         'address':1.0079,
+         'subjects':[
+            {
+               'name':'Bio',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'ddrrrer',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'rerwerw',
+               'type':'Medical',
+               'grade':'A'
+            }
+         ]
+      },
+      {
+         'id':11,
+         'name':'Maybell Simonis',
+         'age':21,
+         'address':1.0079,
+         'subjects':[
+            {
+               'name':'Bio',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'ddrrrer',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'rerwerw',
+               'type':'Medical',
+               'grade':'A'
+            }
+         ]
+      }, {
+         'id':12,
+         'name':'Maybell Simonis',
+         'age':21,
+         'address':1.0079,
+         'subjects':[
+            {
+               'name':'Bio',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'ddrrrer',
+               'type':'Medical',
+               'grade':'A'
+            },
+            {
+               'name':'rerwerw',
+               'type':'Medical',
+               'grade':'A'
+            }
+         ]
+      }
      ];
 
      public EmptyData: Array<{}> = [];
