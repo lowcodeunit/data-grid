@@ -67,7 +67,11 @@
                  <!-- 
                    In mobile mode add column name next to the values
                   -->
-              <div *ngIf="IsMobile === true">{{column.Title }}: </div>
+              <div *ngIf="IsMobile === true">
+                <span>
+                  {{column.Title }}: 
+                </span> 
+              </div>
 
             <!--Toggle icons on and off-->
             <i 

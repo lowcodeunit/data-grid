@@ -9,7 +9,7 @@ export class DataGridPaginationModel {
   /**
    * Constructor for DataGridPagination
    *
-   * @param Length The number or items in the grid
+   * @param Length The number of items in the grid
    * 
    * @param Page The current page number
    * 
