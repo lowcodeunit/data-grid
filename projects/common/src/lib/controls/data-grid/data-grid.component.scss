@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 :host {
+  .table {
+    min-width: 100%;
+  }
+
   .filter-field {
     font-size: 14px;
     width: 100%;
@@ -33,28 +37,4 @@
     overflow: hidden;
   }
 
- @mixin mat-cell-mobile {
-  display: flex;
-  padding-left: 10px;
-  padding-top: 10px;
-  flex-direction: column;
- }
-
- .mobile-cell {
-  @include mat-cell-mobile;
- }
-
-  @media (max-width: 600px) {
-    .mat-cell {
-      @include mat-cell-mobile;
-    }
-
-    .mobile-label {
-      display: none;
-    }
- 
-  }
-  
-  
-  
 }
