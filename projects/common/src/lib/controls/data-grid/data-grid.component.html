@@ -17,7 +17,7 @@
   <div fxLayout="column">
     <mat-progress-bar mode="indeterminate" *ngIf="ShowLoader"></mat-progress-bar>
     <table 
-      fxFlex
+      style="min-width: 100%;"
       mat-table 
       matSort
       [dataSource]="dataSource"

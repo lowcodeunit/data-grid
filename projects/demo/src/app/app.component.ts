@@ -168,7 +168,7 @@ export class AppComponent implements OnInit {
       this.SetupGridParameters();
 
       this.GridParameters = new DataGridConfigModel(
-          of(this.expandableData.StudentDataOne), // mock observable
+          of(this.expandableData.StudentData), // mock observable
           this.colunmDefsModel,
           this.GridFeatures
       );
