@@ -1,8 +1,11 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 :host {
-  .table {
+  .table-overwrites {
     min-width: 100%;
+    th, td {
+      vertical-align: center;
+    }
   }
 
   .filter-field {
