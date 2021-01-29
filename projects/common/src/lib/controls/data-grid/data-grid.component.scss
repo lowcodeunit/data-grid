@@ -3,6 +3,9 @@
 :host {
   .table {
     min-width: 100%;
+    th, td {
+      vertical-align: center;
+    }
   }
 
   .filter-field {
