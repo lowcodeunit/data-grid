@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { DataGridFeaturesModel } from '../models/data-grid-features.model';
 import { ColumnDefinitionModel } from '../models/column-definitions.model';
 

@@ -1,5 +1,5 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
-import { Subject } from 'rxjs/internal/Subject';
+import { Subject } from 'rxjs';
 import { DynamicComponentModel } from '../models/dynamic-component.model';
 
 @Injectable({
