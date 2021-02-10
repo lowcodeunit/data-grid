@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ExpandDataGridComponent } from './expand-data-grid.component';
 
@@ -6,7 +6,7 @@ describe('ExpandDataGridComponent', () => {
   let component: ExpandDataGridComponent;
   let fixture: ComponentFixture<ExpandDataGridComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ExpandDataGridComponent ]
     })
