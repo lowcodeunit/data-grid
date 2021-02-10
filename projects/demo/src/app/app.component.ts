@@ -9,7 +9,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { DepartureTableModel } from './models/departure-table-config.model';
 import { WeatherCloudService } from './services/weathercloud.service';
-import { of } from 'rxjs/internal/observable/of';
+import { of } from 'rxjs';
 import { JsonDisplayComponent } from './components/json-display/json-display.component';
 import { DummyTesterComponent } from './components/dummy-tester/dummy-tester.component';
 
