@@ -61,13 +61,12 @@
           <span *ngIf="column.ColType !== 'select'">
 
             <div fxLayout="row" 
-                 fxLayoutGap="10px"
                  fxLayoutAlign="start center">
         
                  <!-- 
                    In mobile mode add column name next to the values
                   -->
-              <div *ngIf="IsMobile === true">
+              <div class="margin-2" *ngIf="IsMobile === true">
                 <span>
                   {{column.Title }} 
                 </span> 
