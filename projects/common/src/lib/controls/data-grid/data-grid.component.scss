@@ -40,4 +40,26 @@
     overflow: hidden;
   }
 
+  @mixin mat-cell-mobile {
+    display: flex;
+    padding-left: 10px;
+    padding-top: 10px;
+    flex-direction: column;
+   }
+  
+   .mobile-cell {
+    @include mat-cell-mobile;
+   }
+  
+    @media (max-width: 600px) {
+      .mat-cell {
+        @include mat-cell-mobile;
+      }
+  
+      .mobile-label {
+        display: none;
+      }
+   
+    }
+
 }
