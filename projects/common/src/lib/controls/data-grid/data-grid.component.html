@@ -14,26 +14,6 @@
   </mat-form-field>
 </div>
 
-<<<<<<< Updated upstream
-  <div fxLayout="column">
-    <mat-progress-bar mode="indeterminate" *ngIf="ShowLoader"></mat-progress-bar>
-    <table 
-      style="min-width: 100%;"
-      mat-table 
-      matSort
-      [dataSource]="dataSource"
-      *ngIf="Config" 
-      (matSortChange)="Sorting($event)"
-      multiTemplateDataRows>
-      
-      <ng-container *ngFor="let column of Config.ColumnDefs" matColumnDef="{{ column.ColType }}">
-        <th 
-          mat-header-cell 
-          *matHeaderCellDef 
-          mat-sort-header 
-          [disabled]="!column.Sortable" 
-          class="padding-right-3 mobile-label">
-=======
 <div fxLayout="column">
   <mat-progress-bar mode="indeterminate" *ngIf="ShowLoader"></mat-progress-bar>
   <table 
@@ -52,7 +32,6 @@
         mat-sort-header 
         [disabled]="!column.Sortable" 
         class="padding-right-3 mobile-label">
->>>>>>> Stashed changes
 
         <!--
           Show select checkbox in the header
@@ -83,20 +62,6 @@
 
         <span *ngIf="column.ColType !== 'select'">
 
-<<<<<<< Updated upstream
-            <div fxLayout="row" 
-                 fxLayoutGap="10px"
-                 fxLayoutAlign="start center">
-        
-                 <!-- 
-                   In mobile mode add column name next to the values
-                  -->
-              <div *ngIf="IsMobile === true">
-                <span>
-                  {{column.Title }} 
-                </span> 
-              </div>
-=======
           <div fxLayout="row" 
                fxLayoutAlign="start center">
       
@@ -108,7 +73,6 @@
                 {{column.Title }} 
               </span> 
             </div>
->>>>>>> Stashed changes
 
           <!--Toggle icons on and off-->
           <i 
