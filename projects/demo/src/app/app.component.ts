@@ -12,6 +12,7 @@ import { WeatherCloudService } from './services/weathercloud.service';
 import { of } from 'rxjs';
 import { JsonDisplayComponent } from './components/json-display/json-display.component';
 import { DummyTesterComponent } from './components/dummy-tester/dummy-tester.component';
+import { DataPipeConstants } from '@lcu/common';
 
 @Component({
   selector: 'lcu-root',
@@ -108,6 +109,13 @@ export class AppComponent implements OnInit {
               return '';
             }
         }),
+        new ColumnDefinitionModel({
+          ColType: 'token',
+          Title: 'Token',
+          ColWidth: '75',
+          ShowValue: true,
+          Pipe: DataPipeConstants.PIPE_STRING_SLICE_HUNDRED
+        }),
         new ColumnDefinitionModel(
           {
             ColType: 'age',
@@ -168,7 +176,7 @@ export class AppComponent implements OnInit {
       this.SetupGridParameters();
 
       this.GridParameters = new DataGridConfigModel(
-          of(this.expandableData.StudentDataOne), // mock observable
+          of(this.expandableData.StudentData), // mock observable
           this.colunmDefsModel,
           this.GridFeatures
       );

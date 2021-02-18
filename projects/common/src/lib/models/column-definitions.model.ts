@@ -5,6 +5,7 @@ export class ColumnDefinitionModel {
   public ColType?: string;
   public ColWidth?: string;
   public ColBGColor?: string;
+  // public Ellipsis?: boolean; not using this yet
   public IconConfigFunc?: Function;
   public IconColor?: string;
   public Pipe?: string | Function;
@@ -20,6 +21,7 @@ export class ColumnDefinitionModel {
  * @param ColType Column data type
  * @param ColWidth Width of the column
  * @param ColBGColor Set color of cell
+ * @param Ellipsis Toggle ellipsis for long text
  * @param IconConfigFunc Callback function for setting icons
  * @param IconColor Set icon color
  * @param Title Column title

@@ -6,6 +6,7 @@ export class ExpandableData {
          'name':'Abby Jaskolski ',
          'age':21,
          'address':1.0079,
+         'token': 'SharedAccessSignature sr=fathym-prd.azure-devices.net%2Fdevices%2F81f345e2-575b-4942-824b-e01ba5565170-new-2&sig=BI0%2BidPvEw5y9uYdU3sAPUGUS9V03To%2Fjt%2FKWbvqUyo%3D&se=1613676110',
          'subjects':[
             {
                'name':'Bio',
@@ -53,7 +54,7 @@ export class ExpandableData {
         },
         {
            'id':2,
-           'name':'Jabari Fritsch asfas fasdfasfasfas sfdsdf asfasdf asdf asdf sdf ',
+           'name':'Jabari Fritsch asfas fasdfasfasfas sfdsdf asfasdf asdf asdf sdf  asdf asdf asfd asdfas fs sfd safsadfasfd',
            'age':20,
            'address':1.0079,
            'subjects':[
