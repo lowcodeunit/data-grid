@@ -1,6 +1,19 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 :host {
+<<<<<<< Updated upstream
+=======
+  $padding-hor: 10px;
+  $padding-vert: 7px;
+
+  .table-overwrites {
+    min-width: 100%;
+    th, td {
+      vertical-align: center;
+    }
+  }
+
+>>>>>>> Stashed changes
   .filter-field {
     font-size: 14px;
     width: 100%;
@@ -33,6 +46,7 @@
     overflow: hidden;
   }
 
+<<<<<<< Updated upstream
  @mixin mat-cell-mobile {
   display: flex;
   padding-left: 10px;
@@ -54,6 +68,28 @@
     }
  
   }
+=======
+  .mat-cell, .mat-header-cell {
+    padding-top: $padding-vert;
+    padding-bottom: $padding-vert;
+    padding-left: $padding-hor;
+    padding-right: $padding-hor;
+  }
+
+  .text-ellipsis {
+    white-space: nowrap;
+    background-color: blueviolet;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @mixin mat-cell-mobile {
+    display: flex;
+    padding-left: 10px;
+    padding-top: 10px;
+    flex-direction: column;
+   }
+>>>>>>> Stashed changes
   
   
   

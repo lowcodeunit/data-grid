@@ -12,6 +12,7 @@ import { WeatherCloudService } from './services/weathercloud.service';
 import { of } from 'rxjs/internal/observable/of';
 import { JsonDisplayComponent } from './components/json-display/json-display.component';
 import { DummyTesterComponent } from './components/dummy-tester/dummy-tester.component';
+import { DataPipeConstants } from '@lcu/common';
 
 @Component({
   selector: 'lcu-root',
@@ -107,6 +108,13 @@ export class AppComponent implements OnInit {
             Pipe: (rowData: any) => {
               return '';
             }
+        }),
+        new ColumnDefinitionModel({
+          ColType: 'token',
+          Title: 'Token',
+          ColWidth: '75',
+          ShowValue: true,
+          Pipe: DataPipeConstants.PIPE_STRING_SLICE_HUNDRED
         }),
         new ColumnDefinitionModel(
           {

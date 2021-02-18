@@ -1,19 +1,20 @@
 <!-- When there isn't data -->
 <!-- Use content projection to pass something in -->
-  <ng-template #content>
-    <ng-content></ng-content>
-  </ng-template>
-  <ng-container 
-    *ngTemplateOutlet="ShowInline() ? content: null">
-  </ng-container>
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>
+<ng-container 
+  *ngTemplateOutlet="ShowInline() ? content: null">
+</ng-container>
 
 <div *ngIf="dataSource.data.length > 0">
-  <div fxLayoutAlign=" start">
-    <mat-form-field *ngIf="Config?.Features?.Filter" class="filter-field">
-      <input matInput type="text" (keyup)="ApplyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
-  </div>
+<div fxLayoutAlign=" start">
+  <mat-form-field *ngIf="Config?.Features?.Filter" class="filter-field">
+    <input matInput type="text" (keyup)="ApplyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
 
+<<<<<<< Updated upstream
   <div fxLayout="column">
     <mat-progress-bar mode="indeterminate" *ngIf="ShowLoader"></mat-progress-bar>
     <table 
@@ -32,34 +33,57 @@
           mat-sort-header 
           [disabled]="!column.Sortable" 
           class="padding-right-3 mobile-label">
+=======
+<div fxLayout="column">
+  <mat-progress-bar mode="indeterminate" *ngIf="ShowLoader"></mat-progress-bar>
+  <table 
+    class='table-overwrites'
+    mat-table 
+    matSort
+    [dataSource]="dataSource"
+    *ngIf="Config" 
+    (matSortChange)="Sorting($event)"
+    multiTemplateDataRows>
+    
+    <ng-container *ngFor="let column of Config.ColumnDefs" matColumnDef="{{ column.ColType }}">
+      <th 
+        mat-header-cell 
+        *matHeaderCellDef 
+        mat-sort-header 
+        [disabled]="!column.Sortable" 
+        class="padding-right-3 mobile-label">
+>>>>>>> Stashed changes
 
-          <!--
-            Show select checkbox in the header
-          -->
-          <mat-checkbox *ngIf="ToggleSelection(Config, column)"
-                        (change)="$event ? MasterToggle() : null"
-                        [checked]="selection.hasValue() && IsAllSelected()"
-                        [indeterminate]="selection.hasValue() && !IsAllSelected()">
-          </mat-checkbox>
+        <!--
+          Show select checkbox in the header
+        -->
+        <mat-checkbox *ngIf="ToggleSelection(Config, column)"
+                      (change)="$event ? MasterToggle() : null"
+                      [checked]="selection.hasValue() && IsAllSelected()"
+                      [indeterminate]="selection.hasValue() && !IsAllSelected()">
+        </mat-checkbox>
 
-          <!--
-            Show the header title
-          -->
-         {{ column.Title }}
-        </th>
+        <!--
+          Show the header title
+        -->
+       {{ column.Title }}
+      </th>
 
-        <td mat-cell *matCellDef="let item"
-            class="padding-right-3"
-            [ngStyle]="{'width': CellWidth(column),
-                        'background-color' : column.ColBGColor ? column.ColBGColor : null}">
-          <mat-checkbox *ngIf="ToggleSelection(Config, column)"
-                        (click)="$event.stopPropagation()"
-                        (change)="$event ? selection.toggle(item) : null"
-                        [checked]="selection.isSelected(item)">
-          </mat-checkbox>
+      <!-- [ngClass]="{'text-ellipsis': (column.ColWidth && column.Ellipsis)}" -->
+      <td mat-cell *matCellDef="let item"
+          class="padding-right-3"
+          [ngStyle]="{'max-width': CellWidth(column),
+                      'background-color' : column.ColBGColor ? column.ColBGColor : null
+                    }">
+        <mat-checkbox *ngIf="ToggleSelection(Config, column)"
+                      (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(item) : null"
+                      [checked]="selection.isSelected(item)">
+        </mat-checkbox>
 
-          <span *ngIf="column.ColType !== 'select'">
+        <span *ngIf="column.ColType !== 'select'">
 
+<<<<<<< Updated upstream
             <div fxLayout="row" 
                  fxLayoutGap="10px"
                  fxLayoutAlign="start center">
@@ -72,110 +96,123 @@
                   {{column.Title }} 
                 </span> 
               </div>
-
-            <!--Toggle icons on and off-->
-            <i 
-              *ngIf="column.ShowIcon" 
-              class="dg-icons" 
-              [ngStyle]="{'color': column.IconColor}"
-              [ngClass]="column.SetIcon(item)"
-              [ngClass]="column.IconColor">
-            </i>
-
-            <!--When adding a button to the table cell-->
-            <button 
-              *ngIf="column.Action && column.Action.ActionType === 'button'" 
-              mat-button 
-              [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''"
-              class="cursor-pointer"
-              (click)="column.Action.ActionHandler(item)">
-              <mat-icon 
-                [ngStyle]="{'color': column.IconColor}"
-                [ngClass]="column.IconColor">
-                {{ column.SetIcon(item) }}</mat-icon>
-              <span 
-                *ngIf="column.Action.ActionLabel">
-                {{ column.Action.ActionLabel }}
-              </span>
-            </button>
-
-            <!--When adding an href-->
-            <a *ngIf="column.Action && column.Action.ActionType === 'href'"  
-              style="text-decoration:none;" 
-              href="{{ column.Action.ActionHandler(item) }}" 
-              target="_blank"
-              [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''">
-              <mat-icon 
-                [ngStyle]="{'color': column.IconColor}"
-                [ngClass]="column.IconColor">
-                {{ column.SetIcon(item) }}
-              </mat-icon>
-            </a>
-
-            <!--Toggle data value on and off and set pipes, if available-->
-            <!--column.pipe value comes from columnDefinition-->
-              <span *ngIf="column.ShowValue">
-                {{ item[column.ColType] | dataPipes: column.SetPipe(item, column.Pipe) }}
-              </span>
+=======
+          <div fxLayout="row" 
+               fxLayoutAlign="start center">
+      
+               <!-- 
+                 In mobile mode add column name next to the values
+                -->
+            <div class="margin-2" *ngIf="IsMobile === true">
+              <span>
+                {{column.Title }} 
+              </span> 
             </div>
-          </span>
-        </td>
-      </ng-container>
-      
-      <!-- Template for details (expand) row  -->
-      
-      <ng-container *ngIf="Expand" matColumnDef="expandedDetail">
-        <td 
-          mat-cell 
-          *matCellDef="let element" 
-          [attr.colspan]="displayedColumns.length">
-          
-          <div
-            fxLayoutAlign="center"
-            class="details-con background-fill" 
-            [@detailExpand]="element.$IsExpanded ? 'expanded' : 'collapsed'">
-            <lcu-dynamic-container [data-source]="element"></lcu-dynamic-container>
-          </div>
-        </td>
-      </ng-container>
+>>>>>>> Stashed changes
 
-      <tr 
-        mat-header-row 
-        *matHeaderRowDef="displayedColumns;sticky: true">
-      </tr>
-      <tr
-        mat-row *matRowDef="let element; 
-          let odd = odd;
-          let even = even;
-          let index = index;
-          let count = count;
-          columns: displayedColumns"
-        (mouseover)="RowHover=true"
-        (mouseleave)="RowHover=false"
-        class="details-element-row"
-        [className]="Config?.Features?.Highlight"
-      >
-      </tr>
-      <div *ngIf="Expand" style="position: relative; display: block;">
-        <tr 
-          mat-row 
-          *matRowDef="let row; 
-          columns: ['expandedDetail']"
-          class="details-row"
-          (click)="selection.toggle(row)">
-        </tr>
-      </div>
-    </table>
+          <!--Toggle icons on and off-->
+          <i 
+            *ngIf="column.ShowIcon" 
+            class="dg-icons" 
+            [ngStyle]="{'color': column.IconColor}"
+            [ngClass]="column.SetIcon(item)"
+            [ngClass]="column.IconColor">
+          </i>
+
+          <!--When adding a button to the table cell-->
+          <button 
+            *ngIf="column.Action && column.Action.ActionType === 'button'" 
+            mat-button 
+            [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''"
+            class="cursor-pointer"
+            (click)="column.Action.ActionHandler(item)">
+            <mat-icon 
+              [ngStyle]="{'color': column.IconColor}"
+              [ngClass]="column.IconColor">
+              {{ column.SetIcon(item) }}</mat-icon>
+            <span 
+              *ngIf="column.Action.ActionLabel">
+              {{ column.Action.ActionLabel }}
+            </span>
+          </button>
+
+          <!--When adding an href-->
+          <a *ngIf="column.Action && column.Action.ActionType === 'href'"  
+            style="text-decoration:none;" 
+            href="{{ column.Action.ActionHandler(item) }}" 
+            target="_blank"
+            [matTooltip]="column.Action.ActionTooltip ? column.Action.ActionTooltip : ''">
+            <mat-icon 
+              [ngStyle]="{'color': column.IconColor}"
+              [ngClass]="column.IconColor">
+              {{ column.SetIcon(item) }}
+            </mat-icon>
+          </a>
+
+          <!--Toggle data value on and off and set pipes, if available-->
+          <!--column.pipe value comes from columnDefinition-->
+            <span *ngIf="column.ShowValue">
+              {{ item[column.ColType] | dataPipes: column.SetPipe(item, column.Pipe) }}
+            </span>
+          </div>
+        </span>
+      </td>
+    </ng-container>
     
-    <mat-paginator
-      #paginator
-      *ngIf="Config?.Features?.Paginator"
-      [length]="Config?.Features?.Paginator.Length"
-      [pageIndex]="Config?.Features?.Paginator.PageIndex"
-      [pageSize]="Config?.Features?.Paginator.PageSize"
-      [pageSizeOptions]="Config?.Features?.Paginator.PageSizeOptions"
-      (page)="HandlePageChange($event)"
-      showFirstLastButtons>
-    </mat-paginator>
-  </div>
+    <!-- Template for details (expand) row  -->
+    
+    <ng-container *ngIf="Expand" matColumnDef="expandedDetail">
+      <td 
+        mat-cell 
+        *matCellDef="let element" 
+        [attr.colspan]="displayedColumns.length">
+        
+        <div
+          fxLayoutAlign="center"
+          class="details-con background-fill" 
+          [@detailExpand]="element.$IsExpanded ? 'expanded' : 'collapsed'">
+          <lcu-dynamic-container [data-source]="element"></lcu-dynamic-container>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr 
+      mat-header-row 
+      *matHeaderRowDef="displayedColumns;sticky: true">
+    </tr>
+    <tr
+      mat-row *matRowDef="let element; 
+        let odd = odd;
+        let even = even;
+        let index = index;
+        let count = count;
+        columns: displayedColumns"
+      (mouseover)="RowHover=true"
+      (mouseleave)="RowHover=false"
+      class="details-element-row"
+      [className]="Config?.Features?.Highlight"
+    >
+    </tr>
+    <div *ngIf="Expand" style="position: relative; display: block;">
+      <tr 
+        mat-row 
+        *matRowDef="let row; 
+        columns: ['expandedDetail']"
+        class="details-row"
+        (click)="selection.toggle(row)">
+      </tr>
+    </div>
+  </table>
+  
+  <mat-paginator
+    #paginator
+    *ngIf="Config?.Features?.Paginator"
+    [length]="Config?.Features?.Paginator.Length"
+    [pageIndex]="Config?.Features?.Paginator.PageIndex"
+    [pageSize]="Config?.Features?.Paginator.PageSize"
+    [pageSizeOptions]="Config?.Features?.Paginator.PageSizeOptions"
+    (page)="HandlePageChange($event)"
+    showFirstLastButtons>
+  </mat-paginator>
+</div>
 </div>
