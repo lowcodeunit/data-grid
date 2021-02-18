@@ -151,13 +151,9 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
     this.PageEvent = new EventEmitter();
 
     breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
-      // 
-    
       this.IsMobile = result.matches;
-      // debugger;
-      // this.displayedColumns = result.matches
-      //   ? ['position', 'name', 'weight']
-      //   : ['position', 'name', 'weight', 'symbol'];
+      console.log('MOBILE', this.IsMobile);
+
     });
   }
 

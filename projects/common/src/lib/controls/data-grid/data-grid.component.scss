@@ -64,6 +64,19 @@
     flex-direction: column;
    }
   
+   .mobile-cell {
+    @include mat-cell-mobile;
+   }
   
+    @media (max-width: 600px) {
+      .mat-cell {
+        @include mat-cell-mobile;
+      }
   
+      .mobile-label {
+        display: none;
+      }
+   
+    }
+
 }
