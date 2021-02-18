@@ -43,29 +43,6 @@
     overflow: hidden;
   }
 
-<<<<<<< Updated upstream
- @mixin mat-cell-mobile {
-  display: flex;
-  padding-left: 10px;
-  padding-top: 10px;
-  flex-direction: column;
- }
-
- .mobile-cell {
-  @include mat-cell-mobile;
- }
-
-  @media (max-width: 600px) {
-    .mat-cell {
-      @include mat-cell-mobile;
-    }
-
-    .mobile-label {
-      display: none;
-    }
- 
-  }
-=======
   .mat-cell, .mat-header-cell {
     padding-top: $padding-vert;
     padding-bottom: $padding-vert;
@@ -86,7 +63,6 @@
     padding-top: 10px;
     flex-direction: column;
    }
->>>>>>> Stashed changes
   
   
   
