@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {
-  BreakpointObserver, Breakpoints
+  BreakpointObserver, Breakpoints, BreakpointState
 } from '@angular/cdk/layout';
 
 import { Component,
@@ -63,7 +63,6 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements OnInit,
     }
 
     this._config = val;
-    this.mobileBreakpoint();
     this.setData();
   }
   get Config(): DataGridConfigModel {
@@ -151,6 +150,8 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements OnInit,
 
     this.dataSource = new MatTableDataSource<ColumnDefinitionModel>();
     this.PageEvent = new EventEmitter();
+
+    this.mobileBreakpoint();
   }
 
   public ngOnInit(): void {
@@ -312,17 +313,15 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements OnInit,
    */
   protected mobileBreakpoint(): void {
 
-    if (!this.Config) {
-      return;
-    }
+    let breakerbreaker: string =  this.Config ? this.Config.Features.MobileBreakpoint : '600px';
 
-    this.breakpointObserver.observe([`(max-width: ${this.Config.Features.MobileBreakpoint})`]).subscribe(result => {
+    // if (this.Config) {
+    //   return;
+    // }
 
-      this.IsMobile = result.matches;
-      // debugger;
-      // this.displayedColumns = result.matches
-      //   ? ['position', 'name', 'weight']
-      //   : ['position', 'name', 'weight', 'symbol'];
+    this.breakpointObserver.observe([`(max-width: ${ breakerbreaker })`])
+    .subscribe((bState: BreakpointState) => {
+      this.IsMobile = bState.matches;
     });
   }
 
