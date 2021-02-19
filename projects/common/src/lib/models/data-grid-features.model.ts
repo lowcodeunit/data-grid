@@ -7,6 +7,7 @@ export class DataGridFeaturesModel {
     public NoData?: DataGridNoDataModel;
     public Filter?: boolean;
     public Highlight?: string;
+    public MobileBreakpoint?: string;
     public Paginator?: DataGridPaginationModel;
     public RowSelectable?: boolean = false;
     public RowColorEven?: string = '#ececec';

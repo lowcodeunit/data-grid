@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {
-  BreakpointObserver
+  BreakpointObserver, Breakpoints
 } from '@angular/cdk/layout';
 
 import { Component,
@@ -21,7 +21,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DynamicComponent } from '../dynamic-component/dynamic.component';
 import { DynamicComponentService } from '../../services/dynamic-component.service';
-import { Output } from '@angular/core';
+import { Output, OnInit } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { DataGridConfigModel } from '../../models/data-grid-config.model';
 
@@ -37,7 +37,7 @@ import { DataGridConfigModel } from '../../models/data-grid-config.model';
     ]),
   ]
 })
-export class DataGridComponent<T> extends DynamicComponent<T> implements AfterViewInit, AfterContentChecked {
+export class DataGridComponent<T> extends DynamicComponent<T> implements OnInit, AfterViewInit, AfterContentChecked {
 
    /**
    * DataGrid configuration properties
@@ -63,6 +63,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
     }
 
     this._config = val;
+    this.mobileBreakpoint();
     this.setData();
   }
   get Config(): DataGridConfigModel {
@@ -70,6 +71,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
     if (!this._config) {
       return;
     }
+
     return this._config;
   }
 
@@ -149,16 +151,10 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
 
     this.dataSource = new MatTableDataSource<ColumnDefinitionModel>();
     this.PageEvent = new EventEmitter();
+  }
 
-    breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
-      // 
-    
-      this.IsMobile = result.matches;
-      // debugger;
-      // this.displayedColumns = result.matches
-      //   ? ['position', 'name', 'weight']
-      //   : ['position', 'name', 'weight', 'symbol'];
-    });
+  public ngOnInit(): void {
+
   }
 
   /**
@@ -291,7 +287,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
   }
 
   public CellWidth(col: ColumnDefinitionModel): string {
-debugger;
+
     if (col.ColWidth) {
       return col.ColWidth.includes('px') ? col.ColWidth : col.ColWidth + 'px';
     }
@@ -309,6 +305,25 @@ debugger;
     }
 
     this.ShowLoader = val;
+  }
+
+  /**
+   * Monitor page breakpoints
+   */
+  protected mobileBreakpoint(): void {
+
+    if (!this.Config) {
+      return;
+    }
+
+    this.breakpointObserver.observe([`(max-width: ${this.Config.Features.MobileBreakpoint})`]).subscribe(result => {
+
+      this.IsMobile = result.matches;
+      // debugger;
+      // this.displayedColumns = result.matches
+      //   ? ['position', 'name', 'weight']
+      //   : ['position', 'name', 'weight', 'symbol'];
+    });
   }
 
   /**

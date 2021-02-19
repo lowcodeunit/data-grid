@@ -210,6 +210,7 @@ export class AppComponent implements OnInit {
          Highlight: 'highlight',
          RowColorEven: 'evenRowColor',
          RowColorOdd: 'oddRowColor',
+         MobileBreakpoint: '600px'
         }
       );
 
