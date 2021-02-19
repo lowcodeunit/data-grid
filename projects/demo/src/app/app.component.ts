@@ -114,6 +114,7 @@ export class AppComponent implements OnInit {
           Title: 'Token',
           ColWidth: '75',
           ShowValue: true,
+          Tooltip: true,
           Pipe: DataPipeConstants.PIPE_STRING_SLICE_HUNDRED
         }),
         new ColumnDefinitionModel(
@@ -176,7 +177,7 @@ export class AppComponent implements OnInit {
       this.SetupGridParameters();
 
       this.GridParameters = new DataGridConfigModel(
-          of(this.expandableData.StudentData), // mock observable
+          of(this.expandableData.StudentDataOne), // mock observable
           this.colunmDefsModel,
           this.GridFeatures
       );

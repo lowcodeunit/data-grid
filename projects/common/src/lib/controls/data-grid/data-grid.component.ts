@@ -291,7 +291,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
   }
 
   public CellWidth(col: ColumnDefinitionModel): string {
-
+debugger;
     if (col.ColWidth) {
       return col.ColWidth.includes('px') ? col.ColWidth : col.ColWidth + 'px';
     }

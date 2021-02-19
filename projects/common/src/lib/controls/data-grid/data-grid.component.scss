@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 :host {
-  $padding-hor: 10px;
-  $padding-vert: 7px;
+  $padding-hor: 7px;
+  $padding-vert: 5px;
 
   .table-overwrites {
     min-width: 100%;
@@ -43,7 +43,7 @@
     overflow: hidden;
   }
 
-  .mat-cell, .mat-header-cell {
+  .cell-padding, .mat-header-cell {
     padding-top: $padding-vert;
     padding-bottom: $padding-vert;
     padding-left: $padding-hor;

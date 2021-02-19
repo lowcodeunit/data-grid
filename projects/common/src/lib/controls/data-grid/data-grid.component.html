@@ -51,9 +51,10 @@
       <!-- [ngClass]="{'text-ellipsis': (column.ColWidth && column.Ellipsis)}" -->
       <td mat-cell *matCellDef="let item"
           class="padding-right-3"
+          [matTooltip]="column.Tooltip ? item[column.ColType] : '' "
+          [ngClass]="{'cell-padding': Expand}"
           [ngStyle]="{'max-width': CellWidth(column),
-                      'background-color' : column.ColBGColor ? column.ColBGColor : null
-                    }">
+                      'background-color' : column.ColBGColor ? column.ColBGColor : null}">
         <mat-checkbox *ngIf="ToggleSelection(Config, column)"
                       (click)="$event.stopPropagation()"
                       (change)="$event ? selection.toggle(item) : null"
