@@ -112,7 +112,7 @@ export class AppComponent implements OnInit {
         new ColumnDefinitionModel({
           ColType: 'token',
           Title: 'Token',
-          ColWidth: '75',
+          ColWidth: '100px',
           ShowValue: true,
           Tooltip: true,
           Pipe: DataPipeConstants.PIPE_STRING_SLICE_HUNDRED

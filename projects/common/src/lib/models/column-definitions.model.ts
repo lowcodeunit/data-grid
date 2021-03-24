@@ -15,6 +15,7 @@ export class ColumnDefinitionModel {
   public Sortable?: boolean;
   public Tooltip?: boolean;
   public Width?: number;
+  public WordBreak?: boolean;
 
 /**
  * Constructor for Grid column definitions
@@ -32,6 +33,7 @@ export class ColumnDefinitionModel {
  * @param Tooltip Toggle tooltip
  * @param Pipe String value of pipe to use
  * @param Width Cell width
+ * @param WordBreak break long lines of text
 
  */
 

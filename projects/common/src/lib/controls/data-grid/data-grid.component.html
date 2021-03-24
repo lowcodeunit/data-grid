@@ -53,7 +53,7 @@
           class="padding-right-3"
           [matTooltip]="column.Tooltip ? item[column.ColType] : '' "
           [ngClass]="{'cell-padding': Expand}"
-          [ngStyle]="{'max-width': CellWidth(column),
+          [ngStyle]="{'max-width': column.ColWidth ? CellWidth(column): null,
                       'background-color' : column.ColBGColor ? column.ColBGColor : null}">
         <mat-checkbox *ngIf="ToggleSelection(Config, column)"
                       (click)="$event.stopPropagation()"
@@ -116,7 +116,8 @@
 
           <!--Toggle data value on and off and set pipes, if available-->
           <!--column.pipe value comes from columnDefinition-->
-            <span *ngIf="column.ShowValue">
+            <span *ngIf="column.ShowValue"
+              [ngStyle]="{'word-break' : column.WordBreak ? 'break-all' : null}">
               {{ item[column.ColType] | dataPipes: column.SetPipe(item, column.Pipe) }}
             </span>
           </div>
