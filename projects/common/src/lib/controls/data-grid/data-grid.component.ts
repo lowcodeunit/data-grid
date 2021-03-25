@@ -293,10 +293,10 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements OnInit,
    return false;
   }
 
-  public CellWidth(col: ColumnDefinitionModel): string {
+  public Width(val: string): string {
 
-    if (col.ColWidth) {
-     const width: string = col.ColWidth.includes('px') ? col.ColWidth : col.ColWidth + 'px';
+    if (val) {
+     const width: string = val.includes('px') ? val : val + 'px';
      const value: string = width;
 
       return value;

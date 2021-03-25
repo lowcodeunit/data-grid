@@ -116,7 +116,7 @@ export class AppComponent implements OnInit {
           ShowValue: true,
           Tooltip: true,
           WordBreak: true,
-          Pipe: DataPipeConstants.PIPE_STRING_SLICE_HUNDRED
+          Pipe: DataPipeConstants.PIPE_STRING_SLICE_FIFTY
         }),
         new ColumnDefinitionModel(
           {
@@ -205,6 +205,7 @@ export class AppComponent implements OnInit {
            Info: 'Testing no data info',
            Component: DummyTesterComponent
           },
+          GridWidth: '500px',
          Paginator: paginationDetails,
          Filter: true,
          ShowLoader: true,

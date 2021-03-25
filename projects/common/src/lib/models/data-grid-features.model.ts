@@ -4,6 +4,7 @@ import { DataGridPaginationModel } from './data-grid-pagination.model';
 /**Datagrid Features */
 export class DataGridFeaturesModel {
 
+    public GridWidth?: string;
     public NoData?: DataGridNoDataModel;
     public Filter?: boolean;
     public Highlight?: string;
