@@ -52,7 +52,7 @@
       <td mat-cell *matCellDef="let item"
           class="padding-right-3"
           [matTooltip]="column.Tooltip ? item[column.ColType] : '' "
-          [ngClass]="{'cell-padding': Expand, 'is-mobile': IsMobile}"
+          [ngClass]="{'cell-padding': Expand, 'is-mobile': IsMobile === true}"
           [ngStyle]="{'max-width': column.ColWidth ? CellWidth(column): null,
                       'background-color' : column.ColBGColor ? column.ColBGColor : null}">
         <mat-checkbox *ngIf="ToggleSelection(Config, column)"

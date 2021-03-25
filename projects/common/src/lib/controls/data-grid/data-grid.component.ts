@@ -155,6 +155,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements OnInit,
 
     super(componentFactoryResolver, dynamicComponentService);
 
+    this.IsMobile = false;
     this.dataSource = new MatTableDataSource<ColumnDefinitionModel>();
     this.PageEvent = new EventEmitter();
   }
