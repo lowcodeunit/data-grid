@@ -117,7 +117,7 @@
           <!--Toggle data value on and off and set pipes, if available-->
           <!--column.pipe value comes from columnDefinition-->
             <span *ngIf="column.ShowValue"
-              [ngStyle]="{'word-break' : (column.WordBreak && !IsMobile) ? 'break-all' : null}">
+              [ngStyle]="{'word-break' : column.WordBreak  ? 'break-all' : null}">
               {{ item[column.ColType] | dataPipes: column.SetPipe(item, column.Pipe) }}
             </span>
           </div>
