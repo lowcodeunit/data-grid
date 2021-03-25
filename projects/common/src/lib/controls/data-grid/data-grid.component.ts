@@ -322,11 +322,13 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements OnInit,
    */
   protected breakpointListener(): void {
 
-    // let breakpoint: string =  this.Config ? this.Config.Features.MobileBreakpoint : '600px';
+   if (!this.MobileBreakpoint) {
+     return;
+   }
+
     this.breakpointObserver
        .observe([`(min-width: ${ this.MobileBreakpoint })`])
        .subscribe((state: BreakpointState) => {
-
          if (state.matches) {
            this.IsMobile = false;
            console.log(`Viewport is ${ this.MobileBreakpoint } or over!`);
