@@ -52,7 +52,7 @@
       <td mat-cell *matCellDef="let item"
           class="padding-right-3"
           [matTooltip]="column.Tooltip ? item[column.ColType] : '' "
-          [ngClass]="{'cell-padding': Expand}"
+          [ngClass]="{'cell-padding': Expand, 'is-mobile': IsMobile}"
           [ngStyle]="{'max-width': column.ColWidth ? CellWidth(column): null,
                       'background-color' : column.ColBGColor ? column.ColBGColor : null}">
         <mat-checkbox *ngIf="ToggleSelection(Config, column)"
@@ -117,7 +117,7 @@
           <!--Toggle data value on and off and set pipes, if available-->
           <!--column.pipe value comes from columnDefinition-->
             <span *ngIf="column.ShowValue"
-              [ngStyle]="{'word-break' : column.WordBreak ? 'break-all' : null}">
+              [ngStyle]="{'word-break' : (column.WordBreak && !IsMobile) ? 'break-all' : null}">
               {{ item[column.ColType] | dataPipes: column.SetPipe(item, column.Pipe) }}
             </span>
           </div>

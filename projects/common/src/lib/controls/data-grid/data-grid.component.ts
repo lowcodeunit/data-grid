@@ -63,6 +63,8 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements OnInit,
     }
 
     this._config = val;
+    this.MobileBreakpoint = this.Config.Features.MobileBreakpoint;
+    this.breakpointListener();
     this.setData();
   }
   get Config(): DataGridConfigModel {
@@ -113,7 +115,12 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements OnInit,
    */
   public dataSource: MatTableDataSource<ColumnDefinitionModel>;
 
+  /**
+   * Checking for mobile width
+   */
   public IsMobile: boolean;
+
+  public MobileBreakpoint: string;
 
   /**
    * Even row color
@@ -150,12 +157,10 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements OnInit,
 
     this.dataSource = new MatTableDataSource<ColumnDefinitionModel>();
     this.PageEvent = new EventEmitter();
-
-    this.mobileBreakpoint();
   }
 
   public ngOnInit(): void {
-
+   // this.breakpointListener();
   }
 
   /**
@@ -314,18 +319,33 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements OnInit,
   /**
    * Monitor page breakpoints
    */
-  protected mobileBreakpoint(): void {
+  protected breakpointListener(): void {
 
-    let breakerbreaker: string =  this.Config ? this.Config.Features.MobileBreakpoint : '600px';
+    // let breakpoint: string =  this.Config ? this.Config.Features.MobileBreakpoint : '600px';
+    this.breakpointObserver
+       .observe([`(min-width: ${ this.MobileBreakpoint })`])
+       .subscribe((state: BreakpointState) => {
 
-    // if (this.Config) {
-    //   return;
-    // }
+         if (state.matches) {
+           this.IsMobile = false;
+           console.log(`Viewport is ${ this.MobileBreakpoint } or over!`);
+         } else {
+           this.IsMobile = true;
+           console.log(`Viewport is smaller than ${ this.MobileBreakpoint }!`);
+         }
 
-    this.breakpointObserver.observe([`(max-width: ${ breakerbreaker })`])
-    .subscribe((bState: BreakpointState) => {
-      this.IsMobile = bState.matches;
-    });
+         console.log('ISMobile', this.IsMobile);
+       });
+
+    // let breakpoint: string =  this.Config ? this.Config.Features.MobileBreakpoint : '600px';
+
+    // console.log(breakpoint);
+
+    // this.breakpointObserver.observe([`(min-width: ${ breakpoint })`])
+    // .subscribe((bState: BreakpointState) => {
+    //   this.IsMobile = bState.matches;
+    //   console.log('IS MOBILE', this.IsMobile);
+    // });
   }
 
   /**

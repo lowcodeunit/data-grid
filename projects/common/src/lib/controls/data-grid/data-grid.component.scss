@@ -68,14 +68,21 @@
     @include mat-cell-mobile;
    }
   
-    @media (max-width: 600px) {
-      .mat-cell {
+   .is-mobile {
         @include mat-cell-mobile;
-      }
-  
       .mobile-label {
         display: none;
       }
+   }
+
+    // @media (max-width: 600px) {
+    //   .mat-cell {
+    //     @include mat-cell-mobile;
+    //   }
+  
+    //   .mobile-label {
+    //     display: none;
+    //   }
    
-    } 
+    // } 
 }
