@@ -96,6 +96,8 @@ export class AppComponent implements OnInit {
         new ColumnDefinitionModel(
           {
             ColType: 'id',
+            ColBGColor: 'red',
+            ColWidth: '35px',
             Title: 'ID',
             ShowValue: true
           }
@@ -103,6 +105,7 @@ export class AppComponent implements OnInit {
         new ColumnDefinitionModel(
           {
             ColType: 'name',
+            ColBGColor: 'blue',
             Title: 'Name',
             ShowValue: true,
             Pipe: (rowData: any) => {
@@ -112,7 +115,8 @@ export class AppComponent implements OnInit {
         new ColumnDefinitionModel({
           ColType: 'token',
           Title: 'Token',
-          ColWidth: '50px',
+          ColBGColor: '#ffcc11',
+          ColWidth: '50%',
           ShowValue: true,
           Tooltip: true,
           WordBreak: true,
@@ -121,6 +125,7 @@ export class AppComponent implements OnInit {
         new ColumnDefinitionModel(
           {
             ColType: 'age',
+            ColBGColor: 'orange',
             Title: 'Age',
             ShowValue: true
           }
@@ -129,7 +134,7 @@ export class AppComponent implements OnInit {
           {
             ColType: 'actions',
             ColWidth: '10',
-            ColBGColor: '',
+            ColBGColor: 'green',
             Title: 'Action',
             ShowValue: true,
             ShowIcon: true,
@@ -148,6 +153,7 @@ export class AppComponent implements OnInit {
         new ColumnDefinitionModel(
           {
             ColType: 'address',
+            ColBGColor: 'purple',
             Title: 'Address',
             ShowValue: true
           }
@@ -205,7 +211,6 @@ export class AppComponent implements OnInit {
            Info: 'Testing no data info',
            Component: DummyTesterComponent
           },
-          GridWidth: '50%',
          Paginator: paginationDetails,
          Filter: true,
          ShowLoader: true,

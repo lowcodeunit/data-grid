@@ -69,11 +69,12 @@
    }
   
    .is-mobile {
-        @include mat-cell-mobile;
-      .mobile-label {
-        display: none;
-      }
+      @include mat-cell-mobile;
    }
+
+   .mobile-label {
+    display: none;
+  }
 
     // @media (max-width: 600px) {
     //   .mat-cell {
