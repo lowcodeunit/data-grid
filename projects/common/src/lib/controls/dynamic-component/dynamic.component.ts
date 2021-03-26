@@ -76,7 +76,9 @@ export class DynamicComponent<T> implements OnInit, OnDestroy  {
    * Clean up
    */
   public ngOnDestroy(): void {
-    this.componentErrorSubscription.unsubscribe();
+    if (this.componentErrorSubscription) {
+      this.componentErrorSubscription.unsubscribe();
+    }
   }
 
   // helpers

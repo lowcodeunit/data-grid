@@ -96,6 +96,8 @@ export class AppComponent implements OnInit {
         new ColumnDefinitionModel(
           {
             ColType: 'id',
+            ColBGColor: 'red',
+            ColWidth: '35px',
             Title: 'ID',
             ShowValue: true
           }
@@ -103,6 +105,7 @@ export class AppComponent implements OnInit {
         new ColumnDefinitionModel(
           {
             ColType: 'name',
+            ColBGColor: 'blue',
             Title: 'Name',
             ShowValue: true,
             Pipe: (rowData: any) => {
@@ -112,13 +115,17 @@ export class AppComponent implements OnInit {
         new ColumnDefinitionModel({
           ColType: 'token',
           Title: 'Token',
-          ColWidth: '75',
+          ColBGColor: '#ffcc11',
+          ColWidth: '50%',
           ShowValue: true,
-          Pipe: DataPipeConstants.PIPE_STRING_SLICE_HUNDRED
+          Tooltip: true,
+          WordBreak: true,
+          Pipe: DataPipeConstants.PIPE_STRING_SLICE_FIFTY
         }),
         new ColumnDefinitionModel(
           {
             ColType: 'age',
+            ColBGColor: 'orange',
             Title: 'Age',
             ShowValue: true
           }
@@ -127,7 +134,7 @@ export class AppComponent implements OnInit {
           {
             ColType: 'actions',
             ColWidth: '10',
-            ColBGColor: '',
+            ColBGColor: 'green',
             Title: 'Action',
             ShowValue: true,
             ShowIcon: true,
@@ -146,6 +153,7 @@ export class AppComponent implements OnInit {
         new ColumnDefinitionModel(
           {
             ColType: 'address',
+            ColBGColor: 'purple',
             Title: 'Address',
             ShowValue: true
           }
@@ -176,7 +184,7 @@ export class AppComponent implements OnInit {
       this.SetupGridParameters();
 
       this.GridParameters = new DataGridConfigModel(
-          of(this.expandableData.StudentData), // mock observable
+          of(this.expandableData.StudentDataOne), // mock observable
           this.colunmDefsModel,
           this.GridFeatures
       );
@@ -209,6 +217,7 @@ export class AppComponent implements OnInit {
          Highlight: 'highlight',
          RowColorEven: 'evenRowColor',
          RowColorOdd: 'oddRowColor',
+         MobileBreakpoint: '500px'
         }
       );
 

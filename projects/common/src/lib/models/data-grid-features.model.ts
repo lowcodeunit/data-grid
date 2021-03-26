@@ -4,11 +4,11 @@ import { DataGridPaginationModel } from './data-grid-pagination.model';
 /**Datagrid Features */
 export class DataGridFeaturesModel {
 
+    public GridWidth?: string;
     public NoData?: DataGridNoDataModel;
     public Filter?: boolean;
     public Highlight?: string;
-    public MinHeight?: number;
-    public MinWidth?: number;
+    public MobileBreakpoint?: string;
     public Paginator?: DataGridPaginationModel;
     public RowSelectable?: boolean = false;
     public RowColorEven?: string = '#ececec';
