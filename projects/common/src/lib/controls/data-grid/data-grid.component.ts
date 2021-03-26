@@ -296,6 +296,11 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements OnInit,
   public Width(val: string): string {
 
     if (val) {
+
+      if (val.includes('%')) {
+        return val;
+      }
+
      const width: string = val.includes('px') ? val : val + 'px';
      const value: string = width;
 

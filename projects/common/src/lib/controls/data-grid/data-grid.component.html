@@ -7,7 +7,8 @@
   *ngTemplateOutlet="ShowInline() ? content: null">
 </ng-container>
 
-<div *ngIf="dataSource.data.length > 0"  [ngStyle]="{'max-width': Config?.Features?.GridWidth ? Width(Config?.Features?.GridWidth): null}">
+<div *ngIf="dataSource.data.length > 0"  
+  [ngStyle]="{'max-width': Config?.Features?.GridWidth ? Width(Config?.Features?.GridWidth): null}">
   <div fxLayoutAlign=" start">
     <mat-form-field *ngIf="Config?.Features?.Filter" class="filter-field">
       <input matInput type="text" (keyup)="ApplyFilter($event.target.value)" placeholder="Filter">

@@ -205,7 +205,7 @@ export class AppComponent implements OnInit {
            Info: 'Testing no data info',
            Component: DummyTesterComponent
           },
-          GridWidth: '500px',
+          GridWidth: '50%',
          Paginator: paginationDetails,
          Filter: true,
          ShowLoader: true,
