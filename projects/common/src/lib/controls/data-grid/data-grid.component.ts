@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {
-  BreakpointObserver
+  BreakpointObserver, Breakpoints, BreakpointState
 } from '@angular/cdk/layout';
 
 import { Component,
@@ -21,7 +21,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DynamicComponent } from '../dynamic-component/dynamic.component';
 import { DynamicComponentService } from '../../services/dynamic-component.service';
-import { Output } from '@angular/core';
+import { Output, OnInit } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { DataGridConfigModel } from '../../models/data-grid-config.model';
 
@@ -37,7 +37,7 @@ import { DataGridConfigModel } from '../../models/data-grid-config.model';
     ]),
   ]
 })
-export class DataGridComponent<T> extends DynamicComponent<T> implements AfterViewInit, AfterContentChecked {
+export class DataGridComponent<T> extends DynamicComponent<T> implements OnInit, AfterViewInit, AfterContentChecked {
 
    /**
    * DataGrid configuration properties
@@ -63,6 +63,8 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
     }
 
     this._config = val;
+    this.MobileBreakpoint = this.Config.Features.MobileBreakpoint;
+    this.breakpointListener();
     this.setData();
   }
   get Config(): DataGridConfigModel {
@@ -70,6 +72,7 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
     if (!this._config) {
       return;
     }
+
     return this._config;
   }
 
@@ -112,7 +115,12 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    */
   public dataSource: MatTableDataSource<ColumnDefinitionModel>;
 
+  /**
+   * Checking for mobile width
+   */
   public IsMobile: boolean;
+
+  public MobileBreakpoint: string;
 
   /**
    * Even row color
@@ -147,14 +155,13 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
 
     super(componentFactoryResolver, dynamicComponentService);
 
+    this.IsMobile = false;
     this.dataSource = new MatTableDataSource<ColumnDefinitionModel>();
     this.PageEvent = new EventEmitter();
+  }
 
-    breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
-      this.IsMobile = result.matches;
-      console.log('MOBILE', this.IsMobile);
-
-    });
+  public ngOnInit(): void {
+   // this.breakpointListener();
   }
 
   /**
@@ -286,10 +293,18 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
    return false;
   }
 
-  public CellWidth(col: ColumnDefinitionModel): string {
+  public Width(val: string): string {
 
-    if (col.ColWidth) {
-      return col.ColWidth.includes('px') ? col.ColWidth : col.ColWidth + 'px';
+    if (val) {
+
+      if (val.includes('%')) {
+        return val;
+      }
+
+     const width: string = val.includes('px') ? val : val + 'px';
+     const value: string = width;
+
+      return value;
     }
 
     return '';
@@ -305,6 +320,40 @@ export class DataGridComponent<T> extends DynamicComponent<T> implements AfterVi
     }
 
     this.ShowLoader = val;
+  }
+
+  /**
+   * Monitor page breakpoints
+   */
+  protected breakpointListener(): void {
+
+   if (!this.MobileBreakpoint) {
+     return;
+   }
+
+    this.breakpointObserver
+       .observe([`(min-width: ${ this.MobileBreakpoint })`])
+       .subscribe((state: BreakpointState) => {
+         if (state.matches) {
+           this.IsMobile = false;
+           console.log(`Viewport is ${ this.MobileBreakpoint } or over!`);
+         } else {
+           this.IsMobile = true;
+           console.log(`Viewport is smaller than ${ this.MobileBreakpoint }!`);
+         }
+
+         console.log('ISMobile', this.IsMobile);
+       });
+
+    // let breakpoint: string =  this.Config ? this.Config.Features.MobileBreakpoint : '600px';
+
+    // console.log(breakpoint);
+
+    // this.breakpointObserver.observe([`(min-width: ${ breakpoint })`])
+    // .subscribe((bState: BreakpointState) => {
+    //   this.IsMobile = bState.matches;
+    //   console.log('IS MOBILE', this.IsMobile);
+    // });
   }
 
   /**
