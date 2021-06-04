@@ -8,6 +8,7 @@ export class ColumnDefinitionModel {
   // public Ellipsis?: boolean; not using this yet
   public IconConfigFunc?: Function;
   public IconColor?: string;
+  public Image?: string;
   public Pipe?: string | Function;
   public Title: string;
   public ShowIcon?: boolean;
@@ -26,6 +27,7 @@ export class ColumnDefinitionModel {
  * @param Ellipsis Toggle ellipsis for long text
  * @param IconConfigFunc Callback function for setting icons
  * @param IconColor Set icon color
+ * @param Image If we want to show a image in the cell
  * @param Title Column title
  * @param ShowValue Boolean for toggling icons
  * @param ShowIcon Boolean for toggling icons

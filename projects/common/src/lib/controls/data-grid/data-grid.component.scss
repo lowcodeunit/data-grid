@@ -5,7 +5,7 @@
   $padding-vert: 5px;
 
   .table-overwrites {
-    min-width: 100%;
+    // min-width: 100%;
     th, td {
       vertical-align: center;
     }
@@ -55,6 +55,18 @@
     background-color: blueviolet;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .image-cell {
+    //.mat-cell {
+      font-size: 0px !important;
+    //}
+    //.cell-padding, .mat-header-cell {
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+   // }
   }
 
   @mixin mat-cell-mobile {

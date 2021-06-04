@@ -93,11 +93,20 @@ export class AppComponent implements OnInit {
    */
     public SetupGridParameters(): void {
       this.colunmDefsModel = [
+        new ColumnDefinitionModel( 
+          {
+            ColType: 'photo',
+            ColWidth: '75px',
+            ColBGColor: 'purple',
+            Title: '',
+            Image: 'https://cwatch.comodo.com/images/test-website-security.png',
+            ShowValue: false
+          }
+        ),
         new ColumnDefinitionModel(
           {
             ColType: 'id',
             ColBGColor: 'red',
-            ColWidth: '35px',
             Title: 'ID',
             ShowValue: true
           }
@@ -116,7 +125,6 @@ export class AppComponent implements OnInit {
           ColType: 'token',
           Title: 'Token',
           ColBGColor: '#ffcc11',
-          ColWidth: '50%',
           ShowValue: true,
           Tooltip: true,
           WordBreak: true,
@@ -133,7 +141,6 @@ export class AppComponent implements OnInit {
         new ColumnDefinitionModel(
           {
             ColType: 'actions',
-            ColWidth: '10',
             ColBGColor: 'green',
             Title: 'Action',
             ShowValue: true,
@@ -159,6 +166,83 @@ export class AppComponent implements OnInit {
           }
         )
         ];
+
+        // this.colunmDefsModel = [
+        //   new ColumnDefinitionModel( 
+        //     {
+        //       ColType: 'photo',
+        //       ColWidth: '75px',
+        //       Title: 'Image',
+        //       Image: 'https://cwatch.comodo.com/images/test-website-security.png',
+        //       ShowValue: false
+        //     }
+        //   ),
+        //   new ColumnDefinitionModel(
+        //     {
+        //       ColType: 'id',
+        //       ColBGColor: 'red',
+        //       ColWidth: '35px',
+        //       Title: 'ID',
+        //       ShowValue: true
+        //     }
+        //   ),
+        //   new ColumnDefinitionModel(
+        //     {
+        //       ColType: 'name',
+        //       ColBGColor: 'blue',
+        //       Title: 'Name',
+        //       ShowValue: true,
+        //       Pipe: (rowData: any) => {
+        //         return '';
+        //       }
+        //   }),
+        //   new ColumnDefinitionModel({
+        //     ColType: 'token',
+        //     Title: 'Token',
+        //     ColBGColor: '#ffcc11',
+        //     ColWidth: '50%',
+        //     ShowValue: true,
+        //     Tooltip: true,
+        //     WordBreak: true,
+        //     Pipe: DataPipeConstants.PIPE_STRING_SLICE_FIFTY
+        //   }),
+        //   new ColumnDefinitionModel(
+        //     {
+        //       ColType: 'age',
+        //       ColBGColor: 'orange',
+        //       Title: 'Age',
+        //       ShowValue: true
+        //     }
+        //   ),
+        //   new ColumnDefinitionModel(
+        //     {
+        //       ColType: 'actions',
+        //       ColWidth: '10',
+        //       ColBGColor: 'green',
+        //       Title: 'Action',
+        //       ShowValue: true,
+        //       ShowIcon: true,
+        //       IconColor: 'accent-primary-text',
+        //       IconConfigFunc: () => {
+        //         return 'preview'; // function that returns the material icon to display
+        //       },
+        //       Action:
+        //       {
+        //         ActionHandler: this.RowDetails.bind(this),
+        //         ActionLabel: '',
+        //         ActionType: 'button',
+        //         ActionTooltip: 'View'
+        //       }
+        //     }),
+        //   new ColumnDefinitionModel(
+        //     {
+        //       ColType: 'address',
+        //       ColBGColor: 'purple',
+        //       Title: 'Address',
+        //       ShowValue: true
+        //     }
+        //   )
+        //   ];
 
       this.setGridFeatures();
     }
