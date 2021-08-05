@@ -1,6 +1,18 @@
-
-<button mat-raised-button color="primary" (click)="GridData()" style="margin-bottom:20px">Get Grid Data</button>
-<lcu-data-grid [Config]="GridParameters"></lcu-data-grid>
-
+<div fxLayout="row" class="margin-2">
+    <button 
+        mat-raised-button color="primary" 
+        (click)="GridData()" 
+        style="margin-bottom:20px">
+        Get Grid Data
+    </button>    
+</div>
+<div fxLayout="column" class="margin-2">
+    <lcu-data-grid 
+        expand
+        [config]="GridParameters"
+        [dynamic-components]="DynamicComponents">
+        asdfasdf
+    </lcu-data-grid>
+</div>
 <router-outlet></router-outlet>
 

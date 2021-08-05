@@ -1,14 +1,18 @@
 import {
-  DataGridConfig,
-  ColumnDefinition,
-  PipeConstants,
-  DataGridFeatures,
-  DataGridPagination } from '@lowcodeunit/data-grid';
+  ExpandableData,
+  DynamicComponentModel,
+  ColumnDefinitionModel,
+  DataGridFeaturesModel,
+  DataGridConfigModel,
+  DataGridPaginationModel,
+} from '@lowcodeunit/data-grid';
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { DepartureTableModel } from './models/departure-table-config.model';
-import { WeatherCloudConditionIcons } from './utils/icons/weather-cloud-conditions-icons.util';
 import { WeatherCloudService } from './services/weathercloud.service';
+import { of } from 'rxjs';
+import { JsonDisplayComponent } from './components/json-display/json-display.component';
+import { DummyTesterComponent } from './components/dummy-tester/dummy-tester.component';
+import { DataPipeConstants } from '@lcu/common';
 
 @Component({
   selector: 'lcu-root',
@@ -18,17 +22,18 @@ import { WeatherCloudService } from './services/weathercloud.service';
 
 export class AppComponent implements OnInit {
 
-  /**
+ /**
+  * Array for storing dynamic component that are added to grid row
+  */
+  public DynamicComponents: Array<DynamicComponentModel>;
+
+  public NoDataDynmaicComponents: Array<DynamicComponentModel>;
+
+ /**
    * Parameters needed for the grid
   */
-  protected _gridParameters: DataGridConfig;
-  public set GridParameters(val: DataGridConfig) {
-    this._gridParameters = val;
-  }
 
-  public get GridParameters(): DataGridConfig {
-    return this. _gridParameters;
-  }
+ public GridParameters: DataGridConfigModel;
 
   /**
    * Page title
@@ -36,14 +41,14 @@ export class AppComponent implements OnInit {
   public Title: string = 'demo';
 
   /**
-   * Token key for service call
+   * Toggle additional row details
    */
-  protected apiKey: string = '';
+  public ToggleRowDetails: any;
 
   /**
    * Sets column names and order
    */
-  protected columnDefs: Array<ColumnDefinition> = [];
+  protected colunmDefsModel: Array<ColumnDefinitionModel>;
 
   /**
    * Store grid parameters
@@ -56,125 +61,186 @@ export class AppComponent implements OnInit {
   protected get params(): DepartureTableModel {
     return this._params;
   }
-  // protected departureTableSubsscription: Subscription;
-  // protected routeChangeSubscription: Subscription;
 
 /**
  * Grid features, such as: Pagination, Filtering, Loader, etc.
  */
-  protected _gridFeatures: DataGridFeatures;
-  public get GridFeatures(): DataGridFeatures {
+  protected _gridFeatures: DataGridFeaturesModel;
+  public get GridFeatures(): DataGridFeaturesModel {
     return this._gridFeatures;
   }
 
-  public set GridFeatures(val: DataGridFeatures) {
+  public set GridFeatures(val: DataGridFeaturesModel) {
     this._gridFeatures = val;
   }
 
-  constructor(private weatherCloudService: WeatherCloudService) {}
+  constructor(private weatherCloudService: WeatherCloudService,
+              protected expandableData: ExpandableData) {
+
+      this.colunmDefsModel = [];
+  }
 
   public ngOnInit(): void {
-    this.SetGridParameters();
+    setTimeout(() => {
+      this.setupDynamicComponents();
+    }, 1000);
+
+    // this.GridData();
   }
 
   /**
-   * This sets up the grid parameters (columns, data, and features)
+   * Create grid columns
    */
-  public SetGridParameters(): void {
+    public SetupGridParameters(): void {
+      this.colunmDefsModel = [
+        new ColumnDefinitionModel(
+          {
+            ColType: 'id',
+            ColBGColor: 'red',
+            ColWidth: '35px',
+            Title: 'ID',
+            ShowValue: true
+          }
+        ),
+        new ColumnDefinitionModel(
+          {
+            ColType: 'name',
+            ColBGColor: 'blue',
+            Title: 'Name',
+            ShowValue: true,
+            Pipe: (rowData: any) => {
+              return '';
+            }
+        }),
+        new ColumnDefinitionModel({
+          ColType: 'token',
+          Title: 'Token',
+          ColBGColor: '#ffcc11',
+          ColWidth: '50%',
+          ShowValue: true,
+          Tooltip: true,
+          WordBreak: true,
+          Pipe: DataPipeConstants.PIPE_STRING_SLICE_FIFTY
+        }),
+        new ColumnDefinitionModel(
+          {
+            ColType: 'age',
+            ColBGColor: 'orange',
+            Title: 'Age',
+            ShowValue: true
+          }
+        ),
+        new ColumnDefinitionModel(
+          {
+            ColType: 'actions',
+            ColWidth: '10',
+            ColBGColor: 'green',
+            Title: 'Action',
+            ShowValue: true,
+            ShowIcon: true,
+            IconColor: 'accent-primary-text',
+            IconConfigFunc: () => {
+              return 'preview'; // function that returns the material icon to display
+            },
+            Action:
+            {
+              ActionHandler: this.RowDetails.bind(this),
+              ActionLabel: '',
+              ActionType: 'button',
+              ActionTooltip: 'View'
+            }
+          }),
+        new ColumnDefinitionModel(
+          {
+            ColType: 'address',
+            ColBGColor: 'purple',
+            Title: 'Address',
+            ShowValue: true
+          }
+        )
+        ];
 
-    // hardcoding values for demo, real world these would be pushed in
-    this.params = new DepartureTableModel('32.7499,-97.33034', '40.58897,-105.08246', '1545937200', false);
-
-    this.apiKey = 'fathym';
-
-    this.columnDefs = [
-     new ColumnDefinition(
-       'vtimesStart',
-       '',
-       true,
-       false,
-       false,
-       PipeConstants.PIPE_EPOCH
-       ),
-     new ColumnDefinition(
-       'tempMin',
-       'Temp Min',
-       true,
-       true,
-       false,
-       PipeConstants.PIPE_TEMP_FAHRENHEIT,
-       WeatherCloudConditionIcons
-       ),
-     new ColumnDefinition(
-       'tempMax',
-       'Temp Max',
-       true,
-       true,
-       false,
-       PipeConstants.PIPE_TEMP_FAHRENHEIT,
-       WeatherCloudConditionIcons
-       ),
-     new ColumnDefinition(
-       'precipMax',
-       'Precipitation',
-       false,
-       true,
-       false,
-       null,
-       WeatherCloudConditionIcons
-       ),
-     new ColumnDefinition(
-       'windSpdMax',
-       'Wind Speed',
-       true,
-       true,
-       false,
-       PipeConstants.PIPE_MPH,
-       WeatherCloudConditionIcons
-       ),
-     new ColumnDefinition(
-       'windGustMax',
-       'Wind Gust',
-       true,
-       true,
-       false,
-       PipeConstants.PIPE_MPH,
-       WeatherCloudConditionIcons
-       )
-     ];
-
-     this.setGridFeatures();
-
-    // showing grid column headers
-    this.GridParameters = new DataGridConfig(null, this.columnDefs);
+      this.setGridFeatures();
     }
 
     /**
-     * Setting up the grid data, columns, and features
+     *
+     * @param val selected row element
+     *
+     * This sets '$IsExpanded' property to row data, really shouldn't mutate the data like this
+     * '$IsExpanded' is used to expand or collapse selected row details container
+     *
+     * TODO: move off the data mutation to something better, maybe for Jack - shannon
+     */
+    protected RowDetails(val: ColumnDefinitionModel): void {
+      val['$IsExpanded'] = !val['$IsExpanded'];
+    }
+
+    /**
+     * Build out grid data
      */
     public GridData(): void {
-      this.GridParameters = new DataGridConfig(
-        this.weatherCloudService.departureTableData(
-                                                   this.apiKey,
-                                                   this.params.origin,
-                                                   this.params.destination,
-                                                   this.params.departureTime,
-                                                   this.params.includeAltRoutes), this.columnDefs, this.GridFeatures);
+
+      this.SetupGridParameters();
+
+      this.GridParameters = new DataGridConfigModel(
+          of(this.expandableData.StudentDataOne), // mock observable
+          this.colunmDefsModel,
+          this.GridFeatures
+      );
     }
 
     /**
      * Setting up grid features
      */
     protected setGridFeatures(): void {
-      const paginationDetails: DataGridPagination = new DataGridPagination();
-      paginationDetails.PageSize = 10;
-      paginationDetails.PageSizeOptions = [1, 5, 10, 20, 30];
 
-      const features: DataGridFeatures = new DataGridFeatures();
-      features.Paginator = paginationDetails;
-      features.Filter = true;
-      features.ShowLoader = true;
+      const paginationDetails: DataGridPaginationModel = new DataGridPaginationModel(
+        {
+          Length: this.expandableData.StudentData.length,
+          PageIndex: 0,
+          PageSize: 1,
+          PageSizeOptions: [1, 5, 10, 20, 30]
+        }
+      );
+
+      const features: DataGridFeaturesModel = new DataGridFeaturesModel(
+        {
+         NoData: {
+           Title: 'No Data',
+           Info: 'Testing no data info',
+           Component: DummyTesterComponent
+          },
+         Paginator: paginationDetails,
+         Filter: true,
+         ShowLoader: true,
+         Highlight: 'highlight',
+         RowColorEven: 'evenRowColor',
+         RowColorOdd: 'oddRowColor',
+         MobileBreakpoint: '500px'
+        }
+      );
 
       this.GridFeatures = features;
+    }
+
+    /**
+     * Setup dynamic components to inject into datagrid
+     */
+    protected setupDynamicComponents(): void {
+      this.DynamicComponents = [
+        new DynamicComponentModel(
+          {
+            Component: JsonDisplayComponent,
+            Data: {},
+            Label: 'JSON Display'
+          }),
+        new DynamicComponentModel(
+          {
+            Component: DummyTesterComponent,
+            Data: {},
+            Label: 'No data test component'
+          })
+      ];
     }
 }

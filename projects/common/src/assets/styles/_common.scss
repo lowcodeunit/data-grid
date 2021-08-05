@@ -1,0 +1,106 @@
+@import '../../../../../node_modules/@lcu/common/assets/theming/common-theme';
+@import '../../../../../node_modules/@lcu/common/assets/styles/utils/margins-padding';
+@import '../../../../../node_modules/@lcu/common/assets/styles/utils/fathym-cursors';
+
+
+$global-theme: fathym-ivy-theme(true);
+
+$primary: map-get($global-theme, primary);
+$accent: map-get($global-theme, accent);
+$warn: map-get($global-theme, warn);
+
+$orange-accent: map-get($mat-orange, 500);
+$green-accent: map-get($mat-green, 500);
+
+$logo-color: map-get(map-get($global-theme, 'foreground'), 'icon');
+$divider-size: 5px;
+$divider: mat-color($primary);
+$background: map-get(map-get($global-theme, 'background'), 'background');
+$background-fill: rgba(map-get($mat-grey, 900), .75);
+$foreground: map-get(map-get($global-theme, 'foreground'), 'base');
+$primary-text: mat-color($primary);
+$secondary-text: map-get(map-get($global-theme, 'foreground'), 'secondary-text');
+
+html, body {
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0 !important;
+    background-color: $background;
+    color: white;
+}
+
+.no-access {
+    background-color: rgba(mat-color($warn), .5);
+}
+
+.accent-primary-text {
+    color: mat-color($accent) !important;
+}
+
+.secondary-text {
+    color: $secondary-text;
+}
+
+.orange-accent {
+    background-color: $orange-accent;
+    color: map-get(map-get($mat-orange, contrast), 600);
+}
+
+.green-accent {
+    background-color: $green-accent;
+    color: map-get(map-get($mat-green, contrast), 600);
+}
+
+.divider-fill-vert {
+    background-color: $divider;
+    min-height: 100%;
+    top:10%;
+    bottom:10%;
+    min-width: $divider-size;
+}
+
+.divider-fill-hor {
+    background-color: $divider;
+    height: $divider-size;
+    width: 100%;
+}
+
+.background-fill {
+    background-color: $background-fill;
+}
+
+.box-side-triangle {
+    // $path: polygon(90% 0%, 100% 10%, 90% 20%, 90% 100%, 0% 100%, 0% 0%, 90% 0);
+    // -webkit-clip-path: $path;
+    // clip-path: $path;
+  }
+
+a:not(.mat-button) {
+    color: map-get($primary, 500) !important;
+
+    &:hover {
+        color: map-get($accent, 200) !important;
+    }
+}
+
+.chart-container {
+    text {
+        fill: $secondary-text;
+    }
+}
+
+
+/**
+* Styles for data grid 
+**/
+.highlight:hover {
+    background-color: rgba(map-get($warn, 500), 1);
+}
+
+.evenRowColor {
+    background-color: mat-color($primary) !important;
+}
+
+.oddRowColor {
+    background-color: mat-color($accent) !important;
+}
