@@ -1,8 +1,4 @@
 {
 	"name": "@lowcodeunit/data-grid",
-	"version": "0.0.3",
-	"peerDependencies": {
-		"@angular/common": "^10.0.8",
-		"@angular/core": "^10.0.8"
-	}
+	"version": "0.0.3"
 }
