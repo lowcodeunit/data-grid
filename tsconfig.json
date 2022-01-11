@@ -30,6 +30,7 @@
 		}
 	},
 	"angularCompilerOptions": {
+		"compilationMode": "partial",
 		"enableI18nLegacyMessageIdFormat": false,
 		"strictInjectionParameters": true,
 		"strictInputAccessModifiers": true,
