@@ -2,9 +2,9 @@
   "name": "@lowcodeunit/data-grid",
   "version": "0.0.3",
   "scripts": {
-    "build:common": "ng build common --configuration production",
-    "build:demo": "ng build demo --configuration production",
-    "build:lcu": "ng build lcu --configuration production --single-bundle && npm run pack",
+    "build:common": "ng build common --prod",
+    "build:demo": "ng build demo --prod",
+    "build:lcu": "ng build lcu --prod --single-bundle && npm run pack",
     "demo": "npm run build:common && ng serve demo",
     "demo:wc": "npm run build:common && npm run build:lcu && ng serve demo",
     "deploy": "npm version patch && npm run deploy:all",
